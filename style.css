@@ -6,9 +6,7 @@
     font-family: "Spinnaker", sans-serif;
     color: white;
 }
-html{
-    margin: 0;
-}
+
 .spinnaker-regular {
     font-weight: 400;
     font-style: normal;
@@ -425,65 +423,16 @@ option, select, #submit, input{
 
 
 
-/*Debut inscription*/
-
-.inscription {
-    display: flex;
-    justify-content: space-around;
-}
-.inscription .formulaire_inscription{
-    font-size: 1.4em;
-    border: #6b3bf4 1.5px solid;
-    padding: 50px;
-    border-radius: 40px;
-}
-.inscription .formulaire_inscription input{
-    width:300px;
-    margin: 20px;
-    padding: 10px;
-    border-radius: 10px;
-    border: white 0.5px solid;
-    font-size: 0.7em;
-}
-.inscription select, .inscription option{
-    font-size: 0.9em;
-}
-.inscription .formulaire_inscription .ok {
-    margin-top: 30px;
-    padding: 20px;
-    border-radius: 20px;
-    border: none;
-    background-color: white;
-    justify-content: space-around;
-}
-.button1, .button1_co {
-    display: flex;
-    justify-content: center;
-}
-.reste, .reste_co{
-    display: flex;
-    justify-content: center;
-}
-.button2, .button2_co{
-    text-align: center;
-}
-.button2 button{
-    border-radius: 20px;
-    padding: 20px;
-    width: 300px;
-}
-/*Fin inscription*/
-
-
-
-
-
-
 
 
 
 /*Debut connexion*/
-.connexion{
+#form_co{
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+.connexion, .inscription{
     display: flex;
     justify-content: center;
 }
@@ -534,12 +483,11 @@ option, select, #submit, input{
 
 
 .form {
+    width: 500px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-left: 2em;
-    padding-right: 2em;
-    padding-bottom: 0.4em;
+    padding: 40px 25px;
     background-color: #09070d;
     border-radius: 25px;
     transition: .4s ease-in-out;
@@ -590,6 +538,7 @@ option, select, #submit, input{
     justify-content: center;
     flex-direction: row;
     margin-top: 2.5em;
+    margin-bottom: 20px;
   }
   
   .button1 {
@@ -642,6 +591,16 @@ option, select, #submit, input{
     background-color: red;
     color: white;
   }
+
+
+
+
+@media screen and (max-width: 800px){
+.form{
+        width: 200px;
+    }
+
+}
 /*Fin connexion*/
 
 

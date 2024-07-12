@@ -44,7 +44,7 @@
     </nav>
 </header>
 
-<div class="content">
+<div class="content" id="form_co">
 <div class="inscription">
         <form class="form"  method="post" action="inscription.php">
         <p id="heading">S'inscrire</p>
@@ -78,8 +78,8 @@
                 <input type="password" class="input-field" placeholder="Confirmez votre mot de passe ..." id="pass2" name="pass2" required>
             </div>
             <div class="btn">
-            <input type="submit" value="S'inscrire" class="button1" name="ok" class="ok">
-            <a href="connexion.php" class="button2">Sign In</a>
+                <input type="submit" value="S'inscrire" class="button1" name="ok" class="ok">
+                <a href="connexion.php" class="button2">Sign In</a>
             </div>
         </form>
 

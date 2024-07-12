@@ -48,7 +48,7 @@ session_start();
     </nav>
 </header>
 
-<div class="content">
+<div class="content" id="form_co">
     <section class="connexion">
 
 
