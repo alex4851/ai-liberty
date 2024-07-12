@@ -1,5 +1,5 @@
 <?php
-include("test.php");
+include("not_commit/test.php");
 date_default_timezone_set('UTC');
 $date = date('l jS \of F Y h:i:s A');
 $ia_admin = "false";
