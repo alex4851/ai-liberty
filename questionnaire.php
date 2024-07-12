@@ -27,7 +27,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
     <nav class="nav">
         <a href="index.php"><h1><img class="logo" src="img/logo.png"></h1></a>
         <ul class="nav-bar">
-            <div class="ligne" id="active"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
+            <div class="ligne"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
             <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautées</li></a></div>
             <?php 
             if(isset($_SESSION['ia_admin'])){
@@ -36,7 +36,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                 }
             }
             ?>
-            <div class="ligne"><a href="questionnaire.php"><img src="img/quiz.png"><li>Questionnaire</li></a></div>
+            <div class="ligne"  id="active"><a href="questionnaire.php"><img src="img/quiz.png"><li>Questionnaire</li></a></div>
             <?php
                 if(isset($_SESSION['nom']))
                 { ?>   

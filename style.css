@@ -358,7 +358,9 @@ option, select, #submit, input{
     -ms-overflow-style: none; 
     overflow: -moz-scrollbars-none;
 }
-
+#questionnaire_content{
+padding: 0;
+}
 .questionnaire{
     display: flex;
     flex-direction: column;
@@ -369,6 +371,9 @@ option, select, #submit, input{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+#container_a{
+    margin-top: -80px;
 }
 .card_quest {
     padding: 40px;
@@ -400,8 +405,14 @@ option, select, #submit, input{
     display: flex;
     flex-direction: column;
 }
+#precedant_d{
+    display: none;
+}
 @media screen and (max-width: 700px){
     #card_a{margin-top: 50px;}
+    #container_a{
+        margin-top: 0;
+    }
     #questionnaire_content{
         padding: 0;
         margin: 0;

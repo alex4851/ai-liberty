@@ -16,7 +16,7 @@
     <nav class="nav">
         <a href="index.php"><h1><img class="logo" src="img/logo.png"></h1></a>
         <ul class="nav-bar">
-            <div class="ligne" id="active"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
+            <div class="ligne"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
             <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautées</li></a></div>
             <?php 
             if(isset($_SESSION['ia_admin'])){
@@ -35,7 +35,7 @@
                     
                 <?php  }
                 else{
-                    echo '<div class="ligne"><a href="connexion.php"><img src="img/login.png"><li id="co">Se connecter</li></a></div>';
+                    echo '<div class="ligne"  id="active"><a href="connexion.php"><img src="img/login.png"><li id="co">Se connecter</li></a></div>';
                     echo '<div class="ligne" id="ligne_inscription"><a href="inscription.php"><img src="img/login.png"><li id="inscription">S"inscrire</li></a></div>';
                 }
             ?>      
