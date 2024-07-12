@@ -57,8 +57,9 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
 
 
 
+<div class="container"></div>
 
-<div class="content">
+<div class="content" id="questionnaire_content">
     <form class="questionnaire" method="post" action="result.php" >
 
         <div class="card_quest" id="card_a">

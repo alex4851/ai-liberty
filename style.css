@@ -355,18 +355,17 @@ option, select, #submit, input{
     display: none;
 }
 #quest {
-    margin-top: 50px;
     -ms-overflow-style: none; 
     overflow: -moz-scrollbars-none;
 }
+
 .questionnaire{
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 .card_quest {
-    margin-bottom: 1000px;
+    margin-bottom: 75vh;
     padding: 40px;
     border-radius: 50px;
     color: black;
@@ -375,9 +374,10 @@ option, select, #submit, input{
     height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
-    align-content: center;
+}
+.card_quest select{
+    width: 100%;
 }
 .button_direction{
     width: 70%;
@@ -394,6 +394,20 @@ option, select, #submit, input{
 .card_quest .infos .reste{
     display: flex;
     flex-direction: column;
+}
+@media screen and (max-width: 700px){
+    #card_a{margin-top: 50px;}
+    #questionnaire_content{
+        padding: 0;
+        margin: 0;
+    }
+    .questionnaire{
+        padding: 0;
+        margin: 0;
+    }
+    .card_quest{
+        width: 200px;
+    }
 }
 /*Fin questionnaire*/
 
@@ -436,50 +450,6 @@ option, select, #submit, input{
     display: flex;
     justify-content: center;
 }
-.connexion .formulaire_connexion {
-    border: #6b3bf4 1px solid;
-    border-radius: 40px;
-    padding: 40px;
-    font-size: 1.4em;
-}
-.connexion .formulaire_connexion input{
-    width: 300px;
-    margin: 20px;
-    padding: 10px;
-    border-radius: 10px;
-    border: #233657 0.5px solid;
-    font-size: 0.7em;
-}
-.connexion .remember-forgot input{
-    width:auto;
-}
-.connexion .remember-forgot a{
-    align-items: center;
-    padding: 10px;
-}
-.connexion .remember-forgot{
-    margin: 20px 0;
-    display: flex;
-    padding: 0;
-    justify-content: space-between;
-}
-.connexion .formulaire_connexion .ok {
-    border-radius: 20px;
-    border: white;
-    background-color: white;
-    padding: 20px;
-}
-
-.button2_co button{
-    border-radius: 20px;
-    padding: 20px;
-    width: 300px;
-}
-
-
-
-
-
 
 
 .form {

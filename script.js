@@ -1,4 +1,4 @@
-var margin = 300;
+var margin = 100;
 
 function scrollToElementWithMargin(element, margin) {
     const elementPosition = element.getBoundingClientRect().top + window.scrollY;
@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('next_c').addEventListener('click', function(event) {
         event.preventDefault(); // Prevent default action (if any)
         const targetElement = document.getElementById('card_d');
-        var margin = 300;
  // Adjust this value to set the margin you want
         scrollToElementWithMargin(targetElement, margin);
     });
