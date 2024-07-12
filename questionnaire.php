@@ -61,7 +61,9 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
 
 <div class="content" id="questionnaire_content">
     <form class="questionnaire" method="post" action="result.php" >
+        
 
+        <div class="card_container" id="container_a">
         <div class="card_quest" id="card_a">
             <label for="iatype_demande">Quel type de tâches vous fait perdre le plus de temps ?</label><br/>
             <select name="iatype_demande" id="iatype_demande">
@@ -72,15 +74,16 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                 <option value="vente">Vente</option>
             </select> <br />
             <div class=button_direction>
-                <a href="https://ai-liberty.fr"><button class="precedant" id="precedant_a">Accueil</button></a>
+                <a href="https://ai-liberty.fr" >Accueil</a>
                 <button class="next" id="next_a">Suivant</button>
             </div>
             <div class="chargement"><div class="chargement1"></div></div>
         </div>
-        
+        </div>
         
 
-
+        <div class="card_container" id="container_b">
+        
         <div class="card_quest" id="card_b">
         <label for="spe_demande">Quelle activité principale cause cette perte de temps ?</label><br />
             <select name="spe_demande" id="spe_demande">
@@ -129,8 +132,11 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
             </div>
             <div class="chargement"><div class="chargement2"></div></div>
         </div>
-
+        </div>       
         
+
+        <div class="card_container" id="container_c">
+
         <div class="card_quest" id="card_c">   
                 <h4>Quelle somme seriez vous prêts à débourser pour économiser ce temps?</h4>        
                 <div class="wrapper">
@@ -175,9 +181,12 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                         </div>
                 <div class="chargement"><div class="chargement3"></div></div>
         </div>
+        </div>
 
         <?php 
         if(isset($_SESSION['nom'])){?>
+        <div class="card_container" id="container_d">
+
         <div class="card_quest" id="card_d">
             <h4>Vous avez remplis les principaux critères pour trouver votre IA :</h4>
             <div class="card_4_child">
@@ -186,10 +195,12 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
             <button class="precedant" id="precedant_d">Precedant</button>
             <div class="chargement"><div class="chargement4"></div></div>
         </div>
+        </div>
         <?php 
         }
         else{
         ?>
+        <div class="card_container" id="container_d">
         
         <div class="card_quest" id="card_d">
             <h4>Vous avez remplis les principaux critères pour trouver votre IA :</h4>
@@ -215,6 +226,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
            
             <button class="precedant" id="precedant_d">Precedant</button>
             <div class="chargement"><div class="chargement4"></div></div>
+        </div>
         </div>
         <?php } ?>
     </form>

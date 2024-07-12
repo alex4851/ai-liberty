@@ -70,7 +70,6 @@ session_start();
     <input type="submit" class="button1" value="Se connecter" name="connexion" class="ok">
     <a href="inscription.php" class="button2">Sign Up</a>
     </div>
-    <button class="button3">Forgot Password</button>
 
 <?php
 include("bdd.php");
