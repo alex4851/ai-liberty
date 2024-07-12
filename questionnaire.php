@@ -59,10 +59,9 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
 
 
 <div class="content">
-<section class="questionnaire">
-    <form method="post" action="result.php" >
+    <form class="questionnaire" method="post" action="result.php" >
 
-        <div class="card" id="card_a">
+        <div class="card_quest" id="card_a">
             <label for="iatype_demande">Quel type de tâches vous fait perdre le plus de temps ?</label><br/>
             <select name="iatype_demande" id="iatype_demande">
                 <option value="productivite">Productivité</option>
@@ -81,7 +80,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
         
 
 
-        <div class="card" id="card_b">
+        <div class="card_quest" id="card_b">
         <label for="spe_demande">Quelle activité principale cause cette perte de temps ?</label><br />
             <select name="spe_demande" id="spe_demande">
 
@@ -131,7 +130,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
         </div>
 
         
-        <div class="card" id="card_c">   
+        <div class="card_quest" id="card_c">   
                 <h4>Quelle somme seriez vous prêts à débourser pour économiser ce temps?</h4>        
                 <div class="wrapper">
                     <input value="0" id="0" name="prix_demande" type="radio" class="state" />
@@ -178,7 +177,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
 
         <?php 
         if(isset($_SESSION['nom'])){?>
-        <div class="card" id="card_d">
+        <div class="card_quest" id="card_d">
             <h4>Vous avez remplis les principaux critères pour trouver votre IA :</h4>
             <div class="card_4_child">
                 <input type="submit" id="result" value="Rechercher" name="valider" class="valider" >
@@ -191,23 +190,22 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
         else{
         ?>
         
-        <div class="card" id="card_d">
+        <div class="card_quest" id="card_d">
             <h4>Vous avez remplis les principaux critères pour trouver votre IA :</h4>
             <div class="infos">
-            <p>Mais avant nous avons besoin de quelques informations :</p>
-            <div class="reste">
-            <label for="prenom">Votre prenom : *</label>
-            <input type="text" placeholder="Entrez votre prenom ..." id="prenom" name="prenom" required> <br/>
-            
-            <label for="email">Votre email : *</label>
-            <input type="email" placeholder="Entrez votre email ..." id="email" name="email" required> <br />
+                <p>Mais avant nous avons besoin de quelques informations :</p>
+                <div class="reste">
+                <label for="prenom">Votre prenom : *</label>
+                <input type="text" placeholder="Entrez votre prenom ..." id="prenom" name="prenom" required> <br/>
+                
+                <label for="email">Votre email : *</label>
+                <input type="email" placeholder="Entrez votre email ..." id="email" name="email" required> <br />
 
-            <label for="pass">Votre mot de passe : *</label>
-            <input type="password" placeholder="Entrez votre mot de passe ..." id="pass" name="pass" required> <br />
-            
-            <label for="pass2">Confirmer mot de passe : *</label>
-            <input type="password" placeholder="Confirmer votre mot de passe ..." id="pass2" name="pass2" required> <br />
-        
+                <label for="pass">Votre mot de passe : *</label>
+                <input type="password" placeholder="Entrez votre mot de passe ..." id="pass" name="pass" required> <br />
+                
+                <label for="pass2">Confirmer mot de passe : *</label>
+                <input type="password" placeholder="Confirmer votre mot de passe ..." id="pass2" name="pass2" required> <br />
             </div>    
         </div>
             <div class="card_4_child">
@@ -219,7 +217,6 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
         </div>
         <?php } ?>
     </form>
-</section>
 </div>
 
 

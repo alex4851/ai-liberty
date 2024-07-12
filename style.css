@@ -357,167 +357,46 @@ option, select, #submit, input{
     display: none;
 }
 #quest {
-    margin-top: 0;
+    margin-top: 50px;
     -ms-overflow-style: none; 
     overflow: -moz-scrollbars-none;
 }
-
 .questionnaire{
-    display: flex;
-    justify-content: center;
-
-}
-.questionnaire .card {
-    margin-top: 500px;
-}
-.questionnaire .card:nth-child(1){
-    margin-top: 200px;
-}
-.questionnaire .card:nth-child(4){
-    margin-bottom: 400px;
-}
-.questionnaire h4 {
-    font-size: 1.2em
-}
-.questionnaire form p, .inputs {
-    font-size: 1.2em;
-    
-}
-.questionnaire form .inputs{
-    margin: 0px 0 20px 100px;
-    text-align: left;   
-}
-.questionnaire form .inputs input{
-    margin: 10px;
-}
-.questionnaire form .button_direction{
-    display: flex;
-    justify-content: space-between;
-    margin: 40px 10px;
-}
-.questionnaire form #a{
-    justify-content: space-between;
-}
-.questionnaire form button{
-    padding: 10px 20px;
-    background: #1f2123;
-    color: white;
-}
-.chargement{
-    height: 5px; 
-    border: white 1px solid;
-    width: 700px;
-    border-radius: 10px;
-    margin-top: 40px;
-}
-.questionnaire form .chargement1{background-color: white; width: 0%; height: 5px;}
-.questionnaire form .chargement2{background-color: white; width: 33%; height: 5px;}
-.questionnaire form .chargement3{background-color: white; width: 66%; height: 5px;}
-.questionnaire form .chargement4{background-color: white; width: 100%; height: 5px;}
-
-.questionnaire .card_4_child{display: flex;justify-content: center;}
-.questionnaire .valider{
-    text-align: center; 
-    width: 200px; 
-    background-color: white; 
-    border: none;
-    border-radius: 10px;
-    padding: 20px;
-}
-.infos{margin: 50px 0;}
-.infos .reste{
+    width: 100%;
     display: flex;
     flex-direction: column;
-    width: 100%;
-    margin-left: 30px;
-}
-.infos input{
-    padding: 10px;
-    margin: 10px;
-    width: 400px;
-    height: 20px;
-    border-radius: 20px;
-    border: none;
-}
-.hidden{display: none;}
-
- /*Cards du questionnaire*/
- .questionnaire .card {
-    border: none;
-    padding: 48px 64px;
-    border-radius: 16px;
-    background: #6b3bf4;
-    min-height: 200px;
-  }
-
-.questionnaire  .wrapper {
-    margin: 8px 0;
-  }
-  
- .questionnaire .state {
-    top: 0;
-    right: 0;
-    opacity: 1e-5;
-    pointer-events: none;
-    
-  }
-  
- .questionnaire .label {
-    display: inline-flex;
     align-items: center;
-    cursor: pointer;
-    color: #394a56;
-  }
-  
-  .text {
-    margin-left: 16px;
-    opacity: 0.6;
-    transition: opacity 0.2s linear, transform 0.2s ease-out;
-  }
-  
-.questionnaire  .indicator {
-    margin-left: 30px;
-    position: relative;
-    border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    overflow: hidden;
-  }
-  
- .questionnaire .indicator::before,
- .questionnaire .indicator::after {
-    content: "";
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    height: 80%;
+}
+.card_quest {
+    margin-bottom: 1000px;
+    padding: 40px;
+    border-radius: 50px;
+    color: black;
     width: 80%;
-    border-radius: 50%;
-  }
-  
- .questionnaire .indicator::before {
-    background-color: black;
-  }
-  
- .questionnaire .indicator::after {
-    background-color: white;
-    transform: scale3d(1, 1, 1);
-    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
-  }
-  
-.questionnaire  .state:checked ~ .label .indicator::after {
-    transform: scale3d(0.975, 0.975, 1) translate3d(0, 10%, 0);
-    opacity: 0;
-  }
-  
- .questionnaire .state:focus ~ .label .text {
-    transform: translate3d(8px, 0, 0);
-    opacity: 1;
-  }
-  
- .questionnaire .label:hover .text {
-    opacity: 1;
-  }
+    background-color: #6b3bf4;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+}
+.button_direction{
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+}
+.card_quest * {
+    color: black;
+}
+.card_quest button{
+    width: auto;
+    padding: 10px;
+}
+.card_quest .infos .reste{
+    display: flex;
+    flex-direction: column;
+}
 /*Fin questionnaire*/
 
 
@@ -973,11 +852,11 @@ option, select, #submit, input{
     display: flex;
     flex-direction: column;
   }
-  #result{
+ .card #result{
     background-color: #1f2123;
     height: 500px;
   }
-  #result span{
+  .card #result span{
     font-size: 1.5em;
     margin-bottom: 20px;
   }
