@@ -21,8 +21,8 @@ body{
 button{
     color: #09070d;
     border: none;
-    padding: 48px 64px;
-    border-radius: 16px;
+    display: flex;
+    justify-content: center;
 }
 h1{color: white;}
   
@@ -58,6 +58,18 @@ button:hover{
 /*Debut header*/
 
 /*Si co*/
+
+option, select, #submit, input{
+    color: #09070d;
+}
+.favorites_header{
+    display: flex;
+    align-items: center;
+}
+.favorites_header img{
+    height: 40px;
+    margin-left: 40px;
+}
 @media screen and (min-width: 1100px){
  
 .connecte nav {
@@ -264,7 +276,6 @@ option, select, #submit, input{
 }
 .historique{
     padding-left: 40px;
-    border-left: white 1px solid;
 }
 .historique_cards{
     display: flex;
@@ -335,6 +346,133 @@ option, select, #submit, input{
         linear-gradient(90deg, transparent 24%, var(--color) 25%, var(--color) 26%, transparent 27%,transparent 74%, var(--color) 75%, var(--color) 76%, transparent 77%,transparent);
     background-size: 55px 55px;
   }
+  /*Cards favorite*/
+.favorite{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.card_favorite {
+    margin: 30px;
+    width: 150px;
+    height: 200px;
+    background: #1f1d23;
+    transition: all 0.4s;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 5px  rgba(0, 0, 0, 0.705);
+    font-size: 30px;
+    font-weight: 900;
+  }
+
+  .card_favorite:hover {
+    border-radius: 15px;
+    cursor: pointer;
+    transform: scale(1.2);
+    box-shadow: 0px 0px 10px 5px  rgba(0, 0, 0, 0.705);
+    background: #1f1d23;
+  }
+  
+  .first-content {
+    height: 100%;
+    width: 100%;
+    transition: all 0.4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column ;
+    opacity: 1;
+    border-radius: 15px;
+    font-size: 0.8em;
+  }
+  .first-content img{
+    margin: 10px;
+    width: 50px;
+  }
+  
+  .card_favorite:hover .first-content {
+    height: 0px;
+    opacity: 0;
+  }
+  
+  #add{
+    width: 50px;
+    height: 100%;
+    background: none;  
+}
+  .second-content {
+    height: 0%;
+    width: 100%;
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 15px;
+    transition: all 0.4s;
+    font-size: 0px;
+    transform: rotate(90deg) scale(-1);
+    }
+.second-content p{
+    font-size: 0.5em;
+  width: 80%;
+}
+  
+  .card_favorite:hover .second-content {
+    opacity: 1;
+    height: 100%;
+    font-size: 1.8rem;
+    transform: rotate(0deg);
+  }
+
+@media screen and (max-width: 1500px){
+    .right_section{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    .right_section .favorite{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    .historique{
+       padding: 0;
+    }
+    .historique h4{
+        text-align: center;
+    }
+    .historique_cards{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+    }
+    .reste {
+        display: flex;
+        flex-direction: column;
+    }
+    .mid_section .contenu{
+        padding: 0;
+    }
+    .mid_section_part{
+        padding: 20px 0; 
+    }
+    .adapte h3{margin-left: 20px;}
+    .adapte {width: 100%;}
+    .reste  .rapide {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .rapide .card_rapide{
+        margin: 10px 0;
+    }
+    .section_favorite{
+        padding-bottom: 50px;
+
+    }
+}
 /*Fin index*/
 
 
@@ -351,6 +489,9 @@ option, select, #submit, input{
 
 
 /*Debut questionnaire*/
+#quest .container {
+    display: none;
+}
 #quest::-webkit-scrollbar {
     display: none;
 }
@@ -679,84 +820,6 @@ padding: 0;
 
 
 
-/*Cards favorite*/
-.favorite{
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
-.card_favorite {
-    margin: 30px;
-    width: 150px;
-    height: 200px;
-    background: #1f1d23;
-    transition: all 0.4s;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 5px  rgba(0, 0, 0, 0.705);
-    font-size: 30px;
-    font-weight: 900;
-  }
-
-  .card_favorite:hover {
-    border-radius: 15px;
-    cursor: pointer;
-    transform: scale(1.2);
-    box-shadow: 0px 0px 10px 5px  rgba(0, 0, 0, 0.705);
-    background: #1f1d23;
-  }
-  
-  .first-content {
-    height: 100%;
-    width: 100%;
-    transition: all 0.4s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column ;
-    opacity: 1;
-    border-radius: 15px;
-    font-size: 0.8em;
-  }
-  .first-content img{
-    margin: 10px;
-    width: 50px;
-  }
-  
-  .card_favorite:hover .first-content {
-    height: 0px;
-    opacity: 0;
-  }
-  
-  #add{
-    width: 50px;
-    height: 100%;
-    background: none;  
-}
-  .second-content {
-    height: 0%;
-    width: 100%;
-    opacity: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 15px;
-    transition: all 0.4s;
-    font-size: 0px;
-    transform: rotate(90deg) scale(-1);
-    }
-.second-content p{
-    font-size: 0.5em;
-  width: 80%;
-}
-  
-  .card_favorite:hover .second-content {
-    opacity: 1;
-    height: 100%;
-    font-size: 1.8rem;
-    transform: rotate(0deg);
-  }
 
 
 

@@ -170,20 +170,13 @@ session_start();
 
 <aside class="right_section">
     <div class="contenu">
-                
-    <h3>Tu as besoin d'une autre IA ?</h3>
+        <div class="favorites_header">   
+        <h3>Chercher une autre IA : </h3>
+        <a href="recherche.php">
+            <img src="img/search.png">
+        </a>
+    </div>
                 <section class="section_questionnaire">
-            
-                            <a href="questionnaire.php">
-                                <div class="card_favorite" id="quest">
-                                    
-                                        <div class="first-content">
-                                            <span>Rechercher</span>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" viewBox="0 0 20 20" height="40" fill="none" class="svg-icon"><g stroke-width="1.5" stroke-linecap="round" stroke="#ffffff"><circle r="7.5" cy="10" cx="10"></circle><path d="m9.99998 7.5v5"></path><path d="m7.5 9.99998h5"></path></g></svg>
-                                        </div>
-                                    
-                                </div>
-                            </a>
                    
                         <div class="historique">
                             <h4>Récent :</h4>
@@ -229,7 +222,12 @@ session_start();
                 </section>
 
                 <section class="section_favorite">
-                        <h3 class="favorite_texte">Mes favoris :</h3>
+                        <div class="favorites_header">
+                            <h3 class="favorite_texte">Mes favoris :</h3>
+                            <a href="recherche.php">
+                                <img src="img/add_fav.png">
+                            </a>
+                        </div>
                         <div class="favorite">
                             
                             
@@ -262,7 +260,7 @@ session_start();
                                                 <div class="header">
                                                     <span><?php echo $row2["nom"] ?></span> 
                                                     <div class="favorite-btn" onclick="toggleFavorite(this)">
-                                                        <img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon">
+                                                        <img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
                                                     </div>
                                                 </div>
                                                 <div class="img"><img src="img/chatgpt.png"/></div>
@@ -277,9 +275,7 @@ session_start();
                                 ?>
                                 <script src="favorite.js"></script>
 
-                                    <a href="recherche.php">
-                                    <img src="img/add_fav.png">
-                                    </a>
+                                    
                                
 
                                 
