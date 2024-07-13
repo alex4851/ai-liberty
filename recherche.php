@@ -84,28 +84,24 @@ if(isset($_GET['rechercher'])){
             <div class='cards_result'>
                 <?php for($i=0; $i<count($tab);$i++){ ?>
             
-                    <div class="card_result">
-                        <div class="header_result"><h1><strong> <?php echo $tab[$i]["nom"]; ?></strong></div>
-                        <h3>Prix :  </h3><?php echo $tab[$i]["prix"]; ?>€ par mois<br />
-                        <p><h3>Description :</h3><br/><?php echo $tab[$i]["ia_description"]; ?></p><br/>
-                        <p><h3>Lien :</h3><a target="_blank" href= <?php echo $tab[$i]["ia_url"]; ?> ><?php echo $tab[$i]["ia_url"]; ?></a></p>
-                        <form method="post" action=""><input class="hidden" type="int" value=<?php echo $tab[$i]["id"] ?> name="ia_id">
-                        <?php
-                            // Verification si deja ajoutée
-                            $ia_id = $tab[$i]["id"];
-                            $user_id = $_SESSION["id"];
-                            $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
-                            $stmt = $bdd->prepare($sql);
-                            $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
-                            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-                            $stmt->execute();
-                            $deja_fav = $stmt->fetch(PDO::FETCH_ASSOC);
-                            if($deja_fav == ""){?>
-                            <input type="submit" value="Ajouter aux favoris" name="add_favorite" class="add_favorite"></form>
-                        <?php } else{?>
-                            <input type="submit" value="Retirer aux favoris" name="remove_favorite" class="add_favorite"></form>
-                        <?php } ?>
+                    <div class="card" id="result">
+                                <script src="favorite.js"></script>                                               
+                                               <div class="header">
+                                                   <span><?php echo $tab[$i]["nom"] ?></span> 
+                                                   <div class="favorite-btn" onclick="toggleFavorite(this)">
+                                                       <img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
+                                                   </div>
+                                               </div>
+                                               <div class="img"><img src="img/chatgpt.png"/></div>
+                                               <p class="info"><?php echo $tab[$i]["ia_description"] ?></p>
+                                               <div class="share">
+                                                   <p>Prix :  <?php echo $tab[$i]["prix"]; ?></p>
+                                               </div>
+                                               <a href="<?php echo $tab[$i]["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
                     </div>
+
+
+
                 <?php } ?>
             </div>
         </div>

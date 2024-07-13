@@ -46,7 +46,7 @@
 
 <div class="content" id="form_co">
 <div class="inscription">
-        <form class="form"  method="post" action="inscription.php">
+        <form class="form"  method="post" action="">
         <p id="heading">S'inscrire</p>
             <div class="field">
                 <input type="text" class="input-field" placeholder="Entrez votre prenom ..." id="prenom" name="prenom" required> <br/>
@@ -77,14 +77,12 @@
                 </svg>
                 <input type="password" class="input-field" placeholder="Confirmez votre mot de passe ..." id="pass2" name="pass2" required>
             </div>
+            
             <div class="btn">
                 <input type="submit" value="S'inscrire" class="button1" name="ok" class="ok">
                 <a href="connexion.php" class="button2">Sign In</a>
             </div>
-        </form>
-
-<?php
-require "php_mailer/PHPMailerAutoload.php";
+            <?php
 include('bdd.php');
 
 
@@ -93,7 +91,6 @@ include('bdd.php');
 if(isset($_POST['ok'])){
     extract($_POST);
     $cle = rand(1000000, 9999999);
-    $ia_admin = "false";
     if(isset($pass) and $pass != $pass2){
         echo '<p>Mots de passe différents</p>';
     }
@@ -129,63 +126,18 @@ if(isset($_POST['ok'])){
             $_SESSION['date_inscription']=$data['date_inscription'];
             $_SESSION['ia_admin']=$data['ia_admin'];
 
-
-
             header("Location: index.php");
- /*           function smtpmailer($to, $from, $from_name, $subject, $body)
-
-            {
-                include("test.php");
-                $mail = new PHPMailer();
-                $mail->IsSMTP();
-                $mail->SMTPAuth = true; 
-        
-                $mail->SMTPSecure = 'ssl'; 
-                $mail->Host = $host_email;
-                $mail->Port = $port_email;  
-                $mail->Username = $username_email;
-                $mail->Password = $password_email;   
-        
-            //   $path = 'reseller.pdf';
-            //   $mail->AddAttachment($path);
-        
-                $mail->IsHTML(true);
-                $mail->From=$username_email;
-                $mail->FromName=$from_name;
-                $mail->Sender=$from;
-                $mail->AddReplyTo($from, $from_name);
-                $mail->Subject = $subject;
-                $mail->Body = $body;
-                $mail->AddAddress($to);
-            }
-            
-            $to   = $email;
-            $from = $username_email;
-            $name = 'AI LIBERTY';
-            $subj = 'Email de confirmation de création du compte';
-            $msg = 'http://localhost/projet_ai/verif.php?id='.$_SESSION['id'].'&cle='.$cle;
-            if(!$mail->Send())
-                {
-                    $error ="Please try Later, Error Occured while Processing...";
-                    return $error; 
-                }
-                else 
-                {
-                    $error = "Thanks You !! Your email is sent.";  
-                    return $error;
-
-                }
-            $error= smtpmailer($to,$from, $name ,$subj, $msg);
-                }*/
         }
         else{
             echo "<h5>Email déjà utilisé</h5>";
         }
     }
-
 }
 
 ?>
+        </form>
+
+
 
 </div>
 

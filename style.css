@@ -584,10 +584,12 @@ padding: 0;
 .resultat h1 {
     font-size: 1.2em;
 }
+
 .result .cards_result{
-    flex-wrap: wrap;
-    width: 80%;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    
 }
 /*Fin result*/
 
@@ -642,7 +644,7 @@ padding: 0;
     border: none;
     outline: none;
     color: white;
-    background-color: #171717;
+    background-color: #141317;
     box-shadow: inset 2px 5px 10px rgb(5, 5, 5);
   }
   
@@ -909,7 +911,7 @@ padding: 0;
 
 /*Recherche*/
 #recherche{
-    padding: 50px;
+    padding: 0;
     display: block;
 }
 .recherche{
@@ -940,9 +942,6 @@ padding: 0;
     width: 240px;
   }
   
-  .search_bar:focus {
-    width: 500px;
-  }
 
 
 
@@ -976,9 +975,9 @@ padding: 0;
     display: flex;
     flex-direction: column;
   }
- .card #result{
-    background-color: #1f2123;
-    height: 500px;
+#result{
+    background-color: #19181d;
+    height: 400px;
   }
   .card #result span{
     font-size: 1.5em;
@@ -1099,6 +1098,12 @@ padding: 0;
         height: 20px;
         z-index: 500;
         display: block;
+    }
+    .ligne{
+        transition: all 0.3s ease-in-out;
+    }
+    .ligne:hover{
+        scale: 1.2;
     }
     .ligne li{display: none;}
     h1{

@@ -140,19 +140,19 @@ if(isset($_POST['valider'])){
 
 
             <div class="card" id="result">
-                                               
-                                                <div class="header">
-                                                    <span><?php echo $best_ia["nom"] ?></span> 
-                                                    <div class="favorite-btn" onclick="toggleFavorite(this)">
-                                                        <img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon">
-                                                    </div>
-                                                </div>
-                                                <div class="img"><img src="img/chatgpt.png"/></div>
-                                                <p class="info"><?php echo $best_ia["ia_description"] ?></p>
-                                                <div class="share">
-                                                   <p>Prix : <?php echo $best_ia["prix"]; ?></p> 
-                                                </div>
-                                                <a href="<?php echo $best_ia["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
+        <script src="favorite.js"></script>                                               
+                                               <div class="header">
+                                                   <span><?php echo $best_ia["nom"] ?></span> 
+                                                   <div class="favorite-btn" onclick="toggleFavorite(this)">
+                                                       <img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
+                                                   </div>
+                                               </div>
+                                               <div class="img"><img src="img/chatgpt.png"/></div>
+                                               <p class="info"><?php echo $best_ia["ia_description"] ?></p>
+                                               <div class="share">
+                                                   <p>Prix :  <?php echo $best_ia["prix"]; ?></p>
+                                               </div>
+                                               <a href="<?php echo $best_ia["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
             </div>
 
 

@@ -172,7 +172,7 @@ session_start();
     <div class="contenu">
         <div class="favorites_header">   
         <h3>Chercher une autre IA : </h3>
-        <a href="recherche.php">
+        <a href="questionnaire.php">
             <img src="img/search.png">
         </a>
     </div>
