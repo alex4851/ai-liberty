@@ -153,15 +153,14 @@ if(isset($_POST['valider'])){
                                                         $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
                                                         $stmt->execute();
                                                         $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
-                                                        if($fav_existe === ''){ ?>
-                                                        <img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav">
-                                                        <input type="submit" name="add_fav">
-                                                        <?php }
-                                                        else{
-                                                        ?>
-                                                        <img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
-                                                        <input type="submit" name="remove_fav">
-                                                        <?php } ?>
+                                                        if($fav_existe == ''){ ?>
+                                                            <button id="button_submit" type="submit" name="add_fav"><img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav"></button>
+                                                            <?php }
+                                                            else{
+                                                            ?>
+                                                            <button id="button_submit" type="submit" name="remove_fav" ><img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon"></button>
+                                                            <?php } ?>
+                                                            </form>
 
 <?php
 ##Pour favorite :
@@ -199,7 +198,6 @@ if(isset($_POST['valider'])){
 
         }
 ?>
-                                                    </form>
                                                 </div>
                                                <div class="img"><img src="img/chatgpt.png"/></div>
                                                <p class="info"><?php echo $best_ia["ia_description"] ?></p>

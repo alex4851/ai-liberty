@@ -171,8 +171,8 @@ session_start();
         <div class="favorites_header">   
         <h3>Chercher une autre IA : </h3>
         <a href="questionnaire.php">
-            <img src="img/search.png">
-        </a>
+        <img src="img/add_fav.png">
+    </a>
     </div>
                 <section class="section_questionnaire">
                    
@@ -223,7 +223,7 @@ session_start();
                         <div class="favorites_header">
                             <h3 class="favorite_texte">Mes favoris :</h3>
                             <a href="recherche.php">
-                                <img src="img/add_fav.png">
+                                <img src="img/search.png">
                             </a>
                         </div>
                         <div class="favorite">
@@ -268,16 +268,14 @@ $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
 $stmt->execute();
 $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
 if($fav_existe == ''){ ?>
-<img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav">
-<input type="submit" name="add_fav">
+<button  id="button_submit" type="submit" name="add_fav"><img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav"></button>
 <?php }
 else{
 ?>
-<img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
-<input type="submit" name="remove_fav">
+<button id="button_submit" type="submit" name="remove_fav" ><img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon"></button>
 <?php } ?>
 </form>
-
+<script src="favorite.js"></script>
 <?php
 ##Pour favorite :
         $user_id = $_SESSION['id'];
@@ -327,7 +325,6 @@ else{
                                         <?php
                                     }
                                 ?>
-                                <script src="favorite.js"></script>
 
                                     
                                

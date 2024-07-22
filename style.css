@@ -1152,3 +1152,10 @@ padding: 0;
         background-color: #6b3bf4;
     }
 }
+
+
+#button_submit{
+    background: none;
+    padding: 0;
+    margin: 0;
+}

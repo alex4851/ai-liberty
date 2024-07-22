@@ -3,6 +3,7 @@ session_start();
 if(isset($_SESSION['email']) and isset($_SESSION['mdp']) and $_SESSION['ia_admin']=='true')
 {
   include("bdd.php");
+  $suite = 'cacher';
 }
 else{
     header('Location:connexion.php');
@@ -55,6 +56,11 @@ else{
 </header>
 
 <a href="ia.php"><button>Retour</button></a>
+
+
+<?php if($suite == "montrer"){
+?>
+
 <section class="new_ia">
 <form  method="post" action="add_ia.php" id="new_ia">
             <h2>Ajouter une nouvelle IA à la base de donnée</h2>
@@ -171,4 +177,73 @@ if(isset($_POST['ok'])){
             "ajout" => $date,
         )
     );
-}?>
+}
+
+}
+ else{ ?>
+
+<section class="recherche_ia">
+
+    <h1>Recherchez l'IA que vous souhaitez modifier : </h1>
+<?php
+@$name_ia = $_GET['name_ia'];
+$afficher = "non";
+if(isset($_GET['rechercher'])){
+    $words = explode(" ",trim($name_ia));
+    for($i=0; $i<count($words);$i++)
+        $kw[$i]="nom like '%".$words[$i]."%'";
+    $res = $bdd->prepare("SELECT * FROM ia_infos WHERE ".implode(" or ", $kw));
+    $res->setFetchMode(PDO::FETCH_ASSOC);
+    $res->execute();
+    $tab = $res->fetchAll();
+    $afficher = "oui";
+}
+?>
+
+
+<main class="recherche">
+        <form method="get" action="">
+            <input type="text" value='<?php echo $name_ia; ?>' name="name_ia" placeholder="Rechercher de l'IA" class="search_bar">
+            <input type="submit" name="rechercher" value="Rechercher" class="recherche_button">
+        </form>
+    </main>
+
+    <?php 
+        if($afficher == "oui"){ ?>
+        <div class="result">
+            <h3><?=count($tab)." ".(count($tab)>1?"résultats trouvés":"résultat trouvé") ?></h3>
+            <div class='cards_result'>
+                <?php for($i=0; $i<count($tab);$i++){ 
+                     ?>
+            
+                    <div class="card" id="recherche_card">
+                                <script src="favorite.js"></script>                                               
+                                               <div class="header">
+                                                   <span><?php echo $tab[$i]["nom"] ?></span> 
+                                            
+                                               </div>
+                                               <div class="img"><img src="img/chatgpt.png"/></div>
+                                               <p class="info"><?php echo $tab[$i]["ia_description"] ?></p>
+                                               <div class="share">
+                                                   <p>Prix :  <?php echo $tab[$i]["prix"]; ?>€</p>
+                                               </div>
+                                               <form method="post" action=""><input type="int" value="<?php $tab[$i]["id"] ?>" class="hidden"><button name="modifier" >Modifier</button></form>
+                    </div>
+<?php if(isset($_POST['modifier'])){ $suite = "montrer"; }?>
+
+
+                <?php } ?>
+            </div>
+        </div>
+    <?php } }
+?>
+</section>
+
+
+
+
+
+
+
+
+

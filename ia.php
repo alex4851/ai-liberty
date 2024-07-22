@@ -62,7 +62,7 @@ else{
         <section class="tools"> 
             <a href="add_ia.php"><button>Add a new ia</button></a>
             <a href="modify_ai.php"><button>Modify an ia</button></a>
-            <a href="" target="_blank"><button>Access the data base</button></a>
+            <a href="https://auth-db1347.hstgr.io/index.php?db=u128521172_bdd" target="_blank"><button>Access the data base</button></a>
         </section>
         <h1>Statistiques :</h1>
         <section class="stats">

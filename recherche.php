@@ -12,7 +12,7 @@ if(isset($_GET['rechercher'])){
     $res->setFetchMode(PDO::FETCH_ASSOC);
     $res->execute();
     $tab = $res->fetchAll();
-    $afficher = "oui";
+    $afficher = "non";
 }
 ?>
 
@@ -100,17 +100,13 @@ $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
 $stmt->execute();
 $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
 if($fav_existe == ''){ ?>
-<input type="submit" name="add_fav" >
-<img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav">
-</input>
-<?php }
-else{
-?>
-<input type="submit" name="remove_fav">
-<img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
-</input>
-<?php } ?>
-</form>
+    <button id="button_submit" type="submit" name="add_fav"><img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav"></button>
+    <?php }
+    else{
+    ?>
+    <button id="button_submit" type="submit" name="remove_fav" ><img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon"></button>
+    <?php } ?>
+    </form>
 
 <?php
 ##Pour favorite :
