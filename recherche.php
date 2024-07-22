@@ -82,20 +82,76 @@ if(isset($_GET['rechercher'])){
         <div class="result">
             <h3><?=count($tab)." ".(count($tab)>1?"résultats trouvés":"résultat trouvé") ?></h3>
             <div class='cards_result'>
-                <?php for($i=0; $i<count($tab);$i++){ ?>
+                <?php for($i=0; $i<count($tab);$i++){ 
+                     ?>
             
-                    <div class="card" id="result">
+                    <div class="card" id="recherche_card">
                                 <script src="favorite.js"></script>                                               
                                                <div class="header">
                                                    <span><?php echo $tab[$i]["nom"] ?></span> 
-                                                   <div class="favorite-btn" onclick="toggleFavorite(this)">
-                                                       <img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
-                                                   </div>
+                                                   <form method="post" action="">
+<input type="int" class="hidden" name="ia_id" value="<?php echo $tab[$i]["id"] ?>">
+
+<?php 
+$sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
+$stmt = $bdd->prepare($sql);
+$stmt->bindValue(":ia_id", $tab[$i]["id"] , PDO::PARAM_INT);
+$stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
+$stmt->execute();
+$fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
+if($fav_existe == ''){ ?>
+<input type="submit" name="add_fav" >
+<img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav">
+</input>
+<?php }
+else{
+?>
+<input type="submit" name="remove_fav">
+<img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
+</input>
+<?php } ?>
+</form>
+
+<?php
+##Pour favorite :
+        $user_id = $_SESSION['id'];
+        @$ia_id = $_POST['ia_id'];
+        
+
+        if(isset($_POST['add_fav'])){
+            //Verif que existe pas deja
+            $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
+            $stmt = $bdd->prepare($sql);
+            $stmt->bindValue(":ia_id", $ia_id , PDO::PARAM_INT);
+            $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($fav_existe === ''){
+                // Insérer la recherche dans la base de données
+                $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
+                $stmt = $bdd->prepare($sql);
+                $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+                $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+
+        }
+
+        if(isset($_POST["remove_fav"])){
+            //Supprimer des favoris
+            $sql2 = 'DELETE FROM favorites WHERE user_id = :user_id and ia_id = :ia_id';
+            $stmt = $bdd->prepare($sql2);
+            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+        }
+?>
                                                </div>
                                                <div class="img"><img src="img/chatgpt.png"/></div>
                                                <p class="info"><?php echo $tab[$i]["ia_description"] ?></p>
                                                <div class="share">
-                                                   <p>Prix :  <?php echo $tab[$i]["prix"]; ?></p>
+                                                   <p>Prix :  <?php echo $tab[$i]["prix"]; ?>€</p>
                                                </div>
                                                <a href="<?php echo $tab[$i]["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
                     </div>
@@ -113,7 +169,7 @@ if(isset($_GET['rechercher'])){
         @$ia_id = $_POST['ia_id'];
         
 
-        if(isset($_POST['add_favorite'])){
+        if(isset($_POST['add_fav'])){
         
             // Insérer la recherche dans la base de données
             $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
@@ -123,7 +179,7 @@ if(isset($_GET['rechercher'])){
             $stmt->execute();
 
         }
-        if(isset($_POST["remove_favorite"])){
+        if(isset($_POST["remove_fav"])){
             //Supprimer des favoris
             $sql2 = 'DELETE FROM favorites WHERE user_id = :user_id and ia_id = :ia_id';
             $stmt = $bdd->prepare($sql2);

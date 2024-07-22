@@ -46,7 +46,7 @@
 
 <div class="content" id="form_co">
 <div class="inscription">
-        <form class="form"  method="post" action="">
+        <form class="form"  method="post">
         <p id="heading">S'inscrire</p>
             <div class="field">
                 <input type="text" class="input-field" placeholder="Entrez votre prenom ..." id="prenom" name="prenom" required> <br/>
@@ -80,9 +80,11 @@
             
             <div class="btn">
                 <input type="submit" value="S'inscrire" class="button1" name="ok" class="ok">
-                <a href="connexion.php" class="button2">Sign In</a>
+                <a href="connexion.php" class="button2">Connexion</a>
             </div>
-            <?php
+
+        </form>
+        <?php
 include('bdd.php');
 
 
@@ -135,8 +137,6 @@ if(isset($_POST['ok'])){
 }
 
 ?>
-        </form>
-
 
 
 </div>

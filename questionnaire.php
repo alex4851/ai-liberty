@@ -139,40 +139,39 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
 
         <div class="card_quest" id="card_c">   
                 <h4>Quelle somme seriez vous prêts à débourser pour économiser ce temps?</h4>        
-                <div class="wrapper">
-                    <input value="0" id="0" name="prix_demande" type="radio" class="state" />
-                    <label for="0" class="label">
-                        <div class="indicator"></div>
-                        <span class="text">Gratuit</span>
-                    </label>
-                </div>
-                <div class="wrapper">
-                    <input value="5" id="5" name="prix_demande" type="radio" class="state" />
-                    <label for="5" class="label">
-                        <div class="indicator"></div>
-                        <span class="text">0 à 5</span>
-                    </label>
-                </div>
-                <div class="wrapper">
-                    <input value="10" id="10" name="prix_demande" type="radio" class="state" />
-                    <label for="10" class="label">
-                        <div class="indicator"></div>
-                        <span class="text">5 à 20</span>
-                    </label>
-                </div>
-                <div class="wrapper">
-                    <input value="20" id="20" name="prix_demande" type="radio" class="state" />
-                    <label for="20" class="label">
-                        <div class="indicator"></div>
-                        <span class="text">20 à 30</span>
-                    </label>
-                </div>
-                <div class="wrapper">
-                    <input value="1000" id="1000" name="prix_demande" type="radio" class="state"/>
-                    <label for="1000" class="label">
-                        <div class="indicator"></div>
-                        <span class="text">Indéfini</span>
-                    </label>
+                <div class="wrapper_container">
+                    <div class="wrapper">
+                        <input value="0" id="0" name="prix_demande" type="radio" class="state" />
+                        <label for="0" class="label">
+                            <div class="indicator"></div>
+                            <span class="text">Gratuit</span>
+                        </label>
+                    </div>
+                    <div class="wrapper">
+                        <input value="5" id="5" name="prix_demande" type="radio" class="state" />
+                        <label for="5" class="label">
+                            <div class="indicator"></div>
+                            <span class="text">0 à 5</span>
+                        </label>
+                    </div>
+                    <div class="wrapper">
+                        <input value="10" id="10" name="prix_demande" type="radio" class="state" />
+                        <label for="10" class="label">
+                            <span class="text">5 à 20</span>
+                        </label>
+                    </div>
+                    <div class="wrapper">
+                        <input value="20" id="20" name="prix_demande" type="radio" class="state" />
+                        <label for="20" class="label">
+                            <span class="text">20 à 30</span>
+                        </label>
+                    </div>
+                    <div class="wrapper">
+                        <input value="1000" id="1000" name="prix_demande" type="radio" class="state"/>
+                        <label for="1000" class="label">
+                            <span class="text">Indéfini</span>
+                        </label>
+                    </div>
                 </div>
 
                 <div class=button_direction id="c">

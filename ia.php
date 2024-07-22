@@ -27,12 +27,12 @@ else{
     <nav class="nav">
         <a href="index.php"><h1><img class="logo" src="img/logo.png"></h1></a>
         <ul class="nav-bar">
-            <div class="ligne" id="active"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
+            <div class="ligne"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
             <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautées</li></a></div>
             <?php 
             if(isset($_SESSION['ia_admin'])){
                 if($_SESSION["ia_admin"] === "true"){
-                echo '<div class="ligne"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>';
+                echo '<div class="ligne" id="active"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>';
                 }
             }
             ?>
@@ -59,9 +59,10 @@ else{
 <div class="content">
     <div class="content_admin">
         <h1>Tools :</h1>
-        <section class="tools">
+        <section class="tools"> 
             <a href="add_ia.php"><button>Add a new ia</button></a>
-            <a href="http://localhost/phpmyadmin/index.php" target="_blank"><button>Access the data base</button></a>
+            <a href="modify_ai.php"><button>Modify an ia</button></a>
+            <a href="" target="_blank"><button>Access the data base</button></a>
         </section>
         <h1>Statistiques :</h1>
         <section class="stats">

@@ -26,12 +26,12 @@ else{
     <nav class="nav">
         <a href="index.php"><h1><img class="logo" src="img/logo.png"></h1></a>
         <ul class="nav-bar">
-            <div class="ligne"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
+            <div class="ligne" id="active"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
             <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautées</li></a></div>
             <?php 
             if(isset($_SESSION['ia_admin'])){
                 if($_SESSION["ia_admin"] === "true"){
-                echo '<div class="ligne" id="active"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>';
+                echo '<div class="ligne"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>';
                 }
             }
             ?>
@@ -54,11 +54,9 @@ else{
     </nav>
 </header>
 
-<section class="new_ia">
 <a href="ia.php"><button>Retour</button></a>
-
+<section class="new_ia">
 <form  method="post" action="add_ia.php" id="new_ia">
-
             <h2>Ajouter une nouvelle IA à la base de donnée</h2>
             
             <label for="nom">Nom de l'IA :</label>
@@ -145,19 +143,12 @@ else{
             <label for="ia_description">Description :</label>
             <textarea type="text" placeholder="Entrez une description ..." id="ia_description" name="ia_description" required></textarea> <br />
 
-            <label for="ia_description">Description courte :</label>
-            <textarea type="text" placeholder="Entrez la description courte ..." id="ia_description_short" name="ia_description_short" required></textarea> <br />
-            
-            <label for="ia_description">URL image :</label>
-            <textarea type="text" placeholder="Entrez l'url de l'image de l'IA ..." id="ia_img" name="ia_img" required></textarea> <br />
-            
-            <input type="submit" value="Ajouter IA" name="ok" class="ok">
+            <div class="button1"><input type="submit" value="Ajouter IA" name="ok" class="ok"></div>
 </form>
 </section>
 
 </body>
 </html>
-
 
 <?php
 
@@ -166,7 +157,7 @@ if(isset($_POST['ok'])){
     extract($_POST);
     
     $date = date('l jS \of F Y h:i:s A');
-    $requete = $bdd->prepare("INSERT INTO ia_infos VALUES (0, :nom, :ia_url, :prix, :iatype, :specialite, :ia_description, :affiliation, :coup_de_coeur, :ajout, :ia_description_short, :ia_img)");
+    $requete = $bdd->prepare("INSERT INTO ia_infos VALUES (0, :nom, :ia_url, :prix, :iatype, :specialite, :ia_description, :affiliation, :coup_de_coeur, :ajout)");
     $requete->execute(
         array(
             "nom" => $nom,
@@ -178,8 +169,6 @@ if(isset($_POST['ok'])){
             "affiliation" => $affiliation,
             "coup_de_coeur" => $coup_de_coeur,
             "ajout" => $date,
-            "ia_description_short" => $ia_description_short,
-            "ia_img" => $ia_img,
         )
     );
 }?>

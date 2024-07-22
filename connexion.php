@@ -68,7 +68,7 @@ session_start();
     </div>
     <div class="btn">
     <input type="submit" class="button1" value="Se connecter" name="connexion" class="ok">
-    <a href="inscription.php" class="button2">Sign Up</a>
+    <a href="inscription.php" class="button2">Inscription</a>
     </div>
 
 <?php

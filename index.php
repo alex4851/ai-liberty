@@ -13,8 +13,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="website icon" type="png" href="img/logo_head.png">
-
-    <title>IA TOOLS</title>
+    <title>IA LIBERTY</title>
 </head>
 
 <body <?php if(!isset($_SESSION['nom'])){echo 'class="body_pas_co"';} ?> >
@@ -66,7 +65,6 @@ session_start();
 <section class="mid_section">
     <div class="mid_section_part">
         <div class="contenu">
-
                 <?php if( @$_SESSION['niveau'] == 'undefined'){ ?>
                 <h3>Tu n'as pas de niveau, nos propositions ne sont donc pas adaptées au mieux :</h3>
                 <form method="post" action="index.php">
@@ -237,7 +235,7 @@ session_start();
                                     
                                     $user_id = $_SESSION['id'];
 
-                                    // Récupérer l'historique des recherches de l'utilisateur
+                                    // Récupérer les favoris de l'utilisateur
                                     $sql = "SELECT ia_id FROM favorites WHERE user_id = :user_id ";
                                     $stmt = $bdd->prepare($sql);
                                     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -258,10 +256,66 @@ session_start();
                                             <div class="card">
                                                
                                                 <div class="header">
-                                                    <span><?php echo $row2["nom"] ?></span> 
-                                                    <div class="favorite-btn" onclick="toggleFavorite(this)">
-                                                        <img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
-                                                    </div>
+                                                    <span><?php echo $row2["nom"] ?></span>
+                                                    <form method="post" action="">
+<input type="int" class="hidden" name="ia_id" value="<?php echo $row["ia_id"] ?>">
+
+<?php 
+$sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
+$stmt = $bdd->prepare($sql);
+$stmt->bindValue(":ia_id", $row["ia_id"] , PDO::PARAM_INT);
+$stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
+$stmt->execute();
+$fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
+if($fav_existe == ''){ ?>
+<img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav">
+<input type="submit" name="add_fav">
+<?php }
+else{
+?>
+<img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
+<input type="submit" name="remove_fav">
+<?php } ?>
+</form>
+
+<?php
+##Pour favorite :
+        $user_id = $_SESSION['id'];
+        @$ia_id = $_POST['ia_id'];
+        
+
+        if(isset($_POST['add_fav'])){
+            //Verif que existe pas deja
+            $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
+            $stmt = $bdd->prepare($sql);
+            $stmt->bindValue(":ia_id", $ia_id , PDO::PARAM_INT);
+            $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
+            $stmt->execute();
+            $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($fav_existe === ''){
+
+            // Insérer la recherche dans la base de données
+            $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
+            $stmt = $bdd->prepare($sql);
+            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+            $stmt->execute();
+            }
+
+        }
+
+        if(isset($_POST["remove_fav"])){
+            //Supprimer des favoris
+            $sql2 = 'DELETE FROM favorites WHERE user_id = :user_id and ia_id = :ia_id';
+            $stmt = $bdd->prepare($sql2);
+            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+        }
+?>
+                                                    
+                                                    
                                                 </div>
                                                 <div class="img"><img src="img/chatgpt.png"/></div>
                                                 <p class="info"><?php echo $row2["ia_description"] ?></p>
@@ -300,6 +354,8 @@ session_start();
 
 <div class="pas_co_content">
     <section class="welcomer">
+    <div class="name_ai">AI LIBERTY</div>
+
         <h1>Découvrez les outils IA de pointe qui vous correspondent <br>
         En seulement 5 minutes</h1>
         <div class="acces_quest">
@@ -317,8 +373,5 @@ session_start();
 </div>
          <?php }?>
 
-
-
 </body>
 </html>
-

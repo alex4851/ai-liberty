@@ -6,7 +6,7 @@
     font-family: "Spinnaker", sans-serif;
     color: white;
 }
-
+.hidden{display: none;}
 .spinnaker-regular {
     font-weight: 400;
     font-style: normal;
@@ -424,8 +424,14 @@ option, select, #submit, input{
     font-size: 1.8rem;
     transform: rotate(0deg);
   }
+.name_ai{
+    display: none;
+    color: #6b3bf4;
+    font-size: medium;
+}
 
 @media screen and (max-width: 1500px){
+
     .right_section{
         display: flex;
         align-items: center;
@@ -527,11 +533,15 @@ padding: 0;
     flex-direction: column;
     align-items: center;
 }
+#questionnaire_content button{
+    border-radius: 25px;
+    padding: 10px;
+}
 .card_quest select{
     width: 100%;
 }
 .button_direction{
-    width: 70%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
@@ -548,6 +558,18 @@ padding: 0;
 }
 #precedant_d{
     display: none;
+}
+.wrapper_container{
+    margin: 20px 0;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+.wrapper{
+    margin: 10px 0;
+    display: flex;
+
 }
 @media screen and (max-width: 700px){
     #card_a{margin-top: 50px;}
@@ -778,7 +800,7 @@ padding: 0;
 }
 .tools{
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
 }
 .tools button{
     display: flex;
@@ -797,8 +819,13 @@ padding: 0;
 
 /*Debut new_ia*/
 .new_ia{
+    margin-left: 40px;
     display: flex;
     justify-content: center;
+    width: 80%;
+}
+#new_ia{
+    text-align: center;
 }
 .new_ia h2 {text-align: center; font-size: 2em;}
 .new_ia input, select, textarea {
@@ -807,7 +834,10 @@ padding: 0;
     font-size: 1.3em;
 }
 .new_ia label{font-size: 1.3em;}
-.new_ia textarea {height: 150px; width: 100%;}
+.new_ia  #ia_description {height: 150px; }
+.new_ia #ia_description_short {height: 100px; }
+.new_ia textarea {height: 30px; width: 100%; color: black;}
+
 
 /*Fin new_ia*/
 
@@ -977,8 +1007,15 @@ padding: 0;
   }
 #result{
     background-color: #19181d;
+    height: auto;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+}
+#recherche_card{
+    background-color: #19181d;
     height: 400px;
-  }
+}
   .card #result span{
     font-size: 1.5em;
     margin-bottom: 20px;
@@ -1057,6 +1094,7 @@ padding: 0;
 
   
 @media screen and (max-width: 1100px){
+    .name_ai{display: block;}
     input{color: black;}
     .body{margin-bottom: 60px;}
     .pas_co_content{

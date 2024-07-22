@@ -42,7 +42,7 @@ session_start();
                 <?php  }
                 else{
                     echo '<div class="ligne"><a href="connexion.php"><img src="img/login.png"><li id="co">Se connecter</li></a></div>';
-                    echo '<div class="ligne" id="ligne_inscription"><a href="inscription.php"><img src="img/login.png"><li id="inscription">S"inscrire</li></a></div>';
+                    ?><div class="ligne" id="ligne_inscription"><a href="inscription.php"><img src="img/login.png"><li id="inscription">S'inscrire</li></a></div><?php
                 }
             ?>      
         </ul>
@@ -143,10 +143,64 @@ if(isset($_POST['valider'])){
         <script src="favorite.js"></script>                                               
                                                <div class="header">
                                                    <span><?php echo $best_ia["nom"] ?></span> 
-                                                   <div class="favorite-btn" onclick="toggleFavorite(this)">
-                                                       <img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
-                                                   </div>
-                                               </div>
+                                                    <form method="post" action="result.php">
+                                                        <input type="int"  name="ia_id" value="<?php echo $best_ia["id"] ?>">
+
+                                                        <?php 
+                                                        $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
+                                                        $stmt = $bdd->prepare($sql);
+                                                        $stmt->bindValue(":ia_id", $best_ia["id"] , PDO::PARAM_INT);
+                                                        $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
+                                                        $stmt->execute();
+                                                        $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                        if($fav_existe === ''){ ?>
+                                                        <img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav">
+                                                        <input type="submit" name="add_fav">
+                                                        <?php }
+                                                        else{
+                                                        ?>
+                                                        <img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon">
+                                                        <input type="submit" name="remove_fav">
+                                                        <?php } ?>
+
+<?php
+##Pour favorite :
+        $user_id = $_SESSION['id'];
+        @$ia_id = $_POST['ia_id'];
+        
+
+        if(isset($_POST['add_fav'])){
+            //Verif que existe pas deja
+            $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
+            $stmt = $bdd->prepare($sql);
+            $stmt->bindValue(":ia_id", $ia_id , PDO::PARAM_INT);
+            $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
+            $stmt->execute();
+            $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($fav_existe === ''){
+
+            // Insérer la recherche dans la base de données
+            $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
+            $stmt = $bdd->prepare($sql);
+            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+            $stmt->execute();
+            }
+
+        }
+
+        if(isset($_POST["remove_fav"])){
+            //Supprimer des favoris
+            $sql2 = 'DELETE FROM favorites WHERE user_id = :user_id and ia_id = :ia_id';
+            $stmt = $bdd->prepare($sql2);
+            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+        }
+?>
+                                                    </form>
+                                                </div>
                                                <div class="img"><img src="img/chatgpt.png"/></div>
                                                <p class="info"><?php echo $best_ia["ia_description"] ?></p>
                                                <div class="share">
@@ -174,7 +228,7 @@ if(isset($_POST['valider'])){
         
 
 
-        //Supprimer recherche la plus ancienne si plus de 3 recherches
+        //Supprimer recherche la plus ancienne si plus de 4 recherches
         $sql = "DELETE FROM search 
                     WHERE user_id = :user_id 
                     AND id NOT IN (
