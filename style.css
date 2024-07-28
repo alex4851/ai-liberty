@@ -683,7 +683,13 @@ padding: 0;
     width: 100%;
     color: #d3d3d3;
   }
-  
+  .password_changer {
+    background: none;
+    border: none;
+    outline: none;
+    color: #d3d3d3;
+    width: min-content;
+  }
   .form .btn {
     display: flex;
     justify-content: center;

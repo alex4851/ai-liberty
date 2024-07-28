@@ -65,6 +65,7 @@ session_start();
     <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
     </svg>
     <input type="password" placeholder="Entrez votre mot de passe ..." id="pass" name="pass" class="input-field" required>
+    <button type="button" id="togglePassword" class="password_changer" >Afficher</button><script src="password.js"></script>
     </div>
     <div class="btn">
     <input type="submit" class="button1" value="Se connecter" name="connexion" class="ok">
