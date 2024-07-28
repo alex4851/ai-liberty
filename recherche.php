@@ -144,7 +144,7 @@ if($fav_existe == ''){ ?>
         }
 ?>
                                                </div>
-                                               <div class="img"><img src="img/chatgpt.png"/></div>
+                                               <div class="img"><img src="<?php echo $tab[$i]["ia_img"] ?>"/></div>
                                                <p class="info"><?php echo $tab[$i]["ia_description"] ?></p>
                                                <div class="share">
                                                    <p>Prix :  <?php echo $tab[$i]["prix"]; ?>€</p>
