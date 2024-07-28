@@ -206,6 +206,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
             <div class="infos">
                 <p>Mais avant nous avons besoin de quelques informations :</p>
                 <div class="reste">
+                    
                 <label for="prenom">Votre prenom : *</label>
                 <input type="text" placeholder="Entrez votre prenom ..." id="prenom" name="prenom" required> <br/>
                 

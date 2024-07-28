@@ -34,7 +34,7 @@ button:hover{
 }
 ::-webkit-scrollbar{
     width: 10px;
-    height: 100px;
+    height: 10px;
     border-radius: 5px;
 }
 ::-webkit-scrollbar-track{
@@ -610,7 +610,7 @@ padding: 0;
 .result .cards_result{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     
 }
 /*Fin result*/
@@ -837,7 +837,7 @@ padding: 0;
 .new_ia  #ia_description {height: 150px; }
 .new_ia #ia_description_short {height: 100px; }
 .new_ia textarea {height: 30px; width: 100%; color: black;}
-
+.modify_ia_tout{width: 100%; padding-left: 50px; padding-top: 60px;}
 
 /*Fin new_ia*/
 

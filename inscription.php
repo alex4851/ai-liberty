@@ -1,4 +1,55 @@
-<!DOCTYPE html>
+<?php
+include('bdd.php');
+
+session_start();
+
+if(isset($_POST['ok'])){
+    extract($_POST);
+    $cle = rand(1000000, 9999999);
+    if(isset($pass) and $pass != $pass2){
+    }
+    else{
+        $email_verif = $bdd->query("SELECT * FROM users WHERE email = '$email'");
+        $email_verif_test = $email_verif->fetch();
+        if($email_verif_test == ""){
+            
+            $pass = md5($pass);
+            $requete = $bdd->prepare("INSERT INTO users VALUES (0, :nom, :niveau, :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme)");
+            $requete->execute(
+                array(
+                    "nom" => $prenom,
+                    "niveau" => $niveau,
+                    "mdp" => $pass,
+                    "email" => $email,
+                    "date_inscription" => $date,
+                    "ia_admin" => $ia_admin,
+                    "cle" => $cle,
+                    "confirme" => 0,
+                )   
+            );
+            $requete = $bdd->prepare("SELECT * FROM users WHERE email = :email and mdp = :mdp");
+            $requete->bindParam(':email', $email);
+            $requete->bindParam(':mdp', $pass);
+            $requete->execute();
+            $data = $requete->fetch(PDO::FETCH_ASSOC);
+            $_SESSION['id']=$data['id'];
+            $_SESSION['nom']=$data['nom'];
+            $_SESSION['niveau'] = $data['niveau'];
+            $_SESSION['mdp']=$data['mdp'];
+            $_SESSION['email']=$data['email'];
+            $_SESSION['date_inscription']=$data['date_inscription'];
+            $_SESSION['ia_admin']=$data['ia_admin'];
+
+            header("Location: index.php");
+            exit();
+        }
+        else{
+            
+        }
+    }
+}
+
+?><!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +87,7 @@
                 <?php  }
                 else{
                     echo '<div class="ligne"  id="active"><a href="connexion.php"><img src="img/login.png"><li id="co">Se connecter</li></a></div>';
-                    echo '<div class="ligne" id="ligne_inscription"><a href="inscription.php"><img src="img/login.png"><li id="inscription">S"inscrire</li></a></div>';
+                    echo "<div class='ligne' id='ligne_inscription'><a href='inscription.php'><img src='img/login.png'><li id='inscription'>S'inscrire</li></a></div>";
                 }
             ?>      
         </ul>
@@ -46,7 +97,7 @@
 
 <div class="content" id="form_co">
 <div class="inscription">
-        <form class="form"  method="post">
+        <form class="form" action="inscription.php"  method="post">
         <p id="heading">S'inscrire</p>
             <div class="field">
                 <input type="text" class="input-field" placeholder="Entrez votre prenom ..." id="prenom" name="prenom" required> <br/>
@@ -83,62 +134,18 @@
                 <a href="connexion.php" class="button2">Connexion</a>
             </div>
 
+            <?php
+            if(isset($_POST['ok'])){
+            if(isset($pass) and $pass != $pass2){
+                echo '<p>Mots de passe différents</p>';
+            }
+            $email_verif = $bdd->query("SELECT * FROM users WHERE email = '$email'");
+            $email_verif_test = $email_verif->fetch();
+            if($email_verif_test !== ""){
+                echo "<h5>Email déjà utilisé</h5>";
+            }
+         } ?>
         </form>
-        <?php
-include('bdd.php');
-
-
-
-
-if(isset($_POST['ok'])){
-    extract($_POST);
-    $cle = rand(1000000, 9999999);
-    if(isset($pass) and $pass != $pass2){
-        echo '<p>Mots de passe différents</p>';
-    }
-    else{
-        $email_verif = $bdd->query("SELECT * FROM users WHERE email = '$email'");
-        $email_verif_test = $email_verif->fetch();
-        if($email_verif_test == ""){
-            
-            $pass = md5($pass);
-            $requete = $bdd->prepare("INSERT INTO users VALUES (0, :nom, :niveau, :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme)");
-            $requete->execute(
-                array(
-                    "nom" => $prenom,
-                    "niveau" => $niveau,
-                    "mdp" => $pass,
-                    "email" => $email,
-                    "date_inscription" => $date,
-                    "ia_admin" => $ia_admin,
-                    "cle" => $cle,
-                    "confirme" => 0,
-                )   
-            );
-            $requete = $bdd->prepare("SELECT * FROM users WHERE email = :email and mdp = :mdp");
-            $requete->bindParam(':email', $email);
-            $requete->bindParam(':mdp', $pass);
-            $requete->execute();
-            $data = $requete->fetch(PDO::FETCH_ASSOC);
-            $_SESSION['id']=$data['id'];
-            $_SESSION['nom']=$data['nom'];
-            $_SESSION['niveau'] = $data['niveau'];
-            $_SESSION['mdp']=$data['mdp'];
-            $_SESSION['email']=$data['email'];
-            $_SESSION['date_inscription']=$data['date_inscription'];
-            $_SESSION['ia_admin']=$data['ia_admin'];
-
-            header("Location: index.php");
-        }
-        else{
-            echo "<h5>Email déjà utilisé</h5>";
-        }
-    }
-}
-
-?>
-
-
 </div>
 
 </div>

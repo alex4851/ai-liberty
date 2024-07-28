@@ -166,7 +166,7 @@ if(isset($_POST['ok'])){
     extract($_POST);
     
     $date = date('l jS \of F Y h:i:s A');
-    $requete = $bdd->prepare("INSERT INTO ia_infos VALUES (0, :nom, :ia_url, :prix, :iatype, :specialite, :ia_description, :affiliation, :coup_de_coeur, :ajout, :ia_description_short, :ia_img)");
+    $requete = $bdd->prepare("INSERT INTO ia_infos VALUES (0, :nom, :ia_url, :prix, :iatype, :specialite, :ia_description, :affiliation, :coup_de_coeur, :ajout, :ia_description_short, :ia_img, :niveau)");
     $requete->execute(
         array(
             "nom" => $nom,
@@ -180,6 +180,7 @@ if(isset($_POST['ok'])){
             "ajout" => $date,
             "ia_description_short" => $ia_description_short,
             "ia_img" => $ia_img,
+            "niveau" => "",
         )
     );
 }?>

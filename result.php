@@ -96,7 +96,7 @@ if(isset($_POST['valider'])){
             }
             else{
                 echo 'Email déjà utilisé <br/> 
-                <INPUT TYPE="button" VALUE="RETOUR" onclick=" history.back();">';
+                <INPUT TYPE="button" VALUE="RETOUR" onclick="history.back();">';
             }
         }
     }
@@ -129,22 +129,26 @@ if(isset($_POST['valider'])){
     if(isset($prix_demande) and isset($iatype_demande) and isset($spe_demande)){
         $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
         $best_ia = $ans->fetch();
-
+        $phrase_supp = false;
 
         if(isset($_SESSION["nom"])){
             if($best_ia == ''){
-                echo "Aucune ia ne match";
+                $phrase_supp = true;
+                $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+                $best_ia = $ans2->fetch();
             }
-            else{ ?>
-
+        ?>
 
 
             <div class="card" id="result">
+<?php if($phrase_supp == true){
+                echo "Nous n'avons pas d'IA qui correspondent à votre besoin dans le prix demandé mais voici une autre plus chère : ";
+                } ?>
         <script src="favorite.js"></script>                                               
                                                <div class="header">
                                                    <span><?php echo $best_ia["nom"] ?></span> 
                                                     <form method="post" action="result.php">
-                                                        <input type="int"  name="ia_id" value="<?php echo $best_ia["id"] ?>">
+                                                        <input type="int" class="hidden" name="ia_id" value="<?php echo $best_ia["id"] ?>">
 
                                                         <?php 
                                                         $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
@@ -156,11 +160,11 @@ if(isset($_POST['valider'])){
                                                         if($fav_existe == ''){ ?>
                                                             <button id="button_submit" type="submit" name="add_fav"><img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav"></button>
                                                             <?php }
-                                                            else{
+                                                        else{
                                                             ?>
                                                             <button id="button_submit" type="submit" name="remove_fav" ><img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon"></button>
                                                             <?php } ?>
-                                                            </form>
+                                                        </form>
 
 <?php
 ##Pour favorite :
@@ -208,7 +212,7 @@ if(isset($_POST['valider'])){
             </div>
 
 
-                <?php }
+                <?php 
         }
         ##Pour historique :
         $user_id = $_SESSION['id'];

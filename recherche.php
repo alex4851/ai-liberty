@@ -12,7 +12,7 @@ if(isset($_GET['rechercher'])){
     $res->setFetchMode(PDO::FETCH_ASSOC);
     $res->execute();
     $tab = $res->fetchAll();
-    $afficher = "non";
+    $afficher = "oui";
 }
 ?>
 

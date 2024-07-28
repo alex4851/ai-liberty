@@ -30,7 +30,8 @@ else{
             <div class="ligne" id="active"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
             <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautées</li></a></div>
             <?php 
-            if(isset($_SESSION['ia_admin'])){
+            if(isset
+            ($_SESSION['ia_admin'])){
                 if($_SESSION["ia_admin"] === "true"){
                 echo '<div class="ligne"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>';
                 }
@@ -55,132 +56,12 @@ else{
     </nav>
 </header>
 
+
+<div class="modify_ia_tout">
 <a href="ia.php"><button>Retour</button></a>
 
 
-<?php if($suite == "montrer"){
-?>
-
-<section class="new_ia">
-<form  method="post" action="add_ia.php" id="new_ia">
-            <h2>Ajouter une nouvelle IA à la base de donnée</h2>
-            
-            <label for="nom">Nom de l'IA :</label>
-            <input type="text" placeholder="Entrez nom IA ..." id="nom" name="nom" required> <br/>
-
-            <label for="ia_url">URL de l'IA :</label>
-            <input type="text" placeholder="Entrez url de l'IA ..." id="ia_url" name="ia_url" required> <br/>
-            
-            <label for="prix_demande">Prix de l'IA :</label>
-            <input type="number" class="range"  name="prix_demande" placeholder="0" step="1" min="0" max="100" required><br/>
-            
-            <label for="iatype_demande">Type : </label>
-            <select name="iatype_demande" id="iatype_demande">
-                <option value="productivite">Productivité</option>
-                <option value="website">Site web</option>
-                <option value="content_creation">Creation de contenu</option>
-                <option value="taches_repetitives">Tâches répetitives</option>
-                <option value="vente">Vente</option>
-
-            </select> <br />
-
-            <label for="spe_demande">Specialite :</label>
-            <select name="spe_demande" id="spe_demande">
-
-
-                    <option class="content_creation" value="video">Creation de videos</option>
-                    <option class="content_creation" value="auto_post">Posts automatisés</option>
-                    <option class="content_creation" value="avatar">Avatar vidéo, audio</option>
-                    <option class="content_creation" value="narration">Narration</option>
-                    <option class="content_creation" value="voice_clonage">Clonage de voix</option>
-                    <option class="content_creation" value="sous_titre">Sous-titres</option>
-                    <option class="content_creation" value="background_remover">Retirer l'arrière plan</option>
-                    <option class="content_creation" value="youtube_algo">Optimisation pour algorithme Youtube</option>
-
-
-                    <option class="productivite" value="recherche_assistant">Assistant de recherche</option>
-                    <option class="productivite" value="pro_assistant">Assistant professionnel</option> 
-                    <option class="productivite" value="agenda">Gestion de l'agenda</option> 
-                    <option class="productivite" value="mindset">Mindset</option> 
-
-
-                    <option class="taches_repetitives" value="automatisation">Automatisation</option>
-                    <option class="taches_repetitives" value="recherche">Recherche</option>
-                    <option class="taches_repetitives" value="recherche_pdf">Recherche dans PDF</option>
-                    <option class="taches_repetitives" value="note_taking">Prise de notes</option>
-                    <option class="taches_repetitives" value="note_taking_teams">Prise de notes pour Microsoft Teams</option>
-                    <option class="taches_repetitives" value="excel_assistant">Assistant pour Excel</option> 
-                    <option class="taches_repetitives" value="mails">Gestion des mails</option> 
-                    <option class="taches_repetitives" value="copilote">Copilote</option>
-                    <option class="taches_repetitives" value="trad">Traduction</option>
-                    <option class="taches_repetitives" value="mindmap">Présentation carte mentale</option>
-                    <option class="taches_repetitives" value="analyse_image">Analyse d'image</option>
-                    <option class="taches_repetitives" value="analyse_texte">Analyse de texte</option>
-                    <option class="taches_repetitives" value="transformation_texte">Transformation de texte</option>
-                    <option class="taches_repetitives" value="creation_texte">Création de texte ou de script</option>
-
-                    <option class="website" value="seo">SEO</option> 
-
-
-                    <option class="vente" value="strategie">Stratégie</option> 
-                    <option class="vente" value="marketing_linkedin">Marketing Linkedin</option> 
-                    <option class="vente" value="marketing_insta">Marketing Instagram</option> 
-
-        
-
-            </select> <br />
-
-
-            <script src="algo.js"></script>
-
-
-            <label for="affiliation">Affiliation : </label>
-            <select name="affiliation" id="affiliation">
-                <option value="oui">Oui</option>
-                <option value="non">Non</option>
-            </select><br />
-            
-            <label for="coup_de_coeur">Coup de coeur : </label>
-            <select name="coup_de_coeur" id="coup_de_coeur">
-                <option value="oui">Oui</option>
-                <option value="non">Non</option>
-            </select> <br/>
-
-            <label for="ia_description">Description :</label>
-            <textarea type="text" placeholder="Entrez une description ..." id="ia_description" name="ia_description" required></textarea> <br />
-
-            <div class="button1"><input type="submit" value="Ajouter IA" name="ok" class="ok"></div>
-</form>
-</section>
-
-</body>
-</html>
-
-<?php
-
-if(isset($_POST['ok'])){
-    
-    extract($_POST);
-    
-    $date = date('l jS \of F Y h:i:s A');
-    $requete = $bdd->prepare("INSERT INTO ia_infos VALUES (0, :nom, :ia_url, :prix, :iatype, :specialite, :ia_description, :affiliation, :coup_de_coeur, :ajout)");
-    $requete->execute(
-        array(
-            "nom" => $nom,
-            "ia_url" => $ia_url,
-            "prix" => intval($prix_demande),
-            "iatype" => $iatype_demande,
-            "specialite" => $spe_demande,
-            "ia_description" => $ia_description,
-            "affiliation" => $affiliation,
-            "coup_de_coeur" => $coup_de_coeur,
-            "ajout" => $date,
-        )
-    );
-}
-
-}
- else{ ?>
+<?php $montrer = "oui"; if( @$montrer == "oui"){?>
 
 <section class="recherche_ia">
 
@@ -192,11 +73,11 @@ if(isset($_GET['rechercher'])){
     $words = explode(" ",trim($name_ia));
     for($i=0; $i<count($words);$i++)
         $kw[$i]="nom like '%".$words[$i]."%'";
-    $res = $bdd->prepare("SELECT * FROM ia_infos WHERE ".implode(" or ", $kw));
-    $res->setFetchMode(PDO::FETCH_ASSOC);
-    $res->execute();
-    $tab = $res->fetchAll();
-    $afficher = "oui";
+        $res = $bdd->prepare("SELECT * FROM ia_infos WHERE ".implode(" or ", $kw));
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        $res->execute();
+        $tab = $res->fetchAll();
+        $afficher = "oui";
 }
 ?>
 
@@ -222,25 +103,105 @@ if(isset($_GET['rechercher'])){
                                                    <span><?php echo $tab[$i]["nom"] ?></span> 
                                             
                                                </div>
-                                               <div class="img"><img src="img/chatgpt.png"/></div>
+                                               <div class="img"><img src="<?php echo $tab[$i]["ia_img"] ?>"/></div>
                                                <p class="info"><?php echo $tab[$i]["ia_description"] ?></p>
                                                <div class="share">
                                                    <p>Prix :  <?php echo $tab[$i]["prix"]; ?>€</p>
                                                </div>
-                                               <form method="post" action=""><input type="int" value="<?php $tab[$i]["id"] ?>" class="hidden"><button name="modifier" >Modifier</button></form>
+                                               <form method="post" action=""><input type="int" value="<?php echo $tab[$i]["id"]; ?>" name="ia_to_modify_id" class="hidden"><button name="modifier" >Modifier</button></form>
                     </div>
-<?php if(isset($_POST['modifier'])){ $suite = "montrer"; }?>
 
 
                 <?php } ?>
             </div>
         </div>
-    <?php } }
+    <?php }
 ?>
 </section>
+<?php } if(isset($_POST['modifier'])){  
+    $montrer = "non";
+    $ia_modify = $_POST["ia_to_modify_id"];
+
+    $sql = "SELECT * FROM ia_infos WHERE id = :id";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindValue(":id", $ia_modify, PDO::PARAM_INT);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+?>
+<section class="new_ia">
+<form  method="post" action="add_ia.php" id="new_ia">
+            <h2>Modifier <?php echo $result["nom"]; ?> à la base de donnée</h2>
+            
+            <label for="nom">Nom de l'IA :</label>
+            <input type="text" value="<?php echo $result["nom"]; ?>" placeholder="Entrez nom IA ..." id="nom" name="nom" required> <br/>
+
+            <label for="prix_demande">ID de l'IA :</label>
+            <input type="number" value="<?php echo $result["id"]; ?>" class="range"  name="ia_id" placeholder="0" step="1" min="0" max="100" required><br/>
+
+            <label for="ia_url">URL de l'IA :</label>
+            <input type="text" value="<?php echo $result["ia_url"]; ?>" placeholder="Entrez url de l'IA ..." id="ia_url" name="ia_url" required> <br/>
+            
+            <label for="prix_demande">Prix de l'IA :</label>
+            <input type="number" value="<?php echo $result["prix"]; ?>" class="range"  name="prix_demande" placeholder="0" step="1" min="0" max="100" required><br/>
+            
+            <label for="iatype_demande">Type : </label>
+            <input type="text" value="<?php echo $result["iatype"]; ?>" name="iatype_demande" id="iatype_demande"> <br />
+
+            <label for="spe_demande">Specialite :</label>
+            <input type="text" name="spe_demande" id="spe_demande" value="<?php echo $result["specialite"]; ?>"> <br />
 
 
+            <label for="affiliation">Affiliation : </label>
+            <input type="text" name="affiliation" id="affiliation" value="<?php echo $result["affiliation"]; ?>"><br />
+            
+            <label for="coup_de_coeur">Coup de coeur : </label>
+            <input type="text" value="<?php echo $result["coup_de_coeur"]; ?>" name="coup_de_coeur" id="coup_de_coeur"><br/>
 
+
+            <label for="ia_description">Description :</label>
+            <textarea type="text" placeholder="Entrez une description ..." id="ia_description" name="ia_description" required><?php echo $result["ia_description"]; ?></textarea> <br />
+
+            <label for="ia_description">Description courte :</label>
+            <textarea type="text" placeholder="Entrez la description courte ..." id="ia_description_short" name="ia_description_short" required><?php echo $result["ia_description_short"]; ?></textarea> <br />
+            
+            <label for="ia_description">URL image :</label>
+            <textarea type="text" placeholder="Entrez l'url de l'image de l'IA ..." id="ia_img" name="ia_img" required><?php echo $result["ia_img"]; ?></textarea> <br />
+            
+            <input type="submit" value="Modifier <?php echo $result["nom"]; ?>" name="ok" class="ok">
+</form>
+</section>
+</div>
+
+</body>
+</html>
+
+<?php
+
+if(isset($_POST['ok'])){
+    
+    extract($_POST);
+    
+    $date = date('l jS \of F Y h:i:s A');
+    $requete = $bdd->prepare("INSERT INTO ia_infos SET (0, :nom, :ia_url, :prix, :iatype, :specialite, :ia_description, :affiliation, :coup_de_coeur, :ajout) WHERE id = :id");
+    $requete->execute(
+        array(
+            "id" => $ia_id,
+            "nom" => $nom,
+            "ia_url" => $ia_url,
+            "prix" => intval($prix_demande),
+            "iatype" => $iatype_demande,
+            "specialite" => $spe_demande,
+            "ia_description" => $ia_description,
+            "affiliation" => $affiliation,
+            "coup_de_coeur" => $coup_de_coeur,
+            "ajout" => $date,
+            "niveau" => "",
+        )
+    );
+}
+
+}
+?>
 
 
 

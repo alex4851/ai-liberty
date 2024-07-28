@@ -174,6 +174,16 @@ session_start();
         <img src="img/add_fav.png">
     </a>
     </div>
+    <?php 
+                   $user_id = $_SESSION['id'];
+                    // Récupérer l'historique des recherches de l'utilisateur
+                    $sql = "SELECT search_query, search_date FROM search WHERE user_id = :user_id ORDER BY search_date DESC";
+                    $stmt = $bdd->prepare($sql);
+                    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+                    $stmt->execute();
+                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+                    if(isset($result)){ ?>
+
                 <section class="section_questionnaire">
                    
                         <div class="historique">
@@ -182,14 +192,7 @@ session_start();
                                 <?php
                                     
 
-                                    $user_id = $_SESSION['id'];
-
-                                    // Récupérer l'historique des recherches de l'utilisateur
-                                    $sql = "SELECT search_query, search_date FROM search WHERE user_id = :user_id ORDER BY search_date DESC";
-                                    $stmt = $bdd->prepare($sql);
-                                    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-                                    $stmt->execute();
-                                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                    
 
                                     // Afficher les résultats
                                     
@@ -208,7 +211,7 @@ session_start();
                                                 </div>
                                                 <div class="second-content">
                                                     <span>Infos</span>
-                                                    <p><?php echo $row2["ia_description"] ?></p>
+                                                    <p><?php echo $row2["ia_description_short"] ?></p>
                                                 </div>
                                                 </a>
                                             </div>
@@ -218,6 +221,12 @@ session_start();
                             </div>
                         </div>
                 </section>
+                <?php } ?>
+
+
+
+
+
 
                 <section class="section_favorite">
                         <div class="favorites_header">
@@ -315,7 +324,7 @@ else{
                                                     
                                                     
                                                 </div>
-                                                <div class="img"><img src="img/chatgpt.png"/></div>
+                                                <div class="img"><img src="<?php echo $row2["ia_img"] ?>"/></div>
                                                 <p class="info"><?php echo $row2["ia_description"] ?></p>
                                                 <div class="share">
                                                     
