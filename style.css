@@ -601,7 +601,8 @@ padding: 0;
     font-size: 1.4em;
     font-family: 'Times New Roman', Times, serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 .resultat h1 {
     font-size: 1.2em;
@@ -1011,12 +1012,13 @@ padding: 0;
     display: flex;
     flex-direction: column;
   }
-#result{
+#result_card{
     background-color: #19181d;
     height: auto;
     color: white;
     padding: 10px;
     border-radius: 20px;
+    margin-bottom: 150px;
 }
 #recherche_card{
     background-color: #19181d;

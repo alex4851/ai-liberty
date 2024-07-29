@@ -105,6 +105,8 @@ if(isset($_POST['valider'])){
 
 <div class="resultat_reste">
 
+
+
 <?php
 if(isset($_POST['valider'])){
 
@@ -128,32 +130,50 @@ if(isset($_POST['valider'])){
 
     if(isset($prix_demande) and isset($iatype_demande) and isset($spe_demande)){
         $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
-        $best_ia = $ans->fetch();
+        $best_ia_2 =  $ans->fetch();
+        @$search_query = $best_ia_2['id'];
+        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+        $best_ia = $ans->fetchAll(PDO::FETCH_ASSOC);
         $phrase_supp = false;
 
         if(isset($_SESSION["nom"])){
-            if($best_ia == ''){
+            if($best_ia_2 == ''){
                 $phrase_supp = true;
                 $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
-                $best_ia = $ans2->fetch();
+                $best_ia_2 =  $ans2->fetch();
+                $search_query = $best_ia_2['id'];
+                $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+                $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
+
+                
             }
+        
+        
+            foreach ($best_ia as $row) {
+                $sql = "SELECT * FROM ia_infos WHERE id = :ia_id ";
+                $stmt = $bdd->prepare($sql);
+                $stmt->bindValue(":ia_id", $row['id'], PDO::PARAM_INT);
+                $stmt->execute();
+                $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+                if($phrase_supp == true){
+                    echo "Nous n'avons pas d'IA qui correspondent à votre besoin dans le prix demandé mais voici une autre plus chère : ";
+                    }
         ?>
 
+        
+            <div class="card" id="result_card">
 
-            <div class="card" id="result">
-<?php if($phrase_supp == true){
-                echo "Nous n'avons pas d'IA qui correspondent à votre besoin dans le prix demandé mais voici une autre plus chère : ";
-                } ?>
         <script src="favorite.js"></script>                                               
                                                <div class="header">
-                                                   <span><?php echo $best_ia["nom"] ?></span> 
+                                                   <span><?php echo $row2["nom"] ?></span> 
                                                     <form method="post" action="result.php">
-                                                        <input type="int" class="hidden" name="ia_id" value="<?php echo $best_ia["id"] ?>">
+                                                        <input type="int" class="hidden" name="ia_id" value="<?php echo $row2["id"] ?>">
 
                                                         <?php 
                                                         $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
                                                         $stmt = $bdd->prepare($sql);
-                                                        $stmt->bindValue(":ia_id", $best_ia["id"] , PDO::PARAM_INT);
+                                                        $stmt->bindValue(":ia_id", $row2["id"] , PDO::PARAM_INT);
                                                         $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
                                                         $stmt->execute();
                                                         $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -203,23 +223,23 @@ if(isset($_POST['valider'])){
         }
 ?>
                                                 </div>
-                                               <div class="img"><img src="img/chatgpt.png"/></div>
-                                               <p class="info"><?php echo $best_ia["ia_description"] ?></p>
+                                               <div class="img"><img src="<?php echo $row2["ia_img"] ?>"/></div>
+                                               <p class="info"><?php echo $row2["ia_description"] ?></p>
                                                <div class="share">
-                                                   <p>Prix :  <?php echo $best_ia["prix"]; ?></p>
+                                                   <p>Prix par mois : <?php echo $row2["prix"]; ?>€</p>
                                                </div>
-                                               <a href="<?php echo $best_ia["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
+                                               <a href="<?php echo $row2["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
             </div>
 
 
                 <?php 
-        }
+        }}
         ##Pour historique :
         $user_id = $_SESSION['id'];
 
+
         // Récupérer la recherche de l'utilisateur
-        if(isset($best_ia) and $best_ia != ""){
-        $search_query = $best_ia['id'];
+        if(isset($best_ia_2) and $best_ia_2 != ""){
 
         // Insérer la recherche dans la base de données
         $sql = "INSERT INTO search (user_id, search_query) VALUES (:user_id, :search_query)";

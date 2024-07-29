@@ -166,8 +166,8 @@ if(isset($_GET['rechercher'])){
             
             <label for="ia_description">URL image :</label>
             <textarea type="text" placeholder="Entrez l'url de l'image de l'IA ..." id="ia_img" name="ia_img" required><?php echo $result["ia_img"]; ?></textarea> <br />
-            
-            <input type="submit" value="Modifier <?php echo $result["nom"]; ?>" name="ok" class="ok">
+
+            <input type="submit" value="Modifier <?php echo $result["nom"]; ?>" name="modifier_ia" class="modifier_ia">
 </form>
 </section>
 </div>
@@ -177,15 +177,14 @@ if(isset($_GET['rechercher'])){
 
 <?php
 
-if(isset($_POST['ok'])){
+if(isset($_POST['modifier_ia'])){
     
     extract($_POST);
     
     $date = date('l jS \of F Y h:i:s A');
-    $requete = $bdd->prepare("INSERT INTO ia_infos SET (0, :nom, :ia_url, :prix, :iatype, :specialite, :ia_description, :affiliation, :coup_de_coeur, :ajout) WHERE id = :id");
+    $requete = $bdd->prepare("UPDATE ia_infos SET nom = :nom, ia_url = :ia_url, prix = :prix, iatype = :iatype, specialite = :specialite, ia_description = :ia_description, affiliation = :affiliation, coup_de_coeur = :coup_de_coeur, ajout = :ajout, ia_description_short = :ia_description_short, ia_img = :ia_img WHERE id = :id");
     $requete->execute(
         array(
-            "id" => $ia_id,
             "nom" => $nom,
             "ia_url" => $ia_url,
             "prix" => intval($prix_demande),
@@ -195,10 +194,14 @@ if(isset($_POST['ok'])){
             "affiliation" => $affiliation,
             "coup_de_coeur" => $coup_de_coeur,
             "ajout" => $date,
-            "niveau" => "",
+            "ia_description_short" => $ia_description_short,
+            "ia_img" => $ia_img,
+            "id" => $ia_id,
         )
     );
 }
+
+
 
 }
 ?>
