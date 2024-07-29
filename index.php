@@ -3,7 +3,7 @@ include("bdd.php");
 session_start();
 ?>
 <?php
-                            $user_id = $_SESSION['id'];
+                            @$user_id = $_SESSION['id'];
                             if(isset($_POST['suppr_history'])) {
                                 $sql = "DELETE FROM search WHERE user_id = :user_id";
                                 $stmt = $bdd->prepare($sql);
@@ -14,7 +14,7 @@ session_start();
                             ?>
 <?php
 ##Pour favorite :
-        $user_id = $_SESSION['id'];
+        @$user_id = $_SESSION['id'];
         @$ia_id = $_POST['ia_id'];
         
 
@@ -234,7 +234,7 @@ session_start();
                 <section class="section_questionnaire">
                    
                         <div class="historique">
-                            <div class="header_historique"><h4>Récent :</h4><form method="post" action=""><input type="submit" value="Supprimer" name="suppr_history"></form></div>
+                            <div class="header_historique"><h4>Récent :</h4><form method="post" action=""><button  id="button_submit" type="submit" name="suppr_history"><img style="height: 50px;" src="img/trash.png" alt="trash"></button></form></div>
                             
                             <div class="historique_cards">
                                 <?php
