@@ -125,28 +125,39 @@ if(isset($_POST['valider'])){
     }
     $iatype_demande = $_POST["iatype_demande"];
     $spe_demande = $_POST["spe_demande"];
+    $phrase_supp = false;
+    $affiliation_p = false;
 
     }
 
     if(isset($prix_demande) and isset($iatype_demande) and isset($spe_demande)){
-        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' AND affiliation = 'oui' ");
         $best_ia_2 =  $ans->fetch();
-        @$search_query = $best_ia_2['id'];
-        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
-        $best_ia = $ans->fetchAll(PDO::FETCH_ASSOC);
-        $phrase_supp = false;
-
-        if(isset($_SESSION["nom"])){
-            if($best_ia_2 == ''){
-                $phrase_supp = true;
-                $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+        $affiliation_p = true;
+        if($best_ia_2 == ''){
+                $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' AND prix <= '$prix_demande' ");
                 $best_ia_2 =  $ans2->fetch();
+                $affiliation_p = false;
+                if($best_ia_2 == ''){
+                $affiliation_p = false;
+
+                    $phrase_supp = true;
+                    $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+                    $best_ia_2 =  $ans2->fetch();
+                    $search_query = $best_ia_2['id'];
+                    $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+                    $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
+                }
+
                 $search_query = $best_ia_2['id'];
                 $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
                 $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
-
-                
-            }
+        }
+        @$search_query = $best_ia_2['id'];
+        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+        $best_ia = $ans->fetchAll(PDO::FETCH_ASSOC);
+        if(isset($_SESSION["nom"])){
+           
         
         
             foreach ($best_ia as $row) {
@@ -223,12 +234,16 @@ if(isset($_POST['valider'])){
         }
 ?>
                                                 </div>
+                                               <p id="coup_de_coeur_p"><?php if($row2["coup_de_coeur"] == 'oui'){echo "Coup de coeur de l'équipe";} ?></p>
+
                                                <div class="img"><img src="<?php echo $row2["ia_img"] ?>"/></div>
+
                                                <p class="info"><?php echo $row2["ia_description"] ?></p>
                                                <div class="share">
                                                    <p>Prix par mois : <?php echo $row2["prix"]; ?>€</p>
                                                </div>
                                                <a href="<?php echo $row2["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
+                                               <p id="affiliation"><?php if($affiliation_p == true){echo "Lien affilié";} ?></p>
             </div>
 
 

@@ -607,12 +607,21 @@ padding: 0;
 .resultat h1 {
     font-size: 1.2em;
 }
-
 .result .cards_result{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     
+}
+#affiliation{
+    text-align: center;
+    font-size: 0.5em;
+    padding: 0;
+    margin: 0;
+}
+#coup_de_coeur_p{
+    color: #6b3bf4;
+    text-align: center;
 }
 /*Fin result*/
 
