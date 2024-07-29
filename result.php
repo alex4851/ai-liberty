@@ -243,7 +243,7 @@ if(isset($_POST['valider'])){
                                                    <p>Prix par mois : <?php echo $row2["prix"]; ?>€</p>
                                                </div>
                                                <a href="<?php echo $row2["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
-                                              <!-- <p id="affiliation"><?php //if($affiliation_p == true){echo "Lien affilié";} ?></p> -->
+                                              <!-- <p id="affiliation_p"><?php //if($affiliation_p == true){echo "Lien affilié";} ?></p> -->
             </div>
 
 
