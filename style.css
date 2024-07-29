@@ -275,6 +275,7 @@ option, select, #submit, input{
     max-width: 1100px;
 }
 .historique{
+    width: 100%;
     padding-left: 40px;
 }
 .historique_cards{
@@ -290,6 +291,11 @@ option, select, #submit, input{
     z-index: 10;
     width: 100%;
     
+}
+.header_historique{
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
 }
 .welcomer{
     width: 500px;

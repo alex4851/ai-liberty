@@ -14,6 +14,42 @@ if(isset($_GET['rechercher'])){
     $tab = $res->fetchAll();
     $afficher = "oui";
 }
+##Pour favorite :
+
+        $user_id = $_SESSION['id'];
+        @$ia_id = $_POST['ia_id'];
+        
+
+        if(isset($_POST['add_fav'])){
+            //Verif que existe pas deja
+            $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
+            $stmt = $bdd->prepare($sql);
+            $stmt->bindValue(":ia_id", $ia_id , PDO::PARAM_INT);
+            $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($fav_existe == ''){
+                // Insérer la recherche dans la base de données
+                $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
+                $stmt = $bdd->prepare($sql);
+                $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+                $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+                $stmt->execute();
+            }
+            header("refresh");
+
+        }
+
+        if(isset($_POST["remove_fav"])){
+            //Supprimer des favoris
+            $sql2 = 'DELETE FROM favorites WHERE user_id = :user_id and ia_id = :ia_id';
+            $stmt = $bdd->prepare($sql2);
+            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+            $stmt->execute();
+            header("refresh");
+
+        }
 ?>
 
 <!DOCTYPE html>
@@ -108,42 +144,7 @@ if($fav_existe == ''){ ?>
     <?php } ?>
     </form>
 
-<?php
-##Pour favorite :
 
-        $user_id = $_SESSION['id'];
-        @$ia_id = $_POST['ia_id'];
-        
-
-        if(isset($_POST['add_fav'])){
-            //Verif que existe pas deja
-            $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
-            $stmt = $bdd->prepare($sql);
-            $stmt->bindValue(":ia_id", $ia_id , PDO::PARAM_INT);
-            $stmt->bindValue(":user_id", $user_id, PDO::PARAM_INT);
-            $stmt->execute();
-            $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($fav_existe == ''){
-                // Insérer la recherche dans la base de données
-                $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
-                $stmt = $bdd->prepare($sql);
-                $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-                $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
-                $stmt->execute();
-            }
-
-        }
-
-        if(isset($_POST["remove_fav"])){
-            //Supprimer des favoris
-            $sql2 = 'DELETE FROM favorites WHERE user_id = :user_id and ia_id = :ia_id';
-            $stmt = $bdd->prepare($sql2);
-            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-            $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
-            $stmt->execute();
-
-        }
-?>
                                                </div>
                                                <div class="img"><img src="<?php echo $tab[$i]["ia_img"] ?>"/></div>
                                                <p class="info"><?php echo $tab[$i]["ia_description"] ?></p>

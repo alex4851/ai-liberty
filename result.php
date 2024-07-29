@@ -166,7 +166,7 @@ if(isset($_POST['valider'])){
                 $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
         
                 if($phrase_supp == true){
-                    echo "Nous n'avons pas d'IA qui correspondent à votre besoin dans le prix demandé mais voici une autre plus chère : ";
+                    echo "<p>Nous n'avons pas d'IA qui correspondent à votre besoin dans le prix demandé mais voici celle qui correspond à votre attente :</p> ";
                     }
         ?>
 
