@@ -134,6 +134,9 @@ if(isset($_POST['valider'])){
         $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' AND affiliation = 'oui' ");
         $best_ia_2 =  $ans->fetch();
         $affiliation_p = true;
+        @$search_query = $best_ia_2['id'];
+        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+        $best_ia = $ans->fetchAll(PDO::FETCH_ASSOC);
         if($best_ia_2 == ''){
                 $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' AND prix <= '$prix_demande' ");
                 $best_ia_2 =  $ans2->fetch();
@@ -153,9 +156,6 @@ if(isset($_POST['valider'])){
                 $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
                 $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
         }
-        @$search_query = $best_ia_2['id'];
-        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
-        $best_ia = $ans->fetchAll(PDO::FETCH_ASSOC);
         if(isset($_SESSION["nom"])){
            
         
@@ -243,7 +243,7 @@ if(isset($_POST['valider'])){
                                                    <p>Prix par mois : <?php echo $row2["prix"]; ?>€</p>
                                                </div>
                                                <a href="<?php echo $row2["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
-                                               <p id="affiliation"><?php if($affiliation_p == true){echo "Lien affilié";} ?></p>
+                                              <!-- <p id="affiliation"><?php //if($affiliation_p == true){echo "Lien affilié";} ?></p> -->
             </div>
 
 
