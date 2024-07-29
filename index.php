@@ -229,7 +229,7 @@ session_start();
                     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
                     $stmt->execute();
                     $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-                    if(isset($result)){ ?>
+                    if(count($result) > 0){ ?>
 
                 <section class="section_questionnaire">
                    
@@ -383,7 +383,6 @@ else{
                     <button>Accéder gratuitement</button>
                 </a>
             </div>
-            <p>No credit card required</p>
         </div>
     </section>
     <aside class="image">
