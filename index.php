@@ -299,7 +299,7 @@ else{
             $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
             $stmt->execute();
             $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($fav_existe === ''){
+            if($fav_existe == ''){
 
             // Insérer la recherche dans la base de données
             $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";

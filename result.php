@@ -142,8 +142,7 @@ if(isset($_POST['valider'])){
                 $best_ia_2 =  $ans2->fetch();
                 $affiliation_p = false;
                 if($best_ia_2 == ''){
-                $affiliation_p = false;
-
+                    $affiliation_p = false;
                     $phrase_supp = true;
                     $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
                     $best_ia_2 =  $ans2->fetch();
@@ -151,7 +150,6 @@ if(isset($_POST['valider'])){
                     $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
                     $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
                 }
-
                 $search_query = $best_ia_2['id'];
                 $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
                 $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
@@ -211,14 +209,13 @@ if(isset($_POST['valider'])){
             $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
             $stmt->execute();
             $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($fav_existe === ''){
-
-            // Insérer la recherche dans la base de données
-            $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
-            $stmt = $bdd->prepare($sql);
-            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-            $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
-            $stmt->execute();
+            if($fav_existe == ''){
+                // Insérer la recherche dans la base de données
+                $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
+                $stmt = $bdd->prepare($sql);
+                $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+                $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+                $stmt->execute();
             }
 
         }

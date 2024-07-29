@@ -151,7 +151,7 @@ else{
             <label for="ia_description">URL image :</label>
             <textarea type="text" placeholder="Entrez l'url de l'image de l'IA ..." id="ia_img" name="ia_img" required></textarea> <br />
             
-            <input type="submit" value="Ajouter IA" name="ok" class="ok">
+            <input type="submit" value="Ajouter IA" name="add_ia" class="add_ia">
 </form>
 </section>
 
@@ -161,7 +161,7 @@ else{
 
 <?php
 
-if(isset($_POST['ok'])){
+if(isset($_POST['add_ia'])){
     
     extract($_POST);
     

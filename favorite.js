@@ -1,3 +1,3 @@
-$('#button_submit').on('click', function() {
+('#button_submit').on('click', function() {
     location.reload();
 });

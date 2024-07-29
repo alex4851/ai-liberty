@@ -4,6 +4,29 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']) and $_SESSION['ia_admin
 {
   include("bdd.php");
   $suite = 'cacher';
+  if(isset($_POST['modifier_ia'])){
+    
+    extract($_POST);
+    
+    $date = date('l jS \of F Y h:i:s A');
+    $requete = $bdd->prepare("UPDATE ia_infos SET nom = :nom, ia_url = :ia_url, prix = :prix, iatype = :iatype, specialite = :specialite, ia_description = :ia_description, affiliation = :affiliation, coup_de_coeur = :coup_de_coeur, ajout = :ajout, ia_description_short = :ia_description_short, ia_img = :ia_img WHERE id = :id");
+    $requete->execute(
+        array(
+            "nom" => $nom,
+            "ia_url" => $ia_url,
+            "prix" => intval($prix_demande),
+            "iatype" => $iatype_demande,
+            "specialite" => $spe_demande,
+            "ia_description" => $ia_description,
+            "affiliation" => $affiliation,
+            "coup_de_coeur" => $coup_de_coeur,
+            "ajout" => $date,
+            "ia_description_short" => $ia_description_short,
+            "ia_img" => $ia_img,
+            "id" => $ia_id,
+        )
+    );
+}
 }
 else{
     header('Location:connexion.php');
@@ -129,7 +152,7 @@ if(isset($_GET['rechercher'])){
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <section class="new_ia">
-<form  method="post" action="add_ia.php" id="new_ia">
+<form  method="post" action="" id="new_ia">
             <h2>Modifier <?php echo $result["nom"]; ?> à la base de donnée</h2>
             
             <label for="nom">Nom de l'IA :</label>
@@ -165,46 +188,20 @@ if(isset($_GET['rechercher'])){
             <textarea type="text" placeholder="Entrez la description courte ..." id="ia_description_short" name="ia_description_short" required><?php echo $result["ia_description_short"]; ?></textarea> <br />
             
             <label for="ia_description">URL image :</label>
-            <textarea type="text" placeholder="Entrez l'url de l'image de l'IA ..." id="ia_img" name="ia_img" required><?php echo $result["ia_img"]; ?></textarea> <br />
+            <input type="text" placeholder="Entrez l'url de l'image de l'IA ..." id="ia_img" name="ia_img" value="<?php echo $result["ia_img"]; ?>" required><br />
 
             <input type="submit" value="Modifier <?php echo $result["nom"]; ?>" name="modifier_ia" class="modifier_ia">
 </form>
+
+<?php
+}
+?>
 </section>
 </div>
 
 </body>
 </html>
 
-<?php
-
-if(isset($_POST['modifier_ia'])){
-    
-    extract($_POST);
-    
-    $date = date('l jS \of F Y h:i:s A');
-    $requete = $bdd->prepare("UPDATE ia_infos SET nom = :nom, ia_url = :ia_url, prix = :prix, iatype = :iatype, specialite = :specialite, ia_description = :ia_description, affiliation = :affiliation, coup_de_coeur = :coup_de_coeur, ajout = :ajout, ia_description_short = :ia_description_short, ia_img = :ia_img WHERE id = :id");
-    $requete->execute(
-        array(
-            "nom" => $nom,
-            "ia_url" => $ia_url,
-            "prix" => intval($prix_demande),
-            "iatype" => $iatype_demande,
-            "specialite" => $spe_demande,
-            "ia_description" => $ia_description,
-            "affiliation" => $affiliation,
-            "coup_de_coeur" => $coup_de_coeur,
-            "ajout" => $date,
-            "ia_description_short" => $ia_description_short,
-            "ia_img" => $ia_img,
-            "id" => $ia_id,
-        )
-    );
-}
-
-
-
-}
-?>
 
 
 
