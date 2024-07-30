@@ -152,6 +152,8 @@ session_start();
                 <div class="adapte">
                         <h3>IA les plus populaires dans votre catégorie : </h3>
                     
+                    
+                    <div class="rapide">
                     <?php 
                     $sql = 'SELECT * FROM ia_infos WHERE niveau = :niveau';
                     $stmt = $bdd->prepare($sql);
@@ -165,7 +167,6 @@ session_start();
                         $stmt->execute();
                         $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
                     ?>
-                    <div class="rapide">
                         <div class="card_rapide">
                             <div class="first-content">
                                 <span><?php echo $row2['nom']; ?></span>
@@ -176,8 +177,9 @@ session_start();
                                     <p><?php echo $row2['ia_description_short']; ?></p>
                                 </a>
                         </div>
+                        <?php } ?>
                 </div>
-                <?php }} ?>
+                <?php } ?>
 
 
 
@@ -293,12 +295,10 @@ session_start();
                                             
 
                                             <div class="card">
-                                               
                                                 <div class="header">
                                                     <span><?php echo $row2["nom"] ?></span>
                                                     <form method="post" action="">
-<input type="int" class="hidden" name="ia_id" value="<?php echo $row["ia_id"] ?>">
-
+                                                    <input type="int" class="hidden" name="ia_id" value="<?php echo $row["ia_id"] ?>">
 <?php 
 $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
 $stmt = $bdd->prepare($sql);
@@ -314,14 +314,11 @@ else{
 <button id="button_submit" type="submit" name="remove_fav" ><img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon"></button>
 <?php } ?>
 </form>
-
-                                                    
-                                                    
+                                                  
                                                 </div>
                                                 <div class="img"><img src="<?php echo $row2["ia_img"] ?>"/></div>
                                                 <p class="info"><?php echo $row2["ia_description"] ?></p>
                                                 <div class="share">
-                                                    
                                                 </div>
                                                 <a href="<?php echo $row2["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
                                             </div>
