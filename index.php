@@ -167,16 +167,14 @@ session_start();
                     ?>
                     <div class="rapide">
                         <div class="card_rapide">
-                            <a href="<?php echo $row2['ia_url']; ?>" target="_blank">
                             <div class="first-content">
                                 <span><?php echo $row2['nom']; ?></span>
                                 <img src="<?php echo $row2['ia_img']; ?>"/>
                             </div>
-                            <div class="second-content">
-                                <span>Infos</span>
-                                <p><?php echo $row2['ia_description_short']; ?></p>
-                            </div>
-                            </a>
+                                <a href="<?php echo $row2['ia_url']; ?>" target="_blank" class="second-content">
+                                    <span>Infos</span>
+                                    <p><?php echo $row2['ia_description_short']; ?></p>
+                                </a>
                         </div>
                 </div>
                 <?php }} ?>
@@ -238,16 +236,14 @@ session_start();
                                         $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
                                         ?>
                                             <div class="card_rapide">
-                                                <a href="<?php echo $row2["ia_url"] ?>" target="_blank">
                                                 <div class="first-content">
                                                     <span><?php echo $row2["nom"] ?></span>
                                                     <img src="<?php echo $row2["ia_img"] ?>"/>
                                                 </div>
-                                                <div class="second-content">
-                                                    <span>Infos</span>
-                                                    <p><?php echo $row2["ia_description_short"] ?></p>
-                                                </div>
-                                                </a>
+                                                    <a href="<?php echo $row2["ia_url"] ?>" target="_blank" class="second-content">
+                                                        <span>Infos</span>
+                                                        <p><?php echo $row2["ia_description_short"] ?></p>
+                                                    </a>
                                             </div>
                                         <?php
                                     }
