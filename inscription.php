@@ -105,7 +105,7 @@ if(isset($_POST['ok'])){
             <div class="field">
                 <select name="niveau" id="niveau" class="input-field">
                     <option value="lyceen">Lyceen</option>
-                    <option value="etudient">Etudient</option>
+                    <option value="entrepreneur">Entrepreneur</option>
                     <option value="professionnel">Professionnel</option>
                 </select> <br />
             </div>

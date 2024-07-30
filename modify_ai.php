@@ -9,7 +9,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']) and $_SESSION['ia_admin
     extract($_POST);
     
     $date = date('l jS \of F Y h:i:s A');
-    $requete = $bdd->prepare("UPDATE ia_infos SET nom = :nom, ia_url = :ia_url, prix = :prix, iatype = :iatype, specialite = :specialite, ia_description = :ia_description, affiliation = :affiliation, coup_de_coeur = :coup_de_coeur, ajout = :ajout, ia_description_short = :ia_description_short, ia_img = :ia_img WHERE id = :id");
+    $requete = $bdd->prepare("UPDATE ia_infos SET nom = :nom, ia_url = :ia_url, prix = :prix, iatype = :iatype, specialite = :specialite, ia_description = :ia_description, affiliation = :affiliation, coup_de_coeur = :coup_de_coeur, ajout = :ajout, ia_description_short = :ia_description_short, ia_img = :ia_img, niveau = :niveau WHERE id = :id");
     $requete->execute(
         array(
             "nom" => $nom,
@@ -23,6 +23,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']) and $_SESSION['ia_admin
             "ajout" => $date,
             "ia_description_short" => $ia_description_short,
             "ia_img" => $ia_img,
+            "niveau" => $niveau,
             "id" => $ia_id,
         )
     );
@@ -50,13 +51,13 @@ else{
     <nav class="nav">
         <a href="index.php"><h1><img class="logo" src="img/logo.png"></h1></a>
         <ul class="nav-bar">
-            <div class="ligne" id="active"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
+            <div class="ligne"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
             <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautées</li></a></div>
             <?php 
             if(isset
             ($_SESSION['ia_admin'])){
                 if($_SESSION["ia_admin"] === "true"){
-                echo '<div class="ligne"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>';
+                echo '<div class="ligne" id="active"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>';
                 }
             }
             ?>
@@ -173,6 +174,8 @@ if(isset($_GET['rechercher'])){
             <label for="spe_demande">Specialite :</label>
             <input type="text" name="spe_demande" id="spe_demande" value="<?php echo $result["specialite"]; ?>"> <br />
 
+            <label for="niveau">Niveau :</label>
+            <input type="text" value="<?php echo $result["niveau"]; ?>" name="niveau" id="niveau" required><br/>
 
             <label for="affiliation">Affiliation : </label>
             <input type="text" name="affiliation" id="affiliation" value="<?php echo $result["affiliation"]; ?>"><br />

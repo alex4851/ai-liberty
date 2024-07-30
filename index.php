@@ -117,8 +117,8 @@ session_start();
                 <form method="post" action="index.php">
                 <label for="niveau">Niveau : </label>
                     <select name="niveau" id="niveau" required>
-                        <option value="lyceen" >Lyceen</option>
-                        <option value="etudient">Etudient</option>
+                        <option value="lyceen" >Lycéen</option>
+                        <option value="etudient">Entrepreneur</option>
                         <option value="professionnel">Professionnel</option>
                     </select> <br />
                 <input type="submit" id="submit" value="Confirmer" name="valider_niveau">
@@ -148,52 +148,39 @@ session_start();
             ?>
 
             <?php
-                if(@$_SESSION['niveau'] == 'lyceen'){ 
+                if(@$_SESSION['niveau'] !== 'undefined'){ 
                 ?>
                 <div class="adapte">
                         <h3>IA les plus populaires dans votre catégorie : </h3>
-                        
+                    
+                    <?php 
+                    $sql = 'SELECT * FROM ia_infos WHERE niveau = :niveau';
+                    $stmt = $bdd->prepare($sql);
+                    $stmt->bindValue(':niveau', $_SESSION['niveau'], PDO::PARAM_STR);
+                    $stmt->execute();
+                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+                    foreach($result as $row){
+                        $sql = "SELECT * FROM ia_infos WHERE id = :ia_id ";
+                        $stmt = $bdd->prepare($sql);
+                        $stmt->bindValue(":ia_id", $row["id"], PDO::PARAM_STR);
+                        $stmt->execute();
+                        $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
+                    ?>
                     <div class="rapide">
                         <div class="card_rapide">
-                            <a href="https://chatgpt.com/" target="_blank">
+                            <a href="<?php echo $row2['ia_url']; ?>" target="_blank">
                             <div class="first-content">
-                                <span>Chat GPT</span>
-                                <img src="img/chatgpt.png"/>
+                                <span><?php echo $row2['nom']; ?></span>
+                                <img src="<?php echo $row2['ia_img']; ?>"/>
                             </div>
                             <div class="second-content">
                                 <span>Infos</span>
-                                <p>Pour écrire ou reformuler textes ou scripts</p>
-                            </div>
-                            </a>
-                        </div>
-
-                        <div class="card_rapide">
-                            <a href="https://chatgpt.com/" target="_blank">
-                            <div class="first-content">
-                                <span>Chat GPT</span>
-                                <img src="img/chatgpt.png"/>
-                            </div>
-                            <div class="second-content">
-                                <span>Infos</span>
-                                <p>Pour écrire ou reformuler textes ou scripts</p>
-                            </div>
-                            </a>
-                        </div>
-
-                        <div class="card_rapide">
-                            <a href="https://chatgpt.com/" target="_blank">
-                            <div class="first-content">
-                                <span>Chat GPT</span>
-                                <img src="img/chatgpt.png"/>
-                            </div>
-                            <div class="second-content">
-                                <span>Infos</span>
-                                <p>Pour écrire ou reformuler textes ou scripts</p>
+                                <p><?php echo $row2['ia_description_short']; ?></p>
                             </div>
                             </a>
                         </div>
                 </div>
-                <?php } ?>
+                <?php }} ?>
 
 
 
@@ -255,7 +242,7 @@ session_start();
                                                 <a href="<?php echo $row2["ia_url"] ?>" target="_blank">
                                                 <div class="first-content">
                                                     <span><?php echo $row2["nom"] ?></span>
-                                                    <img src="img/chatgpt.png"/>
+                                                    <img src="<?php echo $row2["ia_img"] ?>"/>
                                                 </div>
                                                 <div class="second-content">
                                                     <span>Infos</span>

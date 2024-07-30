@@ -129,7 +129,15 @@ else{
 
             <script src="algo.js"></script>
 
+            <label for="niveau">Niveau : </label>
+                    <select name="niveau" id="niveau" required>
+                        <option value="lyceen" >Lyceen</option>
+                        <option value="entrepreneur">Entrepreneur</option>
+                        <option value="professionnel">Professionnel</option>
+                        <option value="undefined">Aucun</option>
+                    </select><br/>
 
+            
             <label for="affiliation">Affiliation : </label>
             <select name="affiliation" id="affiliation">
                 <option value="oui">Oui</option>
@@ -180,7 +188,7 @@ if(isset($_POST['add_ia'])){
             "ajout" => $date,
             "ia_description_short" => $ia_description_short,
             "ia_img" => $ia_img,
-            "niveau" => "",
+            "niveau" => $niveau,
         )
     );
 }

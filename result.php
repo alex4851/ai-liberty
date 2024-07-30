@@ -176,7 +176,7 @@ if(isset($_POST['valider'])){
         <script src="favorite.js"></script>                                               
                                                <div class="header">
                                                    <span><?php echo $row2["nom"] ?></span> 
-                                                    <form method="post" action="result.php">
+                                                    <form method="post" action="">
                                                         <input type="int" class="hidden" name="ia_id" value="<?php echo $row2["id"] ?>">
 
                                                         <?php 

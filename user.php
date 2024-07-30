@@ -71,8 +71,8 @@ else{
                 <form method="post" action="user.php">
                 <label for="niveau">Niveau : </label>
                     <select name="niveau" id="niveau" required>
-                        <option value="lyceen" >Lyceen</option>
-                        <option value="etudient">Etudient</option>
+                        <option value="lyceen" >Lycéen</option>
+                        <option value="entrepreneur">Entrepreneur</option>
                         <option value="professionnel">Professionnel</option>
                         <option value="undefined">Aucun</option>
                     </select>
