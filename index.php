@@ -60,7 +60,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="website icon" type="png" href="img/logo_head.png">
-    <title>IA LIBERTY</title>
+    <title>AI LIBERTY</title>
 </head>
 
 <body <?php if(!isset($_SESSION['nom'])){echo 'class="body_pas_co"';} ?> >
@@ -220,13 +220,10 @@ session_start();
                 <section class="section_questionnaire">
                    
                         <div class="historique">
-                            <div class="header_historique"><h4>Récent :</h4><form method="post" action=""><button  id="button_submit" type="submit" name="suppr_history"><img style="height: 30px;" src="img/trash.png" alt="trash"></button></form></div>
+                            <div class="header_historique"><h4>Récent :</h4><form method="post" action=""><button  id="button_submit" type="submit" name="suppr_history"><img id="header_historique_img" src="img/trash.png" alt="trash"></button></form></div>
                             
                             <div class="historique_cards">
                                 <?php
-                                    
-
-                                    
 
                                     // Afficher les résultats
                                     

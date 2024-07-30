@@ -296,6 +296,11 @@ option, select, #submit, input{
     justify-content: space-between;
     display: flex;
     width: 100%;
+    align-items: center;
+}
+#header_historique_img{
+    width: 30px;
+    margin-right: 30px;
 }
 .welcomer{
     width: 500px;
@@ -1293,6 +1298,10 @@ padding: 0;
 
 .card_4_child {
     margin-bottom: 20px;
+}
+.infos .reste{
+    display: flex;
+    flex-direction: column;
 }
 
 .infos p {
