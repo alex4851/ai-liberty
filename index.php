@@ -220,7 +220,7 @@ session_start();
                 <section class="section_questionnaire">
                    
                         <div class="historique">
-                            <div class="header_historique"><h4>Récent :</h4><form method="post" action=""><button  id="button_submit" type="submit" name="suppr_history"><img style="height: 50px;" src="img/trash.png" alt="trash"></button></form></div>
+                            <div class="header_historique"><h4>Récent :</h4><form method="post" action=""><button  id="button_submit" type="submit" name="suppr_history"><img style="height: 30px;" src="img/trash.png" alt="trash"></button></form></div>
                             
                             <div class="historique_cards">
                                 <?php

@@ -127,7 +127,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
 
             </select> <br />
             <div class=button_direction>
-                <button class="precedant" id="precedant_b">Precedant</button>
+                <button class="precedant" id="precedant_b">Précédent</button>
                 <button class="next" id="next_b">Suivant</button>
             </div>
             <div class="chargement"><div class="chargement2"></div></div>
@@ -151,19 +151,19 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                         <input value="5" id="5" name="prix_demande" type="radio" class="state" />
                         <label for="5" class="label">
                             <div class="indicator"></div>
-                            <span class="text">0 à 5</span>
+                            <span class="text">0 à 5 €</span>
                         </label>
                     </div>
                     <div class="wrapper">
                         <input value="10" id="10" name="prix_demande" type="radio" class="state" />
                         <label for="10" class="label">
-                            <span class="text">5 à 20</span>
+                            <span class="text">5 à 20 €</span>
                         </label>
                     </div>
                     <div class="wrapper">
                         <input value="20" id="20" name="prix_demande" type="radio" class="state" />
                         <label for="20" class="label">
-                            <span class="text">20 à 30</span>
+                            <span class="text">20 à 30 €</span>
                         </label>
                     </div>
                     <div class="wrapper">
@@ -175,7 +175,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                 </div>
 
                 <div class=button_direction id="c">
-                            <button class="precedant" id="precedant_c">Precedant</button>
+                            <button class="precedant" id="precedant_c">Précédent</button>
                             <button class="next" id="next_c">Suivant</button>
                         </div>
                 <div class="chargement"><div class="chargement3"></div></div>
@@ -191,7 +191,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
             <div class="card_4_child">
                 <input type="submit" id="result" value="Rechercher" name="valider" class="valider" >
             </div>
-            <button class="precedant" id="precedant_d">Precedant</button>
+            <button class="precedant" id="precedant_d">Précédent</button>
             <div class="chargement"><div class="chargement4"></div></div>
         </div>
         </div>
@@ -224,7 +224,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                 <input type="submit" value="Chercher l'IA" name="valider" id="result" class="valider">
             </div>
            
-            <button class="precedant" id="precedant_d">Precedant</button>
+            <button class="precedant" id="precedant_d">Précédent</button>
             <div class="chargement"><div class="chargement4"></div></div>
         </div>
         </div>
