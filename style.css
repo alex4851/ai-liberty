@@ -539,44 +539,12 @@ padding: 0;
     flex-direction: column;
     align-items: center;
 }
-#questionnaire_content button{
-    border-radius: 25px;
-    padding: 10px;
-}
-.card_quest select{
-    width: 100%;
-}
 .button_direction{
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
-.card_quest * {
-    color: black;
-}
-.card_quest button{
-    width: auto;
-    padding: 10px;
-}
-.card_quest .infos .reste{
-    display: flex;
-    flex-direction: column;
-}
-#precedant_d{
-    display: none;
-}
-.wrapper_container{
-    margin: 20px 0;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-}
-.wrapper{
-    margin: 10px 0;
-    display: flex;
 
-}
 @media screen and (max-width: 700px){
     #card_a{margin-top: 50px;}
     #container_a{
@@ -1186,4 +1154,165 @@ padding: 0;
     background: none;
     padding: 0;
     margin: 0;
+}
+
+
+
+
+#questionnaire_content {
+    width: 100%;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.card_container {
+    margin-bottom: 20px;
+}
+
+.card_quest {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card_quest label,
+.card_quest h4 {
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    display: block;
+    color: #141317;
+}
+
+.card_quest select,
+.card_quest input[type="text"],
+.card_quest input[type="email"],
+.card_quest input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #141317;
+}
+
+.card_quest select:focus,
+.card_quest input:focus {
+    border-color: #6b3bf4;
+    outline: none;
+}
+
+.wrapper_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.wrapper {
+    display: flex;
+    width: 300px;
+}
+
+.state {
+    display: none;
+}
+
+.label {
+    width: 100%;
+    background: #f0f0f0;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+.label_2{
+    display: flex;
+    align-items: center;
+}
+.label:hover {
+    background: #e0e0e0;
+}
+
+.indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    margin-right: 30px;
+}
+
+.state:checked + .label .indicator {
+    background: #6b3bf4;
+    border-color: #6b3bf4;
+}
+
+.text {
+    font-size: 1em;
+    color: #141317;
+}
+
+.button_direction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.button_direction a,
+.button_direction button, .card_quest #result {
+    background: #6b3bf4;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1em;
+    transition: background 0.3s ease;
+}
+
+.button_direction a:hover,
+.button_direction button:hover , .card_quest #result:hover {
+    cursor: pointer;
+    background: #5a2bd9;
+}
+
+.button_direction a:active,
+.button_direction button:active {
+    background: #4823b5;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.card_4_child {
+    margin-bottom: 20px;
+}
+
+.infos p {
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+.infos .reste label {
+    font-size: 1em;
+    margin-bottom: 5px;
+    display: block;
+    color: #141317;
+}
+
+.infos .reste input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #141317;
 }

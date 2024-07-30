@@ -143,33 +143,46 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                     <div class="wrapper">
                         <input value="0" id="0" name="prix_demande" type="radio" class="state" />
                         <label for="0" class="label">
-                            <div class="indicator"></div>
-                            <span class="text">Gratuit</span>
+                            <div class="label_2">
+                                <div class="indicator"></div>
+                                <span class="text">Gratuit</span>
+                            </div>
                         </label>
                     </div>
                     <div class="wrapper">
                         <input value="5" id="5" name="prix_demande" type="radio" class="state" />
                         <label for="5" class="label">
-                            <div class="indicator"></div>
-                            <span class="text">0 à 5 €</span>
+                            <div class="label_2">
+                                <div class="indicator"></div>
+                                <span class="text">0 à 5 €</span>
+                            </div>
                         </label>
                     </div>
                     <div class="wrapper">
                         <input value="10" id="10" name="prix_demande" type="radio" class="state" />
                         <label for="10" class="label">
-                            <span class="text">5 à 20 €</span>
+                            <div class="label_2">
+                                <div class="indicator"></div>
+                                <span class="text">5 à 20 €</span>
+                            </div>
                         </label>
                     </div>
                     <div class="wrapper">
-                        <input value="20" id="20" name="prix_demande" type="radio" class="state" />
-                        <label for="20" class="label">
-                            <span class="text">20 à 30 €</span>
+                        <input value="30" id="20" name="prix_demande" type="radio" class="state" />
+                        <label for="30" class="label">
+                            <div class="label_2">
+                                <div class="indicator"></div>
+                                <span class="text">20 à 30 €</span>
+                            </div>
                         </label>
                     </div>
                     <div class="wrapper">
                         <input value="1000" id="1000" name="prix_demande" type="radio" class="state"/>
                         <label for="1000" class="label">
-                            <span class="text">Indéfini</span>
+                            <div class="label_2">
+                                <div class="indicator"></div>
+                                <span class="text">Indéfini</span>
+                            </div>
                         </label>
                     </div>
                 </div>
@@ -191,7 +204,6 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
             <div class="card_4_child">
                 <input type="submit" id="result" value="Rechercher" name="valider" class="valider" >
             </div>
-            <button class="precedant" id="precedant_d">Précédent</button>
             <div class="chargement"><div class="chargement4"></div></div>
         </div>
         </div>
@@ -224,7 +236,6 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                 <input type="submit" value="Chercher l'IA" name="valider" id="result" class="valider">
             </div>
            
-            <button class="precedant" id="precedant_d">Précédent</button>
             <div class="chargement"><div class="chargement4"></div></div>
         </div>
         </div>
