@@ -211,7 +211,7 @@ session_start();
                    $user_id = $_SESSION['id'];
                     // Récupérer l'historique des recherches de l'utilisateur
                     $sql = "SELECT search_query, search_date FROM search WHERE user_id = :user_id ORDER BY search_date DESC";
-                    $stmt = $bdd->prepare($sql);
+                    $stmt = $bdd->prepare($sql);   
                     $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
                     $stmt->execute();
                     $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 

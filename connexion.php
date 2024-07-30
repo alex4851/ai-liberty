@@ -68,7 +68,7 @@ session_start();
     <button type="button" id="togglePassword" class="password_changer" >Afficher</button><script src="password.js"></script>
     </div>
     <div class="btn">
-    <input type="submit" class="button1" value="Se connecter" name="connexion" class="ok">
+    <input type="submit" class="button1" value="Connexion" name="connexion" class="ok">
     <a href="inscription.php" class="button2">Inscription</a>
     </div>
 

@@ -168,8 +168,8 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                         </label>
                     </div>
                     <div class="wrapper">
-                        <input value="30" id="20" name="prix_demande" type="radio" class="state" />
-                        <label for="30" class="label">
+                        <input value="20" id="20" name="prix_demande" type="radio" class="state" />
+                        <label for="20" class="label">
                             <div class="label_2">
                                 <div class="indicator"></div>
                                 <span class="text">20 à 30 €</span>
