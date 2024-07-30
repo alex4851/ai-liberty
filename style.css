@@ -550,23 +550,6 @@ padding: 0;
     justify-content: space-between;
 }
 
-@media screen and (max-width: 700px){
-    #card_a{margin-top: 50px;}
-    #container_a{
-        margin-top: 0;
-    }
-    #questionnaire_content{
-        padding: 0;
-        margin: 0;
-    }
-    .questionnaire{
-        padding: 0;
-        margin: 0;
-    }
-    .card_quest{
-        width: 200px;
-    }
-}
 /*Fin questionnaire*/
 
 
@@ -726,13 +709,6 @@ padding: 0;
 
 
 
-
-@media screen and (max-width: 800px){
-.form{
-        width: 200px;
-    }
-
-}
 /*Fin connexion*/
 
 
@@ -1307,3 +1283,36 @@ padding: 0;
     font-size: 1em;
     color: #141317;
 }
+
+
+@media screen and (max-width: 800px){
+    .form{
+            width: 200px;
+        }
+    }
+
+    @media screen and (max-width: 700px){
+        #card_a{margin-top: 50px;}
+        #container_a{
+            margin-top: 0;
+        }
+        #questionnaire_content{
+            padding: 0;
+            margin: 0;
+        }
+        .questionnaire{
+            padding: 0;
+            margin: 0;
+        }
+        .card_quest{
+            width: 200px;
+        }
+        #card_d input{
+            width: 200px;
+        }
+        .wrapper {
+            display: flex;
+            width: 180px;
+        }
+    
+    }
