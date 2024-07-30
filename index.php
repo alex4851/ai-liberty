@@ -94,7 +94,6 @@ session_start();
                 }
             ?>      
         </ul>
-        <script src="navigation.js"></script>       
     </nav>
 </header>
 
@@ -319,7 +318,6 @@ else{
 <button id="button_submit" type="submit" name="remove_fav" ><img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon"></button>
 <?php } ?>
 </form>
-<script src="favorite.js"></script>
 
                                                     
                                                     

@@ -2,6 +2,41 @@
 
 include("bdd.php");
 session_start();
+
+            ##Pour favorite :
+            $user_id = $_SESSION['id'];
+            @$ia_id = $_POST['ia_id'];
+            
+          
+            if(isset($_POST['add_fav'])){
+                //Verif que existe pas deja
+                $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
+                $stmt = $bdd->prepare($sql);
+                $stmt->bindValue(":ia_id", $ia_id , PDO::PARAM_INT);
+                $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
+                $stmt->execute();
+                $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
+                if($fav_existe == ''){
+                    // Insérer la recherche dans la base de données
+                    $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
+                    $stmt = $bdd->prepare($sql);
+                    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+                    $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+                    $stmt->execute();
+                    header("refresh");
+                }
+          
+            }
+          
+            if(isset($_POST["remove_fav"])){
+                //Supprimer des favoris
+                $sql2 = 'DELETE FROM favorites WHERE user_id = :user_id and ia_id = :ia_id';
+                $stmt = $bdd->prepare($sql2);
+                $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+                $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+                $stmt->execute();
+                header("refresh");
+            }        
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +81,6 @@ session_start();
                 }
             ?>      
         </ul>
-        <script src="navigation.js"></script>       
     </nav>
 </header>
 
@@ -146,18 +180,17 @@ if(isset($_POST['valider'])){
                     $phrase_supp = true;
                     $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
                     $best_ia_2 =  $ans2->fetch();
-                    $search_query = $best_ia_2['id'];
-                    $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+                    @$search_query = $best_ia_2['id'];
                     $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
+                    if($best_ia_2 == ''){
+                        echo   "Il y a du avoir une erreur lors du chargement ... Nous travailons pour que ce genre d'incidents ne se reproduisent pas";
+                    }
                 }
-                $search_query = $best_ia_2['id'];
+                @$search_query = $best_ia_2['id'];
                 $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
                 $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
         }
-        if(isset($_SESSION["nom"])){
-           
-        
-        
+        if(isset($_SESSION["nom"])){    
             foreach ($best_ia as $row) {
                 $sql = "SELECT * FROM ia_infos WHERE id = :ia_id ";
                 $stmt = $bdd->prepare($sql);
@@ -168,15 +201,14 @@ if(isset($_POST['valider'])){
                 if($phrase_supp == true){
                     echo "<p>Nous n'avons pas d'IA qui correspondent à votre besoin dans le prix demandé mais voici celle qui correspond à votre attente :</p> ";
                     }
-        ?>
+  
+  ?>
 
-        
             <div class="card" id="result_card">
 
-        <script src="favorite.js"></script>                                               
                                                <div class="header">
                                                    <span><?php echo $row2["nom"] ?></span> 
-                                                    <form method="post" action="">
+                                                    <form method="post" action="result.php">
                                                         <input type="int" class="hidden" name="ia_id" value="<?php echo $row2["id"] ?>">
 
                                                         <?php 
@@ -195,41 +227,7 @@ if(isset($_POST['valider'])){
                                                             <?php } ?>
                                                         </form>
 
-<?php
-##Pour favorite :
-        $user_id = $_SESSION['id'];
-        @$ia_id = $_POST['ia_id'];
-        
 
-        if(isset($_POST['add_fav'])){
-            //Verif que existe pas deja
-            $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
-            $stmt = $bdd->prepare($sql);
-            $stmt->bindValue(":ia_id", $ia_id , PDO::PARAM_INT);
-            $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
-            $stmt->execute();
-            $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($fav_existe == ''){
-                // Insérer la recherche dans la base de données
-                $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
-                $stmt = $bdd->prepare($sql);
-                $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-                $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
-                $stmt->execute();
-            }
-
-        }
-
-        if(isset($_POST["remove_fav"])){
-            //Supprimer des favoris
-            $sql2 = 'DELETE FROM favorites WHERE user_id = :user_id and ia_id = :ia_id';
-            $stmt = $bdd->prepare($sql2);
-            $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-            $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
-            $stmt->execute();
-
-        }
-?>
                                                 </div>
                                                <p id="coup_de_coeur_p"><?php if($row2["coup_de_coeur"] == 'oui'){echo "Coup de coeur de l'équipe";} ?></p>
 

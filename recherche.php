@@ -122,7 +122,6 @@ if(isset($_GET['rechercher'])){
                      ?>
             
                     <div class="card" id="recherche_card">
-                                <script src="favorite.js"></script>                                               
                                                <div class="header">
                                                    <span><?php echo $tab[$i]["nom"] ?></span> 
                                                    <form method="post" action="">

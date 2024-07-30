@@ -50,7 +50,6 @@ else{
                 }
             ?>      
         </ul>
-        <script src="navigation.js"></script>       
     </nav>
 </header>
 

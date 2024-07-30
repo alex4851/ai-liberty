@@ -91,7 +91,6 @@ if(isset($_POST['ok'])){
                 }
             ?>      
         </ul>
-        <script src="navigation.js"></script>       
     </nav>
 </header>
 

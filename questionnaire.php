@@ -117,7 +117,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                     <option class="taches_repetitives" value="analyse_image">Analyse d'image</option>
                     <option class="taches_repetitives" value="analyse_texte">Analyse de texte</option>
                     <option class="taches_repetitives" value="transformation_texte">Transformation de texte</option>
-                    <option class="taches_repetitives" value="creation_texte">Création de texte ou de script</option>
+                   <!-- <option class="taches_repetitives" value="creation_texte">Création de texte ou de script</option> -->
 
                     <option class="website" value="seo">SEO</option> 
 
