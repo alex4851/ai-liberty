@@ -603,6 +603,7 @@ padding: 0;
 
 /*Debut result*/
 .resultat_reste{
+
     width: 100%;
     font-size: 1.4em;
     font-family: 'Times New Roman', Times, serif;
@@ -610,14 +611,17 @@ padding: 0;
     flex-direction: column;
     align-items: center;
 }
+.result{
+    padding-left: 40px;
+
+}
+
 .resultat h1 {
     font-size: 1.2em;
 }
 .result .cards_result{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    
 }
 #affiliation_p{
     text-align: center;
@@ -1117,6 +1121,7 @@ padding: 0;
 
   
 @media screen and (max-width: 1100px){
+    .result{padding: 0;}
     .name_ai{display: block;}
     input{color: black;}
     .body{margin-bottom: 60px;}
