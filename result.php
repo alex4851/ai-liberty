@@ -3,7 +3,41 @@
 include("bdd.php");
 session_start();
 
-if(isset($_POST['valider'])){  
+             ##Pour favorite :
+             $user_id = $_SESSION['id'];
+             @$ia_id = $_POST['ia_id'];
+if(isset($_POST['add_fav'])){
+    //Verif que existe pas deja
+    $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindValue(":ia_id", $ia_id , PDO::PARAM_INT);
+    $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
+    $stmt->execute();
+    $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
+    if($fav_existe == ''){
+        // Insérer la recherche dans la base de données
+        $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
+        $stmt = $bdd->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+        $stmt->execute();
+        header("Location:index.php");
+    }
+
+}
+
+if(isset($_POST["remove_fav"])){
+    //Supprimer des favoris
+    $sql2 = 'DELETE FROM favorites WHERE user_id = :user_id and ia_id = :ia_id';
+    $stmt = $bdd->prepare($sql2);
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
+    $stmt->execute();
+    header("Location:index.php");
+
+}        
+
+if(isset($_POST['valider']) or isset($_POST["remove_fav"]) or isset($_POST["add_fav"])){  
 
     if(isset($_POST["email"])){
         extract($_POST);
@@ -53,40 +87,7 @@ if(isset($_POST['valider'])){
 }
 
 
-            ##Pour favorite :
-            $user_id = $_SESSION['id'];
-            @$ia_id = $_POST['ia_id'];
-            
-          
-            if(isset($_POST['add_fav'])){
-                //Verif que existe pas deja
-                $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
-                $stmt = $bdd->prepare($sql);
-                $stmt->bindValue(":ia_id", $ia_id , PDO::PARAM_INT);
-                $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
-                $stmt->execute();
-                $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
-                if($fav_existe == ''){
-                    // Insérer la recherche dans la base de données
-                    $sql = "INSERT INTO favorites (user_id, ia_id) VALUES (:user_id, :ia_id)";
-                    $stmt = $bdd->prepare($sql);
-                    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-                    $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
-                    $stmt->execute();
-                    header("refresh");
-                }
-          
-            }
-          
-            if(isset($_POST["remove_fav"])){
-                //Supprimer des favoris
-                $sql2 = 'DELETE FROM favorites WHERE user_id = :user_id and ia_id = :ia_id';
-                $stmt = $bdd->prepare($sql2);
-                $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-                $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
-                $stmt->execute();
-                header("refresh");
-            }        
+ 
 ?>
 
 <!DOCTYPE html>
@@ -158,14 +159,14 @@ if(isset($_POST['valider']) OR isset($_POST['submit_ia'])){
 
 
     if(isset($prix_demande) and isset($iatype_demande) and isset($spe_demande)){
-        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' AND affiliation = 'oui' ");
+        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND  specialite = '$spe_demande' AND affiliation = 'oui' ");
         $best_ia_2 =  $ans->fetch();
         $affiliation_p = true;
         @$search_query = $best_ia_2['id'];
-        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande'  AND specialite = '$spe_demande' ");
         $best_ia = $ans->fetchAll(PDO::FETCH_ASSOC);
         if($best_ia_2 == ''){
-                $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' AND prix <= '$prix_demande' ");
+                $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' AND prix <= '$prix_demande' ");
                 $best_ia_2 =  $ans2->fetch();
                 $affiliation_p = false;
                 if($best_ia_2 == ''){
@@ -180,7 +181,7 @@ if(isset($_POST['valider']) OR isset($_POST['submit_ia'])){
                     }
                 }
                 @$search_query = $best_ia_2['id'];
-                $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE iatype = '$iatype_demande' AND specialite = '$spe_demande' ");
+                $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' ");
                 $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
         }
         if(isset($_SESSION["nom"])){    
@@ -196,7 +197,8 @@ if(isset($_POST['valider']) OR isset($_POST['submit_ia'])){
                 if($phrase_supp == true){
                     echo "<p>Nous n'avons pas d'IA qui correspondent à votre besoin dans le prix demandé mais voici celle qui correspond à votre attente :</p> ";
                     }
-  
+             
+         
   ?>
 
             <div class="card" id="result_card">
@@ -243,7 +245,7 @@ if(isset($_POST['valider']) OR isset($_POST['submit_ia'])){
 
 
 <?php
-if(isset($_POST['submit_ia'])){
+if(isset($_POST['submit_ia']) or isset($_POST['add_fav'])){
             $ia_id = $_POST['ia_value_id'];
             $ans = "SELECT * FROM ia_infos WHERE id = :id";
             $stmt = $bdd->prepare($ans);
@@ -331,6 +333,9 @@ if(isset($_POST['submit_ia'])){
         }
     
 }
+
+
+
 ?>
 </div>
 </main>
