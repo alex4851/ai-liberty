@@ -172,10 +172,13 @@ session_start();
                                 <span><?php echo $row2['nom']; ?></span>
                                 <img src="<?php echo $row2['ia_img']; ?>"/>
                             </div>
-                                <a href="<?php echo $row2['ia_url']; ?>" target="_blank" class="second-content">
+                            <form action="result.php" method="post" class="second-content">
+                                <input type="int" value="<?php echo $row2["id"]; ?>" name="ia_value_id" class="hidden">
+                                <button type="submit" name="submit_ia">
                                     <span>Infos</span>
                                     <p><?php echo $row2['ia_description_short']; ?></p>
-                                </a>
+                                </button>
+                            </form>
                         </div>
                         <?php } ?>
                 </div>
@@ -201,63 +204,7 @@ session_start();
 
 <aside class="right_section">
     <div class="contenu">
-        <div class="favorites_header">   
-        <h3>Chercher une autre IA : </h3>
-        <a href="questionnaire.php">
-        <img src="img/add_fav.png">
-    </a>
-    </div>
-    <?php 
-                   $user_id = $_SESSION['id'];
-                    // Récupérer l'historique des recherches de l'utilisateur
-                    $sql = "SELECT search_query, search_date FROM search WHERE user_id = :user_id ORDER BY search_date DESC";
-                    $stmt = $bdd->prepare($sql);   
-                    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-                    $stmt->execute();
-                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-                    if(count($result) > 0){ ?>
-
-                <section class="section_questionnaire">
-                   
-                        <div class="historique">
-                            <div class="header_historique"><h4>Récent :</h4><form method="post" action=""><button  id="button_submit" type="submit" name="suppr_history"><img id="header_historique_img" src="img/trash.png" alt="trash"></button></form></div>
-                            
-                            <div class="historique_cards">
-                                <?php
-
-                                    // Afficher les résultats
-                                    
-                                    foreach ($result as $row) {
-                                        $sql = "SELECT * FROM ia_infos WHERE id = :ia_id ";
-                                        $stmt = $bdd->prepare($sql);
-                                        $stmt->bindValue(":ia_id", $row["search_query"], PDO::PARAM_INT);
-                                        $stmt->execute();
-                                        $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
-                                        ?>
-                                            <div class="card_rapide">
-                                                <div class="first-content">
-                                                    <span><?php echo $row2["nom"] ?></span>
-                                                    <img src="<?php echo $row2["ia_img"] ?>"/>
-                                                </div>
-                                                    <a href="<?php echo $row2["ia_url"] ?>" target="_blank" class="second-content">
-                                                        <span>Infos</span>
-                                                        <p><?php echo $row2["ia_description_short"] ?></p>
-                                                    </a>
-                                            </div>
-                                        <?php
-                                    }
-                                ?>
-                            </div>
-                        </div>
-                </section>
-                <?php } ?>
-
-
-
-
-
-
-                <section class="section_favorite">
+        <section class="section_favorite">
                         <div class="favorites_header">
                             <h3 class="favorite_texte">Mes favoris :</h3>
                             <a href="recherche.php">
@@ -265,12 +212,7 @@ session_start();
                             </a>
                         </div>
                         <div class="favorite">
-                            
-                            
-
-
                             <?php
-                                    
                                     $user_id = $_SESSION['id'];
 
                                     // Récupérer les favoris de l'utilisateur
@@ -296,45 +238,93 @@ session_start();
                                                     <span><?php echo $row2["nom"] ?></span>
                                                     <form method="post" action="">
                                                     <input type="int" class="hidden" name="ia_id" value="<?php echo $row["ia_id"] ?>">
-<?php 
-$sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
-$stmt = $bdd->prepare($sql);
-$stmt->bindValue(":ia_id", $row["ia_id"] , PDO::PARAM_INT);
-$stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
-$stmt->execute();
-$fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
-if($fav_existe == ''){ ?>
-<button  id="button_submit" type="submit" name="add_fav"><img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav"></button>
-<?php }
-else{
-?>
-<button id="button_submit" type="submit" name="remove_fav" ><img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon"></button>
-<?php } ?>
-</form>
-                                                  
+                                                        <?php 
+                                                        $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
+                                                        $stmt = $bdd->prepare($sql);
+                                                        $stmt->bindValue(":ia_id", $row["ia_id"] , PDO::PARAM_INT);
+                                                        $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
+                                                        $stmt->execute();
+                                                        $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                        if($fav_existe == ''){ ?>
+                                                        <button  id="button_submit" type="submit" name="add_fav"><img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav"></button>
+                                                        <?php }
+                                                        else{
+                                                        ?>
+                                                        <button id="button_submit" type="submit" name="remove_fav" ><img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon"></button>
+                                                        <?php } ?>
+                                                    </form>
                                                 </div>
+                                               <?php if($row2["coup_de_coeur"] == 'oui'){ ?> <p class="info_cdc">Coup de coeur</p> <?php } ?>
                                                 <div class="img"><img src="<?php echo $row2["ia_img"] ?>"/></div>
                                                 <p class="info"><?php echo $row2["ia_description"] ?></p>
-                                                <div class="share">
-                                                </div>
                                                 <a href="<?php echo $row2["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
+                                               <?php if($row2["affiliation"] == 'oui'){ ?> <p class="info_affiliation">Lien affilié</p> <?php } ?>
+
+                                            </div>
+                                        <?php
+                                    }
+                                ?>      
+                    </div>
+        </section>
+
+        <div class="favorites_header">   
+            <h3>Chercher une autre IA : </h3>
+            <a href="questionnaire.php">
+                <img src="img/add_fav.png">
+            </a>
+        </div>
+    <?php 
+                   $user_id = $_SESSION['id'];
+                    // Récupérer l'historique des recherches de l'utilisateur
+                    $sql = "SELECT search_query, search_date FROM search WHERE user_id = :user_id ORDER BY search_date DESC";
+                    $stmt = $bdd->prepare($sql);   
+                    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+                    $stmt->execute();
+                    $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+                    if(count($result) > 0){ ?>
+
+
+                <section class="section_questionnaire">
+                   
+                        <div class="historique">
+                            <div class="header_historique"><h4>Récent :</h4><form method="post" action=""><button  id="button_submit" type="submit" name="suppr_history"><img id="header_historique_img" src="img/trash.png" alt="trash"></button></form></div>
+                            
+                            <div class="historique_cards">
+                                <?php
+
+                                    // Afficher les résultats
+                                    
+                                    foreach ($result as $row) {
+                                        $sql = "SELECT * FROM ia_infos WHERE id = :ia_id ";
+                                        $stmt = $bdd->prepare($sql);
+                                        $stmt->bindValue(":ia_id", $row["search_query"], PDO::PARAM_INT);
+                                        $stmt->execute();
+                                        $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        ?>
+                                            <div class="card_rapide">
+                                                <div class="first-content">
+                                                    <span><?php echo $row2['nom']; ?></span>
+                                                    <img src="<?php echo $row2['ia_img']; ?>"/>
+                                                </div>
+                                                <form action="result.php" method="post" class="second-content">
+                                                    <input type="int" value="<?php echo $row2["id"]; ?>" name="ia_value_id" class="hidden">
+                                                    <button type="submit" name="submit_ia">
+                                                        <span>Infos</span>
+                                                        <p><?php echo $row2['ia_description_short']; ?></p>
+                                                    </button>
+                                                </form>
                                             </div>
                                         <?php
                                     }
                                 ?>
-
-                                    
-                               
-
-                                
+                            </div>
                         </div>
                 </section>
-                
+                <?php } ?>
     
     </div>
 </aside>                
        
-</div>         
 
 
 
@@ -347,23 +337,50 @@ else{
 <div class="container"></div>
 
 <div class="pas_co_content">
-    <section class="welcomer">
-    <div class="name_ai">AI LIBERTY</div>
+    <div class="pas_co_content">
+        <section class="welcomer">
+            <div class="name_ai">AI LIBERTY</div>
 
-        <h1>Découvrez les outils IA de pointe qui vous correspondent <br>
-        En seulement 5 minutes</h1>
-        <div class="acces_quest">
-            <div class="button">
-                <a href="questionnaire.php">
-                    <button>Accéder gratuitement</button>
-                </a>
+            <h1>Découvrez les outils IA de pointe qui vous correspondent <br>
+            En seulement 5 minutes</h1>
+            <div class="acces_quest">
+                <div class="button">
+                    <a href="questionnaire.php">
+                        <button>Accéder gratuitement</button>
+                    </a>
+                </div>
             </div>
-        </div>
-    </section>
-    <aside class="image">
-        <img src="img/exemple.jpg">
-    </aside>
+        </section>
+        <aside class="image">
+            <img src="img/exemple.jpg">
+        </aside>
 </div>
+<!--
+<div class="favorite_welcomer">
+        <aside class="image">
+            <video  autoplay loop muted playsinline style="width: 600px;">
+                <source src="img/favorite_vid.mp4" type="video/mp4" />
+            </video>
+        </aside>
+        <section class="welcomer">
+            <h1>Accédez à vos IA facilement en les ajoutants aux favoris</h1>
+        </section>
+</div>
+
+  <div class="niveau_welcomer">      
+        <section class="welcomer">
+            <h1>Vous pouvez choisir un niveau pour que nous vous proposions des IA pour vous</h1>
+        </section>
+        <aside class="image">
+            <video  autoplay loop muted playsinline style="width: 600px;">
+                <source src="img/favorite_vid.mp4" type="video/mp4" />
+            </video>
+        </aside>
+        </div>
+</div>
+                -->
+    
+     
          <?php }?>
 
 </body>

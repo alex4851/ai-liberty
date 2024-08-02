@@ -145,12 +145,15 @@ if($fav_existe == ''){ ?>
 
 
                                                </div>
+                                               <?php if($tab[$i]["coup_de_coeur"] == 'oui'){ ?> <p class="info_cdc">Coup de coeur</p> <?php } ?>
                                                <div class="img"><img src="<?php echo $tab[$i]["ia_img"] ?>"/></div>
                                                <p class="info"><?php echo $tab[$i]["ia_description"] ?></p>
                                                <div class="share">
                                                    <p>Prix :  <?php echo $tab[$i]["prix"]; ?>€</p>
                                                </div>
                                                <a href="<?php echo $tab[$i]["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
+                                               <?php if($tab[$i]["affiliation"] == 'oui'){ ?> <p class="info_affiliation">Lien affilié</p> <?php } ?>
+
                     </div>
 
 
