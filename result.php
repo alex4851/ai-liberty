@@ -4,7 +4,7 @@ include("bdd.php");
 session_start();
 
              ##Pour favorite :
-             $user_id = $_SESSION['id'];
+             @$user_id = $_SESSION['id'];
              @$ia_id = $_POST['ia_id'];
 if(isset($_POST['add_fav'])){
     //Verif que existe pas deja
@@ -37,7 +37,7 @@ if(isset($_POST["remove_fav"])){
 
 }        
 
-if(isset($_POST['valider']) or isset($_POST["remove_fav"]) or isset($_POST["add_fav"])){  
+if(isset($_POST['valider']) ){  
 
     if(isset($_POST["email"])){
         extract($_POST);
@@ -245,7 +245,7 @@ if(isset($_POST['valider']) OR isset($_POST['submit_ia'])){
 
 
 <?php
-if(isset($_POST['submit_ia']) or isset($_POST['add_fav'])){
+if(isset($_POST['submit_ia']) ){
             $ia_id = $_POST['ia_value_id'];
             $ans = "SELECT * FROM ia_infos WHERE id = :id";
             $stmt = $bdd->prepare($ans);
