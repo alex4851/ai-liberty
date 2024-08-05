@@ -67,9 +67,9 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
         <div class="card_quest" id="card_a">
             <label for="iatype_demande">Pour quel domaine cherchez vous un assistant basé sur l'intelligence artificielle ?</label><br/>
             <select name="iatype_demande" id="iatype_demande">
+                <option value="content_creation">Creation de contenu</option>
                 <option value="productivite">Productivité</option>
                 <option value="website" required>Site web</option>
-                <option value="content_creation">Creation de contenu</option>
                 <option value="taches_repetitives">Tâches répetitives</option>
                 <option value="vente">Vente</option>
             </select> <br />
