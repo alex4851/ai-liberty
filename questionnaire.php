@@ -65,7 +65,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
 
         <div class="card_container" id="container_a">
         <div class="card_quest" id="card_a">
-            <label for="iatype_demande">Quel type de tâches vous fait perdre le plus de temps ?</label><br/>
+            <label for="iatype_demande">Pour quel domaine cherchez vous un assistant basé sur l'intelligence artificielle ?</label><br/>
             <select name="iatype_demande" id="iatype_demande">
                 <option value="productivite">Productivité</option>
                 <option value="website" required>Site web</option>
@@ -85,7 +85,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
         <div class="card_container" id="container_b">
         
         <div class="card_quest" id="card_b">
-        <label for="spe_demande">Quelle activité principale cause cette perte de temps ?</label><br />
+        <label for="spe_demande">Pour quel type de tâches cherchez-vous cet outil ?</label><br />
             <select name="spe_demande" id="spe_demande">
 
                     <option class="content_creation" value="video">Creation de videos</option>
@@ -138,14 +138,14 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
         <div class="card_container" id="container_c">
 
         <div class="card_quest" id="card_c">   
-                <h4>Quelle somme seriez vous prêts à débourser pour économiser ce temps?</h4>        
+                <h4>Quelle somme d'argent seriez vous prêts à débourser pour accéder à ce service ?</h4>        
                 <div class="wrapper_container">
                     <div class="wrapper">
                         <input value="0" id="0" name="prix_demande" type="radio" class="state" />
                         <label for="0" class="label">
                             <div class="label_2">
                                 <div class="indicator"></div>
-                                <span class="text">Gratuit</span>
+                                <span class="text">Rien</span>
                             </div>
                         </label>
                     </div>
@@ -181,7 +181,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                         <label for="1000" class="label">
                             <div class="label_2">
                                 <div class="indicator"></div>
-                                <span class="text">Indéfini</span>
+                                <span class="text">Je ne sais pas</span>
                             </div>
                         </label>
                     </div>
