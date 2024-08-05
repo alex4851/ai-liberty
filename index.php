@@ -119,6 +119,7 @@ session_start();
                         <option value="lyceen" >Lycéen</option>
                         <option value="etudient">Entrepreneur</option>
                         <option value="professionnel">Professionnel</option>
+                        <option value="content_creator">Créateur de contenu</option>
                     </select> <br />
                 <input type="submit" id="submit" value="Confirmer" name="valider_niveau">
                 </form>

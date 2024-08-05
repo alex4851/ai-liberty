@@ -106,6 +106,7 @@ if(isset($_POST['ok'])){
                     <option value="lyceen">Lyceen</option>
                     <option value="entrepreneur">Entrepreneur</option>
                     <option value="professionnel">Professionnel</option>
+                    <option value="content_creator">Créateur de contenu</option>
                 </select> <br />
             </div>
 

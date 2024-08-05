@@ -195,7 +195,7 @@ if(isset($_GET['rechercher'])){
 </form>
 
 <?php
-}
+}   
 ?>
 </section>
 </div>

@@ -73,6 +73,7 @@ else{
                         <option value="lyceen" >Lycéen</option>
                         <option value="entrepreneur">Entrepreneur</option>
                         <option value="professionnel">Professionnel</option>
+                        <option value="content_creator">Créateur de contenu</option>
                         <option value="undefined">Aucun</option>
                     </select>
                 <input type="submit" id="submit" value="Confirmer" name="valider_niveau">

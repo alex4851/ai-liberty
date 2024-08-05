@@ -3,15 +3,21 @@ session_start();
 if(isset($_SESSION['id'])){ 
 include('bdd.php');
 @$name_ia = $_GET['name_ia'];
+@$min_price = $_GET['min_price'];
+@$max_price = $_GET['max_price'];
+@$cdc_active = $_GET['cdc_active'];
 $afficher = "non";
 if(isset($_GET['rechercher'])){
     $words = explode(" ",trim($name_ia));
     for($i=0; $i<count($words);$i++)
         $kw[$i]="nom like '%".$words[$i]."%'";
-    $res = $bdd->prepare("SELECT * FROM ia_infos WHERE ".implode(" or ", $kw));
-    $res->setFetchMode(PDO::FETCH_ASSOC);
-    $res->execute();
-    $tab = $res->fetchAll();
+    if($cdc_active == 'true'){
+    $res2 = $bdd->prepare("SELECT * FROM ia_infos WHERE ".implode(" or ", $kw)." AND coup_de_coeur = 'oui' AND prix <= $max_price AND prix >= $min_price");}
+    else{
+    $res2 = $bdd->prepare("SELECT * FROM ia_infos WHERE ".implode(" or ", $kw)." AND prix <= $max_price AND prix >= $min_price");}
+    $res2->setFetchMode(PDO::FETCH_ASSOC);
+    $res2->execute();
+    $tab = $res2->fetchAll();
     $afficher = "oui";
 }
 ##Pour favorite :
@@ -55,6 +61,8 @@ if(isset($_GET['rechercher'])){
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.css">
+
     <link rel="website icon" type="png" href="img/logo_head.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -108,15 +116,67 @@ if(isset($_GET['rechercher'])){
 <section class="content" id="recherche">
     <main class="recherche">
         <form method="get" action="">
-            <input type="text" value='<?php echo $name_ia; ?>' name="name_ia" placeholder="Rechercher de l'IA" class="search_bar">
-            <input type="submit" name="rechercher" value="Rechercher" class="recherche_button">
-        </form>
+            <div class="search_bar_all">
+                <input type="text" value='<?php echo $name_ia; ?>' name="name_ia" placeholder="Rechercher de l'IA" class="search_bar">
+                <button type="submit" name="rechercher" value="Rechercher" class="recherche_button"><img src="img/search.png"></button>
+            </div>
+            <div class="critere_recherche">
+                <h4>Critères de recherche</h4>
+                <div class="price-range">
+                    <label for="min_price"></label>
+                    <span id="min_price_val">0</span>€
+
+                    <label for="max_price">à  </label>
+                    <span id="max_price_val">100</span>€
+
+                    <div id="price-slider" class="range-slider"></div>
+                    
+                    <input type="hidden" id="min_price" name="min_price" value="0">
+                    <input type="hidden" id="max_price" name="max_price" value="100">
+                    </div>
+                
+                <input type="checkbox" value="true" <?php if($cdc_active == "true"){echo "checked";} ?> name="cdc_active"><label for="cdc_active">Coup de coeur</label>
+            </div>
+            
+            </form>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.5.0/nouislider.min.js"></script>
+
+                <script>
+var slider = document.getElementById('price-slider');
+
+noUiSlider.create(slider, {
+    start: [0, 100],
+    connect: true,
+    range: {
+        'min': 0,
+        'max': 100
+    },
+    step: 5
+});
+
+var minPriceInput = document.getElementById('min_price');
+var maxPriceInput = document.getElementById('max_price');
+var minPriceVal = document.getElementById('min_price_val');
+var maxPriceVal = document.getElementById('max_price_val');
+
+slider.noUiSlider.on('update', function(values, handle) {
+    var value = Math.round(values[handle]);
+
+    if (handle === 0) {
+        minPriceInput.value = value;
+        minPriceVal.textContent = value;
+    } else {
+        maxPriceInput.value = value;
+        maxPriceVal.textContent = value;
+    }
+});
+    </script>
     </main>
 
     <?php 
         if($afficher == "oui"){ ?>
         <div class="result">
-            <h3><?=count($tab)." ".(count($tab)>1?"résultats trouvés":"résultat trouvé") ?></h3>
+            <h3><?=count($tab)." ".(count($tab)>1?"résultats trouvés de ".$min_price." à ".$max_price." €":"résultat trouvé de ".$min_price." à ".$max_price." €") ?></h3>
             <div class='cards_result'>
                 <?php for($i=0; $i<count($tab);$i++){ 
                      ?>
