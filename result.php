@@ -136,6 +136,7 @@ if(isset($_POST['valider']) ){
 
 <main class="content">
 
+<input class="button_back" type="button" value="RETOUR" onclick="history.back();">
 
 <div class="resultat_reste">
 
@@ -199,7 +200,6 @@ if(isset($_POST['valider']) OR isset($_POST['submit_ia'])){
              
          
   ?>
-            <input class="button_back" type="button" value="RETOUR" onclick="history.back();">
             <div class="card" id="result_card">
 
                                                <div class="header">
@@ -253,7 +253,6 @@ if(isset($_POST['submit_ia']) ){
 
             $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
-    <INPUT TYPE="button" class="button_back" VALUE="RETOUR" onclick="history.back();">
             <div class="card" id="result_card">
 
 <div class="header">

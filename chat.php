@@ -8,7 +8,6 @@ else{
     header('Location:connexion.php');
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,13 +15,25 @@ else{
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Spinnaker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="website icon" type="png" href="img/admin.png">
+    <link rel="website icon" type="png" href="img/logo_head.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IA TOOLS</title>
-    
+    <style> 
+        #chat-box {
+            color: white;
+            width: 100%;
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;    
+        }
+        #message-input {
+            width: calc(100% - 100px);
+        }
+    </style>
 </head>
-<body <?php if(!isset($_SESSION['nom'])){echo 'class="body_pas_co"';} ?> >
+ <?php if(!isset($_SESSION['nom'])){echo 'class="body_pas_co"';} ?>
 
 <header <?php if(isset($_SESSION['nom'])){echo 'class="connecte"';}else{echo 'class="pas-co"';}?> id="complet">
     <nav class="nav">
@@ -52,37 +63,56 @@ else{
                 }
             ?>      
         </ul>
-        <script src="navigation.js"></script>       
     </nav>
 </header>
 
+<section class="new_ia">
+<a href="ia.php"><button>Retour</button></a>
 
-<div class="content">
-    <div class="content_admin">
-        <h1>Tools :</h1>
-        <section class="tools"> 
-            <a href="add_ia.php"><button>Add a new ia</button></a>
-            <a href="modify_ai.php"><button>Modify an ia</button></a>
-            <a href="chat.php"><button>Acces the chat</button></a>
-            <a href="https://auth-db1347.hstgr.io/index.php?db=u128521172_bdd" target="_blank"><button>Access the data base</button></a>
-        </section>
-        <h1>Statistiques :</h1>
-        <section class="stats">
-            <p>Nombre d'utilisateurs connectés :</p>
-            <p>Nombre d'inscrits : <?php
-            $res = $bdd->prepare("SELECT nom FROM users");
-            $res->setFetchMode(PDO::FETCH_ASSOC);
-            $res->execute();
-            $user_nombre = $res->fetchAll();
-            echo count($user_nombre); ?></p>
-            <p>Nombre d'IA dans la data base : <?php
-            $res = $bdd->prepare("SELECT nom FROM ia_infos");
-            $res->setFetchMode(PDO::FETCH_ASSOC);
-            $res->execute();
-            $ia_nombre = $res->fetchAll();
-            echo count($ia_nombre); ?> </p>
-        </section>
-    </div>           
-</div>
-            
+
+<div id="chat-box"></div>
+    <form id="chat-form" action="" method="post">
+        <input type="text" id="message-input" name="message_content" placeholder="Entrez votre message">
+        <button id="send-button" name="message">Envoyer</button>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function loadMessages() {
+                $.get('get_messages.php', function(data) {
+                    console.log("Messages reçus:", data); // Debugging
+                    const messages = JSON.parse(data);
+                    $('#chat-box').html('');
+                    messages.forEach(function(message) {
+                        $('#chat-box').append('<p><strong>' + message.nom + ':</strong> ' + message.message + ' <em>(' + message.timestamp + ')</em></p>');
+                    });
+                }).fail(function() {
+                    console.error("Erreur lors de la récupération des messages.");
+                });
+            }
+
+            loadMessages();
+            setInterval(loadMessages, 3000);
+
+            $('#chat-form').submit(function(e) {
+                e.preventDefault();
+                const message = $('#message-input').val();
+                if (message.trim() !== '') {
+                    $.post('send_message.php', { message_content: message }, function() {
+                        $('#message-input').val('');
+                        loadMessages();
+                    }).fail(function() {
+                        console.error("Erreur lors de l'envoi du message.");
+                    });
+                }
+            });
+        });
+    </script>
+
+</section>
+
 </body>
+</html>
+
+

@@ -138,7 +138,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
         <div class="card_container" id="container_c">
 
         <div class="card_quest" id="card_c">   
-                <h4>Quelle somme d'argent seriez vous prêts à débourser pour accéder à ce service ?</h4>        
+                <h4>Quelle somme d'argent seriez vous prêts à débourser mensuellement pour accéder à ce service ?</h4>        
                 <div class="wrapper_container">
                     <div class="wrapper">
                         <input value="0" id="0" name="prix_demande" type="radio" class="state" />
@@ -154,7 +154,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                         <label for="5" class="label">
                             <div class="label_2">
                                 <div class="indicator"></div>
-                                <span class="text">0 à 5 €</span>
+                                <span class="text">0 à 5 € par mois</span>
                             </div>
                         </label>
                     </div>
@@ -163,7 +163,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                         <label for="10" class="label">
                             <div class="label_2">
                                 <div class="indicator"></div>
-                                <span class="text">5 à 20 €</span>
+                                <span class="text">5 à 20 € par mois</span>
                             </div>
                         </label>
                     </div>
@@ -172,7 +172,7 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                         <label for="20" class="label">
                             <div class="label_2">
                                 <div class="indicator"></div>
-                                <span class="text">20 à 30 €</span>
+                                <span class="text">20 à 30 € par mois</span>
                             </div>
                         </label>
                     </div>
