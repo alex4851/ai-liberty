@@ -54,7 +54,7 @@ else{
 </header>
 
 <section class="new_ia">
-<a href="ia.php"><button>Retour</button></a>
+<a href="ia.php"><button class="button_back">Retour</button></a>
 
 <form  method="post" action="add_ia.php" id="new_ia">
 

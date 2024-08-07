@@ -81,7 +81,7 @@ else{
 
 
 <div class="modify_ia_tout">
-<a href="ia.php"><button>Retour</button></a>
+<a href="ia.php"><button class="button_back">Retour</button></a>
 
 
 <?php $montrer = "oui"; if( @$montrer == "oui"){?>
