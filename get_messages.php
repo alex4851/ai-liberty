@@ -8,7 +8,7 @@ include('bdd.php');
 $result = $bdd->query("SELECT messages.message, messages.timestamp, users.nom 
                        FROM messages 
                        JOIN users ON messages.user_id = users.id 
-                       ORDER BY messages.timestamp DESC");
+                       ORDER BY messages.timestamp ASC");
 
 $messages = array();
 while ($row = $result->fetch(PDO::FETCH_ASSOC)) {

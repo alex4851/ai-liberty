@@ -19,19 +19,6 @@ else{
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IA TOOLS</title>
-    <style> 
-        #chat-box {
-            color: white;
-            width: 100%;
-            height: 400px;
-            overflow-y: scroll;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;    
-        }
-        #message-input {
-            width: calc(100% - 100px);
-        }
-    </style>
 </head>
  <?php if(!isset($_SESSION['nom'])){echo 'class="body_pas_co"';} ?>
 
@@ -69,28 +56,35 @@ else{
 <section class="new_ia">
 <a href="ia.php"><button>Retour</button></a>
 
-
+<div class="chat_space">
 <div id="chat-box"></div>
     <form id="chat-form" action="" method="post">
         <input type="text" id="message-input" name="message_content" placeholder="Entrez votre message">
-        <button id="send-button" name="message">Envoyer</button>
+        <button id="send-button" name="message"><img src="img/send.png" alt="send"></button>
     </form>
-
+</div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+    
+    function autoScroll() {
+        const chatBox = document.getElementById('chat-box');
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
         $(document).ready(function() {
             function loadMessages() {
                 $.get('get_messages.php', function(data) {
-                    console.log("Messages reçus:", data); // Debugging
-                    const messages = JSON.parse(data);
-                    $('#chat-box').html('');
-                    messages.forEach(function(message) {
-                        $('#chat-box').append('<p><strong>' + message.nom + ':</strong> ' + message.message + ' <em>(' + message.timestamp + ')</em></p>');
-                    });
-                }).fail(function() {
-                    console.error("Erreur lors de la récupération des messages.");
+                console.log("Messages reçus:", data); // Debugging
+                const messages = JSON.parse(data);
+                $('#chat-box').html('');
+                messages.forEach(function(message) {
+                    $('#chat-box').append('<p><strong class="chat_nom">' + message.nom + ':</strong> ' + message.message + ' <em>(' + message.timestamp + ')</em></p>');
                 });
-            }
+                autoScroll(); // Scroll to the bottom after loading messages
+            }).fail(function() {
+                console.error("Erreur lors de la récupération des messages.");
+            });
+        }
+            
 
             loadMessages();
             setInterval(loadMessages, 3000);
