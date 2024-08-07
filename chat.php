@@ -77,7 +77,7 @@ else{
                 const messages = JSON.parse(data);
                 $('#chat-box').html('');
                 messages.forEach(function(message) {
-                    $('#chat-box').append('<p class="message"><strong class="chat_nom">' + message.nom + ':</strong> ' + message.message + ' <em>(' + message.timestamp + ')</em></p>');
+                    $('#chat-box').append('<p class="message"><strong class="chat_nom">' + message.nom + ':</strong> ' + message.message + ' <em class="date">(' + message.timestamp + ')</em></p>');
                 });
                 autoScroll(); // Scroll to the bottom after loading messages
             }).fail(function() {

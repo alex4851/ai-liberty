@@ -1286,15 +1286,18 @@ align-items: center;}
         border: 1px solid #ccc;
          
     }
+.date{color: grey;}
 .message{
-    background-color: #09070d;
-    border-bottom: white 1px solid;
-    margin: 0;
-    padding: 5px;
+    width: auto;
+    color: black;
+    background-color: white;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 15px;
 }
     #message-input {
         width: 100%;
-        min-width: 300px;
+        min-width: 250px;
         height: auto;
     }
 .chat_nom{
