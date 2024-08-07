@@ -41,7 +41,7 @@ button:hover{
     background-color: white;
 }
 ::-webkit-scrollbar-thumb{
-    background: red;
+    background: #09070d;
     border-radius: 5px;
 }
 :required{
@@ -1286,13 +1286,19 @@ align-items: center;}
         border: 1px solid #ccc;
          
     }
+.message{
+    background-color: #09070d;
+    border-bottom: white 1px solid;
+    margin: 0;
+    padding: 5px;
+}
     #message-input {
         width: 100%;
         min-width: 300px;
         height: auto;
     }
 .chat_nom{
-    color: blue;
+    color: #6b3bf4;
 }
 .chat_nom_admin{
     color: red;
