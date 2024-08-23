@@ -2,7 +2,7 @@ document.getElementById('iatype_demande').addEventListener('change', function ()
     var type = this.value;
     var options = document.querySelectorAll('#spe_demande option');
     options.forEach(function (option) {
-        option.style.display = 'none';
+        option.hidden = true;
         if (option.classList.contains(type)) {
             option.style.display = 'block';
         }
