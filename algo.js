@@ -1,22 +1,19 @@
-
-
 document.getElementById('iatype_demande').addEventListener('change', function () {
     var type = this.value;
-    var options = document.querySelectorAll('#spe_demande option');
+    var speDemande = document.getElementById('spe_demande');
+    var options = speDemande.querySelectorAll('option');
+
     options.forEach(function (option) {
-        // Cache toutes les options
-        option.hidden = true; 
-        
-        // Montre uniquement celles qui correspondent à la classe
+        option.hidden = true; // Cache toutes les options
         if (option.classList.contains(type)) {
-            option.hidden = false;
+            option.hidden = false; // Affiche les options correspondant à la classe
         }
     });
 
-    // Forcer le navigateur à redessiner le select (utile pour Safari)
-    document.getElementById('spe_demande').style.display = 'none';
-    document.getElementById('spe_demande').offsetHeight; // Déclencher un reflow
-    document.getElementById('spe_demande').style.display = 'block';
+    // Safari iOS: Redessiner le menu pour que les changements soient appliqués
+    speDemande.style.display = 'inline-block';
+    speDemande.offsetHeight; // Déclenche un reflow pour forcer la mise à jour
+    speDemande.style.display = '';
 });
 
 // Initialisation des options en fonction de la valeur par défaut sélectionnée
