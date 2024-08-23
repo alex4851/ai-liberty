@@ -54,9 +54,10 @@ else{
 </header>
 
 <section class="new_ia">
-<a href="ia.php"><button class="button_back">Retour</button></a>
 
 <div class="chat_space">
+<a href="ia.php"><button class="button_back">Retour</button></a>
+
 <div id="chat-box"></div>
     <form id="chat-form" action="" method="post">
         <input type="text" id="message-input" name="message_content" placeholder="Entrez votre message">

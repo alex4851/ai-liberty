@@ -1278,6 +1278,8 @@ align-items: center;}
 #send-button{background: none;}
 #send-button img{width: 30px;}
 #chat-box {
+    margin-top: 20px;
+
         color: red;
         width: 100%;
         min-width: 300px;
