@@ -158,6 +158,11 @@ else{
             <label for="ia_description">URL image :</label>
             <textarea type="text" placeholder="Entrez l'url de l'image de l'IA ..." id="ia_img" name="ia_img" required></textarea> <br />
             
+            <div class="hidden">
+                <label for="modification">IA ajoutée par :</label>
+                <input type="text" value="<?php echo $_SESSION['nom']; ?>" id="modification" name="modification" ><br/>
+            </div>
+
             <input type="submit" value="Ajouter IA" name="add_ia" class="add_ia">
 </form>
 </section>
@@ -173,7 +178,7 @@ if(isset($_POST['add_ia'])){
     extract($_POST);
     
     $date = date('l jS \of F Y h:i:s A');
-    $requete = $bdd->prepare("INSERT INTO ia_infos VALUES (0, :nom, :ia_url, :prix, :iatype, :specialite, :ia_description, :affiliation, :coup_de_coeur, :ajout, :ia_description_short, :ia_img, :niveau)");
+    $requete = $bdd->prepare("INSERT INTO ia_infos VALUES (0, :nom, :ia_url, :prix, :iatype, :specialite, :ia_description, :affiliation, :coup_de_coeur, :ajout, :ia_description_short, :ia_img, :niveau, :modification)");
     $requete->execute(
         array(
             "nom" => $nom,
@@ -188,6 +193,7 @@ if(isset($_POST['add_ia'])){
             "ia_description_short" => $ia_description_short,
             "ia_img" => $ia_img,
             "niveau" => $niveau,
+            "modification" => $modification,
         )
     );
 }

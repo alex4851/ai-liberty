@@ -213,6 +213,7 @@ option, select, #submit, input{
     margin-right: 50px;
     background-color: #6b3bf4;
 }
+
 }
 /*Responsive header*/
 /*Fin responsive*/
@@ -258,7 +259,7 @@ option, select, #submit, input{
 }
 .right_section{
     width: 100%;
-    margin: 0;
+    margin-bottom: 50px;
     background-color: #19181d;
     height: 100%;
     padding: 0;
