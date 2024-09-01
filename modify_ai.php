@@ -174,7 +174,7 @@ if(isset($_GET['rechercher'])){
             <input type="text" name="spe_demande" id="spe_demande" value="<?php echo $result["specialite"]; ?>"> <br />
 
             <label for="niveau">Niveau :</label>
-            <input type="text" value="<?php echo $result["niveau"]; ?>" name="niveau" id="niveau" required><br/>
+            <input type="text" value="<?php echo $result["niveau"]; ?>" name="niveau" id="niveau"><br/>
 
             <label for="affiliation">Affiliation : </label>
             <input type="text" name="affiliation" id="affiliation" value="<?php echo $result["affiliation"]; ?>"><br />
