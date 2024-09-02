@@ -91,7 +91,7 @@ if(isset($_POST['valider_niveau'])) {
                         <li><label for="insta">Instagram : </label><input type="text" name="insta" value="<?php if(isset($_SESSION["insta"])){echo $_SESSION["insta"];} ?>"></li>
                     </ul>
                                 
-                    <input type="submit" value="Modifier" name="valider_niveau">
+                    <input type="submit" value="Modifier" id="submit" name="valider_niveau">
                 </form>
 </section>
                 
