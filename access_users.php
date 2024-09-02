@@ -79,7 +79,7 @@ else{
         <div class="user_info">
             <div class="info_header">
                 <h1>Nom : <?php echo $row2['nom']; ?></h1>
-                <form method="post" action=""><div class="hidden"><input type="int" name="id_deleted_user" value="<?php echo $row2['id']; ?>"></div><button type="submit" class="delete_user" name="delete_user"><img class="delete_user" src="img/trash.png" alt="supprimer"></button></form>
+                <?php if($row2['id'] != 84){?><form method="post" action=""><div class="hidden"><input type="int" name="id_deleted_user" value="<?php echo $row2['id']; ?>"></div><button type="submit" class="delete_user" name="delete_user"><img class="delete_user" src="img/trash.png" alt="supprimer"></button></form><?php } ?>
             </div>
             <p>ID : <?php echo $row2['id']; ?></p>
             <p>Niveau : <?php echo $row2['niveau']; ?></p>
