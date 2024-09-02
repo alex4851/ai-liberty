@@ -691,7 +691,37 @@ padding: 0;
 }
 /*Fin admin sector*/
 
+/*Debut users info*/
+.users_info{
+    display: flex;
+    flex-wrap: wrap;
+}
+.user_info{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 10px;
+}
+.user_info .info_header{
+    align-items: center;
+    width: 300px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+.user_info h1, p{
 
+    color: #09070d;
+}
+.delete_user{
+    background-color: white;
+    height: 50px;
+    width: 50px;
+}
 
 /*Debut new_ia*/
 .new_ia{

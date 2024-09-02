@@ -1,14 +1,21 @@
 <?php
 session_start();
+
 if(isset($_SESSION['email']) and isset($_SESSION['mdp']) and $_SESSION['ia_admin']=='true')
 {
   include("bdd.php");
+  if(isset($_POST['delete_user'])){
+    extract($_POST);
+    $sql = "DELETE FROM users WHERE id = :id";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindValue(":id", $id_deleted_user, PDO::PARAM_INT);
+    $stmt->execute();
+}
 }
 else{
     header('Location:connexion.php');
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,13 +23,12 @@ else{
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Spinnaker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="website icon" type="png" href="img/admin.png">
+    <link rel="website icon" type="png" href="img/logo_head.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IA TOOLS</title>
-    
 </head>
-<body <?php if(!isset($_SESSION['nom'])){echo 'class="body_pas_co"';} ?> >
+ <?php if(!isset($_SESSION['nom'])){echo 'class="body_pas_co"';} ?>
 
 <header <?php if(isset($_SESSION['nom'])){echo 'class="connecte"';}else{echo 'class="pas-co"';}?> id="complet">
     <nav class="nav">
@@ -52,38 +58,38 @@ else{
                 }
             ?>      
         </ul>
-        <script src="navigation.js"></script>       
     </nav>
 </header>
 
+<section class="new_ia">
+    <div class="users_info">
+        <?php 
+        $res = $bdd->prepare("SELECT * FROM users");
+        $res->setFetchMode(PDO::FETCH_ASSOC);
+        $res->execute();
+        $ans = $res->fetchAll();
+        foreach ($ans as $row) {
+            $sql = "SELECT * FROM users WHERE id = :ia_id ";
+            $stmt = $bdd->prepare($sql);
+            $stmt->bindValue(":ia_id", $row['id'], PDO::PARAM_INT);
+            $stmt->execute();
+            $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
+        ?>
 
-<div class="content">
-    <div class="content_admin">
-        <h1>Tools :</h1>
-        <section class="tools"> 
-            <a href="add_ia.php"><button>Add a new ia</button></a>
-            <a href="modify_ai.php"><button>Modify an ia</button></a>
-            <a href="chat.php"><button>Acces the chat</button></a>
-            <a href="https://auth-db1347.hstgr.io/index.php?db=u128521172_bdd" target="_blank"><button>Access the data base</button></a>
-            <a href="access_users.php"><button>Access users</button></a>
-        </section>
-        <h1>Statistiques :</h1>
-        <section class="stats">
-            <p>Nombre d'utilisateurs connectés :</p>
-            <p>Nombre d'inscrits : <?php
-            $res = $bdd->prepare("SELECT nom FROM users");
-            $res->setFetchMode(PDO::FETCH_ASSOC);
-            $res->execute();
-            $user_nombre = $res->fetchAll();
-            echo count($user_nombre); ?></p>
-            <p>Nombre d'IA dans la data base : <?php
-            $res = $bdd->prepare("SELECT nom FROM ia_infos");
-            $res->setFetchMode(PDO::FETCH_ASSOC);
-            $res->execute();
-            $ia_nombre = $res->fetchAll();
-            echo count($ia_nombre); ?> </p>
-        </section>
-    </div>           
-</div>
-            
+        <div class="user_info">
+            <div class="info_header">
+                <h1>Nom : <?php echo $row2['nom']; ?></h1>
+                <form method="post" action=""><div class="hidden"><input type="int" name="id_deleted_user" value="<?php echo $row2['id']; ?>"></div><button type="submit" class="delete_user" name="delete_user"><img class="delete_user" src="img/trash.png" alt="supprimer"></button></form>
+            </div>
+            <p>ID : <?php echo $row2['id']; ?></p>
+            <p>Niveau : <?php echo $row2['niveau']; ?></p>
+            <p>Is admin : <?php echo $row2['ia_admin']; ?></p>
+            <p>Date d'inscription : <?php echo $row2['date_inscription']; ?></p>
+            <p>Email : <?php echo $row2['email']; ?></p>
+        </div>
+
+        <?php } ?>
+    </div>
+</section>
 </body>
+</html>
