@@ -7,6 +7,20 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
 else{
     header('Location:connexion.php');
 }
+if(isset($_POST['valider_niveau'])) {
+    extract($_POST);
+
+        $requete = $bdd->prepare("UPDATE users SET nom = :nom, niveau = :niveau, insta = :insta  WHERE id = :id");
+        $requete->bindParam(':nom', $nom_user);
+        $requete->bindParam(':niveau', $niveau);
+        $requete->bindParam(':insta', $insta);
+        $requete->bindParam(':id', $_SESSION['id']);
+        $requete->execute();
+        $_SESSION['nom'] = $nom_user;
+        $_SESSION['niveau'] = $niveau;
+        $_SESSION['insta'] = $insta;
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -53,22 +67,40 @@ else{
     </nav>
 </header>
 
+<?php if(isset($_SESSION['nom'])){ ?>
 
 <main class="content">
 <section class="user_main">
     <div class="user_header">
-        <h1>Infos sur mon compte : </h1> 
-        <button class="edit"><a href="user_edit.php"><img src="img/edit.png" alt="edit button"></a></button>
+        <h1>Modifier mon compte : </h1> 
     </div>
-<ul>
-    <li>Nom : <?php if(isset($_SESSION["nom"])){echo $_SESSION["nom"];} ?></li> 
-    <li>Adresse mail : <?php if(isset($_SESSION["email"])){echo $_SESSION["email"];} ?></li>
-    <li>Date d'inscription : <?php if(isset($_SESSION["date_inscription"])){echo $_SESSION["date_inscription"];} ?></li>
-    <li>Niveau : <?php if(isset($_SESSION["niveau"])){echo $_SESSION["niveau"];} ?></li>
-    <li>Instagram : <?php if(isset($_SESSION["insta"])){echo $_SESSION["insta"];} ?></li>
-</ul>
-</section>
+                <form method="post" action="user_edit.php">
 
+                    <ul>
+                        <li><label for="nom_user">Nom : </label><input type="text" name="nom_user" value="<?php if(isset($_SESSION["nom"])){echo $_SESSION["nom"];} ?>"></li> 
+                        <li>Adresse mail :  <?php if(isset($_SESSION["email"])){echo $_SESSION["email"];} ?></li>
+                        <li>Date d'inscription : <?php if(isset($_SESSION["date_inscription"])){echo $_SESSION["date_inscription"];} ?></li>
+                        <li><label for="niveau">Niveau : </label>
+                                        <select name="niveau" id="niveau" required>
+                                            <option value="lyceen" >Lycéen</option>
+                                            <option value="entrepreneur">Entrepreneur</option>
+                                            <option value="professionnel">Professionnel</option>
+                                            <option value="content_creator">Créateur de contenu</option>
+                                            <option value="undefined">Aucun</option>
+                                        </select></li>
+                        <li><label for="insta">Instagram : </label><input type="text" name="insta" value="<?php if(isset($_SESSION["insta"])){echo $_SESSION["insta"];} ?>"></li>
+                    </ul>
+                                
+                    <input type="submit" id="submit" name="valider_niveau">
+                </form>
+</section>
+                
+
+<?php }
+else {echo "Connectez vous";}
+
+
+?>
 
 </main>
 </body>

@@ -674,20 +674,28 @@ padding: 0;
     width: min-content;
     height: min-content;
 }
+.content_admin p{
+    color: white;
+}
 .tools{
     display: flex;
     flex-wrap: wrap;
 }
 .tools button{
+    transition: all 0.4s;
+
     display: flex;
     text-align: center;
     align-items: center;
-    height: 30px;
-    width:300px;
-    margin: 40px;
+    height: 50px;
+    width:200px;
+    margin: 40px 15px;
     border-radius: 20px;
     font-size: 1.3em;
     color: #09070d;
+}
+.tools button:hover {
+    background-color: #6b3bf4;
 }
 /*Fin admin sector*/
 
@@ -1338,4 +1346,18 @@ align-items: center;}
 }
 .chat_nom_admin{
     color: red;
+}
+
+
+
+.user_header{
+    display: flex;
+}
+.edit{
+    background-color: transparent;
+}
+.edit img{
+    margin-left: 40px;
+    width: 30px;
+    height: 30px;
 }

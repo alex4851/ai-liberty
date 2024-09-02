@@ -14,7 +14,7 @@ if(isset($_POST['ok'])){
         if($email_verif_test == ""){
             
             $pass = md5($pass);
-            $requete = $bdd->prepare("INSERT INTO users VALUES (0, :nom, :niveau, :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme)");
+            $requete = $bdd->prepare("INSERT INTO users VALUES (0, :nom, :niveau, :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme, :insta)");
             $requete->execute(
                 array(
                     "nom" => $prenom,
@@ -25,6 +25,7 @@ if(isset($_POST['ok'])){
                     "ia_admin" => $ia_admin,
                     "cle" => $cle,
                     "confirme" => 0,
+                    "insta" => "",
                 )   
             );
             $requete = $bdd->prepare("SELECT * FROM users WHERE email = :email and mdp = :mdp");

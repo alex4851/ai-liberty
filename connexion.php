@@ -99,7 +99,7 @@ if(isset($_POST['connexion'])){
             $_SESSION['email'] = $data['email'];
             $_SESSION['date_inscription'] = $data['date_inscription'];
             $_SESSION['ia_admin'] = $data['ia_admin'];
-            
+            $_SESSION['insta'] = $data['insta'];
             header("Location: index.php");
         }
     }
