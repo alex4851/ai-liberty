@@ -196,7 +196,7 @@ if(isset($_GET['rechercher'])){
                 <label for="modification">IA modifiée par :</label>
                 <input type="text" value="<?php echo $_SESSION['nom']; ?>" id="modification" name="modification" ><br/>
             </div>
-
+            <p>Dernière modification faite par <?php echo $result['modification']; ?> </p>
             <input type="submit" value="Modifier <?php echo $result["nom"]; ?>" name="modifier_ia" class="modifier_ia">
 </form>
 
