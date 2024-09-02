@@ -9,7 +9,6 @@ else{
 }
 if(isset($_POST['valider_niveau'])) {
     extract($_POST);
-
         $requete = $bdd->prepare("UPDATE users SET nom = :nom, niveau = :niveau, insta = :insta  WHERE id = :id");
         $requete->bindParam(':nom', $nom_user);
         $requete->bindParam(':niveau', $niveau);
@@ -19,6 +18,7 @@ if(isset($_POST['valider_niveau'])) {
         $_SESSION['nom'] = $nom_user;
         $_SESSION['niveau'] = $niveau;
         $_SESSION['insta'] = $insta;
+        header('Location:user.php');
 
 }
 ?>
@@ -74,7 +74,7 @@ if(isset($_POST['valider_niveau'])) {
     <div class="user_header">
         <h1>Modifier mon compte : </h1> 
     </div>
-                <form method="post" action="user_edit.php">
+                <form method="post" action="">
 
                     <ul>
                         <li><label for="nom_user">Nom : </label><input type="text" name="nom_user" value="<?php if(isset($_SESSION["nom"])){echo $_SESSION["nom"];} ?>"></li> 
