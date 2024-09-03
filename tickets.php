@@ -1,6 +1,12 @@
 <?php
-include("bdd.php");
 session_start();
+if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
+{
+  include("bdd.php");
+}
+else{
+    header('Location:connexion.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -9,21 +15,19 @@ session_start();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Spinnaker&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <link rel="website icon" type="png" href="img/logo_head.png">
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IA TOOLS</title>
 </head>
-
-<body <?php if(!isset($_SESSION['nom'])){echo 'class="body_pas_co"';} ?> >
-
+<body>
 <header <?php if(isset($_SESSION['nom'])){echo 'class="connecte"';}else{echo 'class="pas-co"';}?> id="complet">
     <nav class="nav">
         <a href="index.php"><h1><img class="logo" src="img/logo.png"></h1></a>
         <ul class="nav-bar">
             <div class="ligne"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
-            <div class="ligne"  id="active"><a href="more.php"><img src="img/news.png"><li>Nouveautées</li></a></div>
+            <div class="ligne" id="active"><a href="more.php"><img src="img/news.png"><li>Nouveautées</li></a></div>
             <?php 
             if(isset($_SESSION['ia_admin'])){
                 if($_SESSION["ia_admin"] === "true"){
@@ -36,7 +40,7 @@ session_start();
                 if(isset($_SESSION['nom']))
                 { ?>   
                        
-                        <div class="ligne"><a href="user.php"><img src="img/account.png"><li>Mon compte</li></a></div>   
+                        <div class="ligne" ><a href="user.php"><img src="img/account.png"><li>Mon compte</li></a></div>   
                         <div class="ligne"><a href="logout.php"><img src="img/logout.png"><li>Se déconnecter</li></a></div>
                     
                 <?php  }
@@ -46,16 +50,47 @@ session_start();
                 }
             ?>      
         </ul>
-        <script src="navigation.js"></script>       
     </nav>
 </header>
 
-<div class="content">
-    <h2>Vous pouvez désormais nous envoyer des tickets pour nous remonter des problèmes techniques ou des propositions :</h2>
-    <button class="button1"><a href="tickets.php">See more</a></button>
 
-</div>
+<main class="content_tickets">
+<div class="ticket-container">
+        <h1>Formulaire de Ticket</h1>
+        <form action="tickets.php" method="POST">
+            
+            <label for="sujet">Sujet:</label>
+        
+
+            <select name="sujet" id="sujet">
+                <option value="technique">Problème technique</option>
+                <option value="proposition">Proposition d'amélioration</option>
+                <option value="bully">Insécurité</option>
+                <option value="autre">Autre ...</option>
+            </select>
+            
+            <label for="description">Description:</label>
+            <textarea placeholder="Dévellopez" id="description" name="description" rows="5" required></textarea>
+            
+            <button name="submit_ticket" type="submit_ticket">Envoyer le Ticket</button>
+            <?php
+if(isset($_POST['submit_ticket'])){
+    extract($_POST);
+    $sql = "INSERT INTO tickets (user_id , class , content) VALUES ( :user_id , :class, :content)";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
+    $stmt->bindValue(':class', $sujet, PDO::PARAM_STR);
+    $stmt->bindValue(':content', $description, PDO::PARAM_STR);
+    $stmt->execute();
+    echo "<p>Ticket bien envoyé !</p>";
+}
+
+?>
+        </form>
+    </div>
 
 
+
+</main>
 </body>
 </html>

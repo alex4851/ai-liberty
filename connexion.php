@@ -89,7 +89,7 @@ if(isset($_POST['connexion'])){
         }
         */
         if($data == ""){
-            echo "Email ou mot de passe incorrect !";
+            echo "<p class='co_error'>Email ou mot de passe incorrect !</p>";
         }
         else{
             $_SESSION['id'] = $data['id'];

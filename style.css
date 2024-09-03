@@ -1367,3 +1367,76 @@ align-items: center;}
     width: 30px;
     height: 30px;
 }
+
+
+
+/* Reset des styles par défaut */
+body, h1, label, input, textarea, button {
+    box-sizing: border-box;
+}
+
+.content_tickets{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Conteneur principal du formulaire */
+.ticket-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Titre du formulaire */
+.ticket-container h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+}
+
+/* Styles pour les champs de formulaire */
+.ticket-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.ticket-container input[type="text"],
+.ticket-container input[type="email"],
+.ticket-container textarea {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #09070d;
+}
+
+/* Styles pour le bouton d'envoi */
+.ticket-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #6b3bf4;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.ticket-container button:hover {
+    background-color: #5a2bd9;
+}
+.ticket-container p{
+    color: #09070d;
+    text-align: center;
+}
+.co_error {color: #09070d; text-align: center;}

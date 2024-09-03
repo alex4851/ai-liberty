@@ -140,12 +140,12 @@ if(isset($_POST['ok'])){
             <?php
             if(isset($_POST['ok'])){
             if(isset($pass) and $pass != $pass2){
-                echo '<p>Mots de passe différents</p>';
+                echo '<p class="co_error">Mots de passe différents</p>';
             }
             $email_verif = $bdd->query("SELECT * FROM users WHERE email = '$email'");
             $email_verif_test = $email_verif->fetch();
             if($email_verif_test !== ""){
-                echo "<h5>Email déjà utilisé</h5>";
+                echo "<p class='co_error'>Email déjà utilisé</p>";
             }
          } ?>
         </form>

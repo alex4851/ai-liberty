@@ -60,8 +60,11 @@ else{
         </ul>
     </nav>
 </header>
+<body>
+<a href="ia.php"><button class="button_back">Retour</button></a>
 
 <section class="new_ia">
+
     <div class="users_info">
         <?php 
         $res = $bdd->prepare("SELECT * FROM users");
