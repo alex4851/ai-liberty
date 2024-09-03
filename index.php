@@ -338,7 +338,6 @@ session_start();
 <div class="container"></div>
 
 <div class="pas_co_content">
-    <div class="pas_co_content">
         <section class="welcomer">
             <div class="name_ai">AI LIBERTY</div>
 
@@ -353,12 +352,9 @@ session_start();
             </div>
         </section>
         <aside class="image">
-            <video  autoplay loop muted playsinline style="max-width: 1000px; width: 80%;">
-                <source src="img/quest_vid.mp4" type="video/mp4" />
-            </video>
+            <img src="img/exemple.jpg" alt="image de l'accueil">
         </aside>
-</div>
-
+<!--
 <div id="pres" class="favorite_welcomer">
         <aside class="image">
             <video  autoplay loop muted playsinline style="max-width: 1000px; width: 80%;">
@@ -379,10 +375,10 @@ session_start();
                 <source src="img/niv_vid.mp4" type="video/mp4" />
             </video>
         </aside>
-        </div>
+        </div>                -->
+
 </div>
-    
-     
+
          <?php }?>
 
 </body>
