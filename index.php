@@ -353,33 +353,34 @@ session_start();
             </div>
         </section>
         <aside class="image">
-            <img src="img/exemple.jpg">
+            <video  autoplay loop muted playsinline style="max-width: 1000px; width: 80%;">
+                <source src="img/quest_vid.mp4" type="video/mp4" />
+            </video>
         </aside>
 </div>
-<!--
-<div class="favorite_welcomer">
+
+<div id="pres" class="favorite_welcomer">
         <aside class="image">
-            <video  autoplay loop muted playsinline style="width: 600px;">
+            <video  autoplay loop muted playsinline style="max-width: 1000px; width: 80%;">
                 <source src="img/favorite_vid.mp4" type="video/mp4" />
             </video>
         </aside>
         <section class="welcomer">
-            <h1>Accédez à vos IA facilement en les ajoutants aux favoris</h1>
+            <h5>Accédez à vos IA facilement en les ajoutants aux favoris</h5>
         </section>
 </div>
 
-  <div class="niveau_welcomer">      
+  <div id="pres" class="niveau_welcomer">      
         <section class="welcomer">
-            <h1>Vous pouvez choisir un niveau pour que nous vous proposions des IA pour vous</h1>
+            <h5>Vous pouvez choisir un niveau pour que nous vous proposions des IA pour vous</h5>
         </section>
         <aside class="image">
-            <video  autoplay loop muted playsinline style="width: 600px;">
-                <source src="img/favorite_vid.mp4" type="video/mp4" />
+            <video  autoplay loop muted playsinline style="max-width: 1000px; width: 80%;">
+                <source src="img/niv_vid.mp4" type="video/mp4" />
             </video>
         </aside>
         </div>
 </div>
-                -->
     
      
          <?php }?>
