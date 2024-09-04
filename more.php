@@ -52,7 +52,7 @@ session_start();
 
 <div class="content">
     <h2>Vous pouvez désormais nous envoyer des tickets pour nous remonter des problèmes techniques ou des propositions :</h2>
-    <button class="button1"><a href="tickets.php">See more</a></button>
+    <a href="tickets.php"><button class="button1">See more</button></a>
 
 </div>
 
