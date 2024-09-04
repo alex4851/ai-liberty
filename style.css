@@ -566,7 +566,6 @@ padding: 0;
     background-color: #fff;
     border: 1px solid #ccc;
   }
-  
   .input-icon {
     height: 1.3em;
     width: 1.3em;
@@ -1123,10 +1122,7 @@ padding: 0;
     color: #141317;
 }
 
-.card_quest select,
-.card_quest input[type="text"],
-.card_quest input[type="email"],
-.card_quest input[type="password"] {
+.card_quest select {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -1283,9 +1279,7 @@ padding: 0;
         .card_quest{
             width: 200px;
         }
-        #card_d input{
-            width: 200px;
-        }
+
         .wrapper {
             display: flex;
             width: 180px;
@@ -1390,7 +1384,6 @@ body, h1, label, input, textarea, button {
     width: 100%;
     max-width: 500px;
 }
-
 /* Titre du formulaire */
 .ticket-container h1 {
     margin-bottom: 20px;
@@ -1417,6 +1410,7 @@ body, h1, label, input, textarea, button {
     border-radius: 4px;
     font-size: 16px;
     color: #09070d;
+    height: 100px;
 }
 
 /* Styles pour le bouton d'envoi */
@@ -1440,3 +1434,11 @@ body, h1, label, input, textarea, button {
     text-align: center;
 }
 .co_error {color: #09070d; text-align: center;}
+.ticket_ans{
+    height: 500px;
+    width: 400px;
+}
+#ticket_admin{
+    display: flex;
+    flex-wrap: wrap;
+}

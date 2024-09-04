@@ -60,14 +60,14 @@ else{
         </ul>
     </nav>
 </header>
-<body>
+<body >
 <a href="ia.php"><button class="button_back">Retour</button></a>
 
-<section class="new_ia">
+<section class="new_ia" id="ticket_admin">
 
     <div class="users_info">
         <?php 
-        $res = $bdd->prepare("SELECT * FROM tickets");
+        $res = $bdd->prepare("SELECT * FROM tickets WHERE solved != 'oui'");
         $res->setFetchMode(PDO::FETCH_ASSOC);
         $res->execute();
         $ans = $res->fetchAll();
@@ -81,10 +81,16 @@ else{
 
         <div class="user_info">
             <div class="info_header">
-                <h1>Nom : <?php echo $row2['id']; ?></h1>
+                <h1>Envoyé par : <?php 
+                $sql2 = "SELECT * FROM users WHERE id = :id";
+                $res = $bdd->prepare($sql2);
+                $res->bindValue(":id", $row2['user_id'], PDO::PARAM_INT);
+                $res->execute();
+                $name = $res->fetch(PDO::FETCH_ASSOC);
+                echo $name['nom']; ?></h1>
                 <?php if($row2['id'] != 84){?><form method="post" action=""><div class="hidden"><input type="int" name="id_deleted_user" value="<?php echo $row2['id']; ?>"></div><button type="submit" class="delete_ticket" name="delete_user"><img class="delete_user" src="img/trash.png" alt="supprimer"></button></form><?php } ?>
             </div>
-            <p>ID : <?php echo $row2['id']; ?></p>
+            <p>ID du ticket: <?php echo $row2['id']; ?></p>
             <p>Type de ticket : <?php echo $row2['class']; ?></p>
             <p>Contenu : <?php echo $row2['content']; ?></p>
             <p>Date d'envoi du ticket : <?php echo $row2['ticket_time']; ?></p>
@@ -92,6 +98,75 @@ else{
 
         <?php } ?>
     </div>
+
+<section class="ticket_ans">
+<div class="ticket-container">
+        <h1>Réponse de Ticket</h1>
+        <form action="tickets_admin.php" class="form_ticket_admin" method="POST">
+            <label for="ticket">Ticket (ID) : </label>
+            <input type="int" name="id_ticket"> <br>
+
+            <label for="solve">Résolu :</label>
+                <div class="wrapper_container">
+                    <div class="wrapper">
+                        <input value="oui" id="oui" name="solved" type="radio" class="state" />
+                        <label for="oui" class="label">
+                            <div class="label_2">
+                                <div class="indicator"></div>
+                                <span class="text">Oui</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="wrapper">
+                        <input value="non" id="non" name="solved" type="radio" class="state" />
+                        <label for="non" class="label">
+                            <div class="label_2">
+                                <div class="indicator"></div>
+                                <span class="text">Non</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+            <label for="description">Réponse à l'auteur du ticket :</label>
+            <textarea placeholder="Dévellopez" id="ex" name="ex" rows="5" required></textarea>
+            
+            <button name="submit_ticket_verif" type="submit_ticket">Envoyer le Ticket</button>
+    
+
+<?php
+if(isset($_POST['submit_ticket_verif'])){
+    extract($_POST);
+    $sql = "UPDATE tickets SET solved = :solved WHERE id = :id";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindValue(':solved', $solved, PDO::PARAM_STR);
+    $stmt->bindValue(':id', $id_ticket, PDO::PARAM_INT);
+    $stmt->execute();
+    $sql = "SELECT * FROM tickets WHERE id = :id";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindValue(':id', $id_ticket, PDO::PARAM_INT);
+    $stmt->execute();
+    $row2 = $stmt->fetch();
+    $receiver = $row2["user_id"];
+
+    $sql = "INSERT INTO private_messages (sender_id, receiver_id, content, is_read) VALUES (:sender_id, :receiver_id, :content, :is_read)";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindValue(':sender_id', $_SESSION['id'], PDO::PARAM_INT);
+    $stmt->bindValue(':receiver_id', $receiver, PDO::PARAM_INT);
+    $stmt->bindValue(':content', $ex, PDO::PARAM_STR);
+    $stmt->bindValue(':is_read', 'False', PDO::PARAM_STR);
+    $stmt->execute();
+
+    
+    echo "<p>Ticket bien submit !</p>";
+}
+
+?>
+        </form>
+    </div>
 </section>
+</section>
+
+
 </body>
 </html>

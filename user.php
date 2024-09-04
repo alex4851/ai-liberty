@@ -60,14 +60,48 @@ else{
         <h1>Infos sur mon compte : </h1> 
         <button class="edit"><a href="user_edit.php"><img src="img/edit.png" alt="edit button"></a></button>
     </div>
-<ul>
-    <li>Nom : <?php if(isset($_SESSION["nom"])){echo $_SESSION["nom"];} ?></li> 
-    <li>Adresse mail : <?php if(isset($_SESSION["email"])){echo $_SESSION["email"];} ?></li>
-    <li>Date d'inscription : <?php if(isset($_SESSION["date_inscription"])){echo $_SESSION["date_inscription"];} ?></li>
-    <li>Niveau : <?php if(isset($_SESSION["niveau"])){echo $_SESSION["niveau"];} ?></li>
-    <li>Instagram : <?php if(isset($_SESSION["insta"])){echo $_SESSION["insta"];} ?></li>
-</ul>
+    <ul>
+        <li>Nom : <?php if(isset($_SESSION["nom"])){echo $_SESSION["nom"];} ?></li> 
+        <li>Adresse mail : <?php if(isset($_SESSION["email"])){echo $_SESSION["email"];} ?></li>
+        <li>Date d'inscription : <?php if(isset($_SESSION["date_inscription"])){echo $_SESSION["date_inscription"];} ?></li>
+        <li>Niveau : <?php if(isset($_SESSION["niveau"])){echo $_SESSION["niveau"];} ?></li>
+        <li>Instagram : <?php if(isset($_SESSION["insta"])){echo $_SESSION["insta"];} ?></li>
+    </ul>
 </section>
+
+<div class="user_message">
+        <h3>Mes notifications privées : </h3> 
+            <?php
+            $sql = "SELECT * FROM private_messages WHERE receiver_id = :id ";
+            $res = $bdd->prepare($sql);
+            $res->bindValue(":id", $_SESSION['id'], PDO::PARAM_INT);
+            $res->execute();
+            $ans = $res->fetchAll();
+            foreach ($ans as $row) {
+                $sql = "SELECT * FROM private_messages WHERE id = :id ";
+                $stmt = $bdd->prepare($sql);
+                $stmt->bindValue(":id", $row['id'], PDO::PARAM_INT);
+                $stmt->execute();
+                $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
+            ?>
+            <p>Message de <?php 
+            $sql2 = "SELECT * FROM users WHERE id = :id";
+            $res = $bdd->prepare($sql2);
+            $res->bindValue(":id", $row2['sender_id'], PDO::PARAM_INT);
+            $res->execute();
+            $name = $res->fetch(PDO::FETCH_ASSOC);
+            echo $name['nom']; 
+            ?>  : <?php echo $row2['content']; ?></p>
+            <?php } ?>
+
+</div>
+
+
+
+
+
+
+
 
 
 </main>
