@@ -182,7 +182,7 @@ if(isset($_POST['valider']) ){
 
 
 <?php
-if(isset($_POST['valider']) OR isset($_POST['submit_ia']) AND $confirme == 1){
+if(isset($_POST['valider']) OR isset($_POST['submit_ia'])){
    
     ##Pour l'IA
     if(isset($_POST["prix_demande"])){
