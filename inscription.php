@@ -2,7 +2,7 @@
 include('bdd.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+$message_email_fail = "";
 require 'phpmailer/vendor/autoload.php';
 session_start();
 
@@ -18,6 +18,7 @@ if(isset($_POST['ok'])){
         if($email_verif_test == ""){
             
             $pass = md5($pass);
+            $pass2 = md5($pass2);
             $requete = $bdd->prepare("INSERT INTO users VALUES (0, :nom, :niveau, :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme, :insta)");
             $requete->execute(
                 array(
@@ -82,7 +83,7 @@ try {
             }
         }
         else{
-            
+            $message_email_fail = "<p class='co_error'>Email déjà utilisé</p>";
         }
     }
 }
@@ -179,12 +180,10 @@ try {
             if(isset($pass) and $pass != $pass2){
                 echo '<p class="co_error">Mots de passe différents</p>';
             }
-            if(@$message_alert == "show"){echo 'Email de vérification envoyé à '.$email. ". Merci de revenir une fois l'opération effectuée";}
-            $email_verif = $bdd->query("SELECT * FROM users WHERE email = '$email'");
-            $email_verif_test = $email_verif->fetch();
-            if($email_verif_test !== ""){
-                echo "<p class='co_error'>Email déjà utilisé</p>";
-            }
+            if(@$message_alert == "show"){echo '<p class="co_error">Email de vérification envoyé à '.$email. '. Merci de revenir une fois effectuée<p>';}
+
+            echo $message_email_fail;
+
          } ?>
 
          
