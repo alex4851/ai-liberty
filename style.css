@@ -350,9 +350,15 @@ option, select, #submit, input{
         text-align: center;
     }
     .image{
+        width: 100%;
         display: flex;
         justify-content: center;
     }
+    .image img{
+        width: 80%;
+        height: 80%;
+    }
+
 }
 .container {
     position: fixed;
@@ -1394,6 +1400,7 @@ body, h1, label, input, textarea, button {
     flex-wrap: wrap;
     align-items: center;
     width: 100%;
+    margin-bottom: 100px;
 }
 
 .feature-card {

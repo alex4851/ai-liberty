@@ -1,6 +1,12 @@
 <?php
-include("bdd.php");
 session_start();
+if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
+{
+  include("bdd.php");
+}
+else{
+    header('Location:connexion.php');
+}
 ?>
 
 <!DOCTYPE html>
