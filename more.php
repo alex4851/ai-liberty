@@ -50,11 +50,45 @@ session_start();
     </nav>
 </header>
 
-<div class="content">
-    <h2>Vous pouvez désormais nous envoyer des tickets pour nous remonter des problèmes techniques ou des propositions :</h2>
-    <a href="tickets.php"><button class="button1">See more</button></a>
+<section class="reste-more">
 
+<div class="feature-card">
+    <div class="card-header">
+      <h2>Derniers ajouts :</h2>
+    </div>
+    <div class="card-body">
+      <p class="feature-description">
+        Nous avons ajouté une section pour pouvoir nous faire des retours !
+      </p>
+      <ul class="feature-list">
+        <li>✔️ Fonctionnalitées 1 : Système de tickets</li>
+        <li>✔️ Fonctionnalitées 2 : Modification des infos de votre compte dans "Mon compte"</li>
+        <li>✔️ Fonctionnalitées 3 : Personnaliser vos recherche avec plus de critères</li>
+      </ul>
+      <a href="tickets.php" class="learn-more-btn">Accéder aux tickets</a>
+    </div>
 </div>
+
+<div class="feature-card">
+    <div class="card-header">
+      <h2>Arrive bientôt :</h2>
+    </div>
+    <div class="card-body">
+      <p class="feature-description">
+        Nous sommes en train de développer quelques nouvelles fonctionnalitées pour améliorer l'experience !
+      </p>
+      <ul class="feature-list">
+        <li>⏳ Fonctionnalitées 1 : Messagerie privée</li>
+        <li>⏳ Fonctionnalitées 2 : Espace de discussion en groupe</li>
+        <li>⏳ Fonctionnalitées 3 : Ajout de nouvelles IA</li>
+      </ul>
+      <a href="sharing_space.php" class="learn-more-btn">Espace de partage</a>
+    </div>
+</div>
+
+
+
+</section>
 
 
 </body>

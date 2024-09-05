@@ -1305,65 +1305,6 @@ padding: 0;
 
 
 
-/*Chat*/
-
-.chat_space{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-.chat_space form{display: flex;
-align-items: center;}
-#send-button{background: none;}
-#send-button img{width: 30px;}
-#chat-box {
-    margin-top: 20px;
-
-        color: red;
-        width: 100%;
-        min-width: 300px;
-        height: 400px;
-        overflow-y: scroll;
-        border: 1px solid #ccc;
-         
-    }
-.date{color: grey;}
-.message{
-    width: auto;
-    color: black;
-    background-color: white;
-    margin: 20px;
-    padding: 15px;
-    border-radius: 15px;
-}
-    #message-input {
-        width: 100%;
-        min-width: 250px;
-        height: auto;
-    }
-.chat_nom{
-    color: #6b3bf4;
-}
-.chat_nom_admin{
-    color: red;
-}
-
-
-
-.user_header{
-    display: flex;
-}
-.edit{
-    background-color: transparent;
-}
-.edit img{
-    margin-left: 40px;
-    width: 30px;
-    height: 30px;
-}
-
-
-
 /* Reset des styles par défaut */
 body, h1, label, input, textarea, button {
     box-sizing: border-box;
@@ -1441,4 +1382,189 @@ body, h1, label, input, textarea, button {
 #ticket_admin{
     display: flex;
     flex-wrap: wrap;
+}
+
+
+
+
+/*New features*/
+.reste-more{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+}
+
+.feature-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    padding: 20px;
+    transition: transform 0.3s ease;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .feature-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card-header h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .card-body {
+    text-align: center;
+  }
+  
+  .feature-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  .feature-list {
+    list-style-type: none;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .feature-list li {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 8px;
+  }
+  
+  .learn-more-btn {
+    background-color: #6b3bf4;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+  }
+  
+  .learn-more-btn:hover {
+    background-color: #5a2bd9;
+  }
+
+
+
+
+
+
+
+
+
+
+
+/* Style de la boîte de chat */
+
+/*Chat*/
+
+
+
+
+
+.share_space{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#chat-box {
+    width: 900px;
+    height: 400px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    overflow-y: scroll;
+    background-color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* Style général des messages */
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 60%;
+    clear: both;
+    font-size: 14px;
+    line-height: 1.4;
+    color: black;
+
+}
+
+/* Messages envoyés par l'utilisateur (alignés à droite) */
+.message.right {
+    background-color: #dcf8c6;
+    float: right;
+    text-align: right;
+}
+
+/* Messages des autres utilisateurs (alignés à gauche) */
+.message.left {
+    background-color: #fff;
+    float: left;
+    text-align: left;
+}
+
+/* Couleur du nom pour un utilisateur admin */
+.admin .chat_nom {
+    color: red;
+    font-weight: bold;
+}
+
+/* Couleur du nom pour un utilisateur normal */
+.user .chat_nom {
+    color: blue;
+}
+
+/* Style pour les dates */
+.date {
+    font-size: 12px;
+    color: #999;
+}
+
+/* Effacement des floats après chaque message pour éviter le chevauchement */
+.message:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+#chat-form{display: flex; align-items: center; }
+#send-button{background: none;}
+#send-button img{width: 30px;}
+
+    #message-input {
+        width: 100%;
+        min-width: 250px;
+        height: auto;
+    }
+
+
+
+.user_header{
+    display: flex;
+}
+.edit{
+    background-color: transparent;
+}
+.edit img{
+    margin-left: 40px;
+    width: 30px;
+    height: 30px;
 }
