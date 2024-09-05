@@ -106,7 +106,8 @@ session_start();
 
 <div class="reste">
 
-
+<a href="sharing_space.php"><img id="chat_img" src="img/chat.png"></a>
+<a href="user.php"><img id="notif_img" src="img/notif.png"></a>
 
 <section class="mid_section">
     <div class="mid_section_part">
