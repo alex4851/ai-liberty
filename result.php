@@ -1,7 +1,11 @@
 <?php
-
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 include("bdd.php");
 session_start();
+
+
+require 'phpmailer/vendor/autoload.php';
 
              ##Pour favorite :
              @$user_id = $_SESSION['id'];
@@ -44,11 +48,12 @@ if(isset($_POST['valider']) ){
             echo '<p>Mots de passe différents</p><br/><INPUT TYPE="button" VALUE="RETOUR" onclick=" history.back();">';
         }
         else{
-            $cle = rand(1000000, 9999999);
+            $cle = bin2hex(random_bytes(16));
             $email_verif = $bdd->query("SELECT * FROM users WHERE email = '$email'");
             $email_verif_test = $email_verif->fetch();
             if($email_verif_test == ""){
                 if(isset($email) and isset($prenom)){
+                    $confirme = 0;
                     $pass = md5($pass);
                     $requete = $bdd->prepare("INSERT INTO users VALUES (0, :nom, :niveau, :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme, :insta)");
                     $requete->execute(
@@ -60,10 +65,40 @@ if(isset($_POST['valider']) ){
                             "date_inscription" => $date,
                             "ia_admin" => $ia_admin,
                             "cle" => $cle,
-                            "confirme" => 0,
+                            "confirme" => $confirme,
                             "insta" => "",
                         )   
                     );
+
+
+                    $mail = new PHPMailer(true);
+
+                    try {
+                        // Configurer le serveur SMTP
+                        $mail->isSMTP();
+                        $mail->Host = 'smtp.hostinger.com';  // Remplacez par votre serveur SMTP
+                        $mail->SMTPAuth = true;
+                        $mail->Username = $my_email;  // Votre email SMTP
+                        $mail->Password = $my_pass;  // Votre mot de passe SMTP
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                        $mail->Port = 587;
+                    
+                        // Destinataire
+                        $mail->setFrom($my_email, 'AI LIBERTY');
+                        $mail->addAddress($email);
+                    
+                        // Contenu de l'email
+                        $mail->isHTML(true);
+                        $mail->Subject = 'Confirmation de votre adresse e-mail';
+                        $mail->Body    = 'Cliquez sur le lien suivant pour vérifier votre adresse e-mail : 
+                        <a href="localhost/GITHUB_PROJECTS/ai-liberty/verify.php?code=' . $cle . '">Vérifier votre email</a>';
+                        
+                        $mail->send();
+                        $message_alert = "show";
+                    } catch (Exception $e) {
+                        echo "L'email n'a pas pu être envoyé. Erreur: {$mail->ErrorInfo}";
+                    }
+
                     $requete = $bdd->prepare("SELECT * FROM users WHERE email = :email and mdp = :mdp");
                     $requete->bindParam(':email', $email);
                     $requete->bindParam(':mdp', $pass);
@@ -78,6 +113,7 @@ if(isset($_POST['valider']) ){
                     $_SESSION['ia_admin']=$data['ia_admin'];
                 }
             }
+
             else{
                 echo 'Email déjà utilisé <br/> 
                 <INPUT TYPE="button" VALUE="RETOUR" onclick="history.back();">';
@@ -137,6 +173,8 @@ if(isset($_POST['valider']) ){
 
 <main class="content">
 
+<?php if(@$message_alert == "show"){echo 'Email de vérification envoyé à '.$email. ". Merci de revenir une fois l'opération effectuée";} ?>
+
 <input class="button_back" type="button" value="RETOUR" onclick="history.back();">
 
 <div class="resultat_reste">
@@ -144,7 +182,7 @@ if(isset($_POST['valider']) ){
 
 
 <?php
-if(isset($_POST['valider']) OR isset($_POST['submit_ia'])){
+if(isset($_POST['valider']) OR isset($_POST['submit_ia']) AND $confirme == 1){
    
     ##Pour l'IA
     if(isset($_POST["prix_demande"])){

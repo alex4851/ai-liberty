@@ -1,16 +1,20 @@
 <?php
 include('bdd.php');
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
+require 'phpmailer/vendor/autoload.php';
 session_start();
 
 if(isset($_POST['ok'])){
     extract($_POST);
-    $cle = rand(1000000, 9999999);
+    $cle = bin2hex(random_bytes(16));
     if(isset($pass) and $pass != $pass2){
     }
     else{
         $email_verif = $bdd->query("SELECT * FROM users WHERE email = '$email'");
         $email_verif_test = $email_verif->fetch();
+        $confirme = 0;
         if($email_verif_test == ""){
             
             $pass = md5($pass);
@@ -24,10 +28,42 @@ if(isset($_POST['ok'])){
                     "date_inscription" => $date,
                     "ia_admin" => $ia_admin,
                     "cle" => $cle,
-                    "confirme" => 0,
+                    "confirme" => $confirme,
                     "insta" => "",
                 )   
             );
+            
+
+
+$mail = new PHPMailer(true);
+
+try {
+    // Configurer le serveur SMTP
+    $mail->isSMTP();
+    $mail->Host = 'smtp.hostinger.com';  // Remplacez par votre serveur SMTP
+    $mail->SMTPAuth = true;
+    $mail->Username = $my_email;  // Votre email SMTP
+    $mail->Password = $my_pass;  // Votre mot de passe SMTP
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port = 587;
+
+    // Destinataire
+    $mail->setFrom($my_email, 'AI LIBERTY');
+    $mail->addAddress($email);
+
+    // Contenu de l'email
+    $mail->isHTML(true);
+    $mail->Subject = 'Confirmation de votre adresse e-mail';
+    $mail->Body    = 'Bonjour '.$prenom. ', <br>Vous venez de créer un compte sur AI LIBERTY. <br>Nous voulons être sûr que vous êtes le créateur de cette demande.<br> Merci de cliquez sur le lien suivant pour vérifier votre adresse e-mail : 
+    <a href="ai-liberty.fr/verify.php?code=' . $cle . '">Vérifier votre email</a> <br> Si vous ne savez pas de quoi il retourne, merci de ne pas prendre en compte de ce message.';
+    
+    $mail->send();
+    $message_alert = "show";
+} catch (Exception $e) {
+    echo "L'email n'a pas pu être envoyé. Erreur: {$mail->ErrorInfo}";
+}
+
+            if($confirme == 1){
             $requete = $bdd->prepare("SELECT * FROM users WHERE email = :email and mdp = :mdp");
             $requete->bindParam(':email', $email);
             $requete->bindParam(':mdp', $pass);
@@ -43,6 +79,7 @@ if(isset($_POST['ok'])){
 
             header("Location: index.php");
             exit();
+            }
         }
         else{
             
@@ -142,18 +179,23 @@ if(isset($_POST['ok'])){
             if(isset($pass) and $pass != $pass2){
                 echo '<p class="co_error">Mots de passe différents</p>';
             }
+            if(@$message_alert == "show"){echo 'Email de vérification envoyé à '.$email. ". Merci de revenir une fois l'opération effectuée";}
             $email_verif = $bdd->query("SELECT * FROM users WHERE email = '$email'");
             $email_verif_test = $email_verif->fetch();
             if($email_verif_test !== ""){
                 echo "<p class='co_error'>Email déjà utilisé</p>";
             }
          } ?>
+
+         
+<?php
+
+?>
+
         </form>
 </div>
 
 </div>
-
-
 
 
 
