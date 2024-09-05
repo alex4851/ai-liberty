@@ -299,7 +299,6 @@ option, select, #submit, input{
     flex-wrap: wrap;
     z-index: 10;
     width: 100%;
-    height: 100vh;    
 }
 .header_historique{
     justify-content: space-between;
@@ -344,22 +343,7 @@ option, select, #submit, input{
     height: auto;
     border-radius: 30px;
 }
-@media screen and (max-width: 1800px){
-    .welcomer{
-        width: 80%;
-        text-align: center;
-    }
-    .image{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-    .image img{
-        width: 80%;
-        height: 80%;
-    }
 
-}
 .container {
     position: fixed;
     width: 100%;
@@ -428,7 +412,21 @@ option, select, #submit, input{
 
 
 
+@media screen and (max-width: 1800px){
+    .welcomer{
+        width: 80%;
+        text-align: center;
+    }
+    .image{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .image img{
+        width: 80%;
+    }
 
+}
 
 
 
