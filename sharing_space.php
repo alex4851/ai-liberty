@@ -69,8 +69,13 @@ else{
 </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+
+
+
+
 $(document).ready(function () {
     let userScrolling = false;  // Variable pour détecter si l'utilisateur scrolle manuellement
+    let lastMessageTimestamp = null;  // Variable pour stocker le timestamp du dernier message reçu
 
     // Fonction pour scroller automatiquement en bas
     function autoScroll() {
@@ -99,14 +104,16 @@ $(document).ready(function () {
         $.get('get_messages.php', function (data) {
             console.log("Messages reçus:", data);
             const messages = JSON.parse(data);
-            $('#chat-box').html('');  // Vider la boîte de chat avant de la remplir
+            const chatBox = $('#chat-box');
+            const previousMessagesCount = chatBox.find('.message').length;  // Compter les messages actuels
+            chatBox.html('');  // Vider la boîte de chat avant de la remplir
 
             messages.forEach(function (message) {
                 // Appliquer une classe spéciale si l'utilisateur est un admin
                 const adminClass = message.ia_admin == "true" ? 'admin' : 'user';
                 const alignmentClass = message.is_me ? 'right' : 'left';  // Messages envoyés à droite ou à gauche
                 
-                $('#chat-box').append(
+                chatBox.append(
                     '<p class="message ' + adminClass + ' ' + alignmentClass + '">' +
                     '<strong class="chat_nom">' + message.nom + ':</strong> ' +
                     message.message + ' <em class="date">(' + message.timestamp + ')</em></p>'
@@ -114,6 +121,12 @@ $(document).ready(function () {
             });
 
             autoScroll();  // Scroll automatique uniquement si l'utilisateur n'a pas scrollé manuellement
+
+            // Vérifier si de nouveaux messages ont été reçus
+            if (messages.length > previousMessagesCount) {
+                // Si de nouveaux messages sont arrivés, changer l'image de notification
+                $('#chat_img').attr('src', 'img/chat_unread.png');  // Mettre une nouvelle icône
+            }
         }).fail(function () {
             console.error("Erreur lors de la récupération des messages.");
         });
@@ -130,12 +143,16 @@ $(document).ready(function () {
             $.post('send_message.php', { message_content: message }, function () {
                 $('#message-input').val('');  // Vider l'input après l'envoi
                 loadMessages();  // Recharger les messages après l'envoi
+
+                // Remettre l'image à l'état initial après l'envoi d'un message
+                $('#chat_img').attr('src', 'img/chat.png');  // Remettre l'image normale
             }).fail(function () {
                 console.error("Erreur lors de l'envoi du message.");
             });
         }
     });
 });
+
     </script>
 
 

@@ -83,15 +83,11 @@ if(isset($_POST['connexion'])){
         $requete->bindParam(':mdp', $pass);
         $requete->execute();
         $data = $requete->fetch(PDO::FETCH_ASSOC); // Récupérer les résultats
-        /*
-        if(isset($_POST['remember'])){
-           setcookie('auth', $requete->id .'-----'.sha1($requete->mdp . $requete->email), time() + 3600 * 24 * 3, '/', 'localhost', false, true);
-        }
-        */
-        
+
         if($data == ""){
             echo "<p class='co_error'>Email ou mot de passe incorrect !</p>";
         }
+        else{
         if($data['confirme'] == 0){
             echo "<p class='co_error'>Veuillez confirmer votre email !</p>";
         }
@@ -105,6 +101,7 @@ if(isset($_POST['connexion'])){
             $_SESSION['ia_admin'] = $data['ia_admin'];
             $_SESSION['insta'] = $data['insta'];
             header("Location: index.php");
+        }
         }
     }
 }
