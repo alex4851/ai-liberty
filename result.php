@@ -90,8 +90,8 @@ if(isset($_POST['valider']) ){
                         // Contenu de l'email
                         $mail->isHTML(true);
                         $mail->Subject = 'Confirmation de votre adresse e-mail';
-                        $mail->Body    = 'Cliquez sur le lien suivant pour vérifier votre adresse e-mail : 
-                        <a href="localhost/GITHUB_PROJECTS/ai-liberty/verify.php?code=' . $cle . '">Vérifier votre email</a>';
+                        $mail->Body    = 'Bonjour '.$prenom. ', <br>Vous venez de créer un compte sur AI LIBERTY. <br>Nous voulons être sûr que vous êtes le créateur de cette demande.<br> Merci de cliquez sur le lien suivant pour vérifier votre adresse e-mail : 
+    <a href="ai-liberty.fr/verify.php?code=' . $cle . '">Vérifier votre email</a> <br> Si vous ne savez pas de quoi il retourne, merci de ne pas prendre en compte de ce message.';
                         
                         $mail->send();
                         $message_alert = "show";
