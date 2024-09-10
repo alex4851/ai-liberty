@@ -21,8 +21,7 @@ if (isset($_GET['code'])) {
         $stmt->execute();
         $message = "show";
         $email = $result['email'];
-        $pass = $result['mdp'];
-        
+        $pass = $result['mdp'];        
     } else {
         echo "Code de vérification invalide.";
     }
@@ -115,6 +114,7 @@ if(isset($_POST['connexion'])){
             $_SESSION['date_inscription'] = $data['date_inscription'];
             $_SESSION['ia_admin'] = $data['ia_admin'];
             $_SESSION['insta'] = $data['insta'];
+            $_SESSION['confirme'] = $data['confirme'];
             header("Location: index.php");
         }
     }

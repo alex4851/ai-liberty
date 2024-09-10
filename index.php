@@ -218,6 +218,8 @@ if(isset($_POST['suppr_history'])) {
 
 <aside class="right_section">
     <div class="contenu">
+        <?php 
+        if($_SESSION['confirme'] == 0){echo "<h1 style='margin-bottom: 20px; color:red;'>Merci de confirmer votre email à l'aide du message envoyé</h1>";}?>
         <section class="section_favorite">
                         <div class="favorites_header">
                             <h3 class="favorite_texte">Mes favoris :</h3>
