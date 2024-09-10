@@ -120,7 +120,7 @@ $result = $stmt->fetch(PDO::FETCH_DEFAULT);
                     <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
                     </svg>
                     <input class="input-field" type="password" placeholder="Nouveau mot de passe ..." id="pass1" name="pass1" required>
-                    <button type="button" id="togglePassword1" class="password_changer" >Afficher</button><script src="password.js"></script>
+                    <button type="button" id="togglePassword1" class="password_changer" >Afficher</button><script src="password1.js"></script>
                 </div>
 
                 <div class="field">
@@ -132,10 +132,10 @@ $result = $stmt->fetch(PDO::FETCH_DEFAULT);
                 <?php 
 if(isset($_POST['changer_mdp'])){
     extract($_POST);
-    if($result['mdp'] == md5($old_pass)){
+    if($result['mdp'] == md5(string: $old_pass)){
         if($pass1 == $pass2){
             $sql = "UPDATE users SET mdp = :mdp";
-            $stmt = $bdd->prepare($sql);
+            $stmt = $bdd->prepare(query: $sql);
             $stmt->bindValue(':mdp', md5($pass1), PDO::PARAM_STR);
             $stmt->execute();
             echo "MDP bien changé !<br>";
