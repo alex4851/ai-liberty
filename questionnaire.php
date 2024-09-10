@@ -1,12 +1,62 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'phpmailer/vendor/autoload.php';
+include("bdd.php");
 session_start();
-if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
-{
-  include("bdd.php");
+
+if (isset($_POST['valider']) && isset($_POST["email"])) {
+    extract($_POST);
+
+    // Vérification des mots de passe
+    if ($pass !== $pass2) {
+        echo '<p>Mots de passe différents</p><br/><INPUT TYPE="button" VALUE="RETOUR" onclick=" history.back();">';
+        exit;
+    }
+
+    // Génération de la clé unique
+    $cle = bin2hex(random_bytes(16));
+
+    // Vérification si l'email existe déjà
+    $email_verif = $bdd->prepare("SELECT * FROM users WHERE email = :email");
+    $email_verif->execute(['email' => $email]);
+    $email_verif_test = $email_verif->fetch();
+
+    if (!$email_verif_test) {
+        // Si l'email n'existe pas encore
+        if (!empty($email) && !empty($prenom)) {
+            $confirme = 0;
+            $pass_hashed = md5($pass);
+            $date_inscription = date('Y-m-d H:i:s'); // Si tu veux mettre la date courante
+
+            // Insertion dans la base de données
+            $requete = $bdd->prepare("
+                INSERT INTO users (nom, niveau, mdp, email, date_inscription, ia_admin, cle, confirme, insta)
+                VALUES (:nom, 'undefined', :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme, '')
+            ");
+
+            $requete->execute([
+                'nom' => $prenom,
+                'mdp' => $pass_hashed,
+                'email' => $email,
+                'date_inscription' => $date_inscription,
+                'ia_admin' => $ia_admin,
+                'cle' => $cle,
+                'confirme' => $confirme
+            ]);
+
+            include("email_content.php");
+
+            // Redirection après l'insertion
+            header("Location: http://localhost/GITHUB_PROJECTS/ai-liberty/result.php?iatype_demande={$iatype_demande}&spe_demande={$spe_demande}&prix_demande={$prix_demande}&valider=Rechercher");
+            exit;
+        }
+    } else {
+        echo 'Email déjà utilisé <br/><INPUT TYPE="button" VALUE="RETOUR" onclick="history.back();">';
+    }
 }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -21,72 +71,56 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
     <title>IA TOOLS</title>
 </head>
 
-<body id="quest" <?php if(!isset($_SESSION['nom'])){echo 'class="body_pas_co"';} ?> >
+<body id="quest" <?php echo isset($_SESSION['nom']) ? 'class="connecte"' : 'class="body_pas_co"'; ?> >
 
-<header <?php if(isset($_SESSION['nom'])){echo 'class="connecte"';}else{echo 'class="pas-co"';}?> id="complet">
+<header <?php echo isset($_SESSION['nom']) ? 'class="connecte"' : 'class="pas-co"'; ?> id="complet">
     <nav class="nav">
         <a href="index.php"><h1><img class="logo" src="img/logo.png"></h1></a>
         <ul class="nav-bar">
             <div class="ligne"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
-            <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautées</li></a></div>
-            <?php 
-            if(isset($_SESSION['ia_admin'])){
-                if($_SESSION["ia_admin"] === "true"){
-                echo '<div class="ligne"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>';
-                }
-            }
-            ?>
-            <div class="ligne"  id="active"><a href="questionnaire.php"><img src="img/quiz.png"><li>Questionnaire</li></a></div>
-            <?php
-                if(isset($_SESSION['nom']))
-                { ?>   
-                       
-                        <div class="ligne"><a href="user.php"><img src="img/account.png"><li>Mon compte</li></a></div>   
-                        <div class="ligne"><a href="logout.php"><img src="img/logout.png"><li>Se déconnecter</li></a></div>
-                    
-                <?php  }
-                else{
-                    echo '<div class="ligne"><a href="connexion.php"><img src="img/login.png"><li id="co">Se connecter</li></a></div>';
-                    echo '<div class="ligne" id="ligne_inscription"><a href="inscription.php"><img src="img/login.png"><li id="inscription">S"inscrire</li></a></div>';
-                }
-            ?>      
+            <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautés</li></a></div>
+            <?php if (isset($_SESSION['ia_admin']) && $_SESSION["ia_admin"] === "true") : ?>
+                <div class="ligne"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>
+            <?php endif; ?>
+            <div class="ligne" id="active"><a href="questionnaire.php"><img src="img/quiz.png"><li>Questionnaire</li></a></div>
+            <?php if (isset($_SESSION['nom'])): ?>
+                <div class="ligne"><a href="user.php"><img src="img/account.png"><li>Mon compte</li></a></div>   
+                <div class="ligne"><a href="logout.php"><img src="img/logout.png"><li>Se déconnecter</li></a></div>
+            <?php else: ?>
+                <div class="ligne"><a href="connexion.php"><img src="img/login.png"><li id="co">Se connecter</li></a></div>
+                <div class="ligne" id="ligne_inscription"><a href="inscription.php"><img src="img/login.png"><li id="inscription">S'inscrire</li></a></div>
+            <?php endif; ?>
         </ul>
-        <script src="navigation.js"></script>       
+        <script src="navigation.js"></script>
     </nav>
 </header>
 
 <a href="sharing_space.php"><img id="chat_img" src="img/chat.png"></a>
 <a href="user.php"><img id="notif_img" src="img/notif.png"></a>
 
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            function checkNewMessages() {
-                $.get('check_new_message.php', function (data) {
-                    if (data.new_message === true) {
-                        // Si un nouveau message est détecté, changer l'image
-                        $('#chat_img').attr('src', 'img/chat_unread.png');
-                    } else {
-                        // Si pas de nouveau message, remettre l'image par défaut
-                        $('#chat_img').attr('src', 'img/chat.png');
-                    }
-                }, 'json').fail(function () {
-                    console.error("Erreur lors de la vérification des nouveaux messages.");
-                });
-            }
-            // Vérifier toutes les 5 secondes s'il y a un nouveau message
-            setInterval(checkNewMessages, 5000);
+<script>
+$(document).ready(function () {
+    function checkNewMessages() {
+        $.get('check_new_message.php', function (data) {
+            $('#chat_img').attr('src', data.new_message ? 'img/chat_unread.png' : 'img/chat.png');
+        }, 'json').fail(function () {
+            console.error("Erreur lors de la vérification des nouveaux messages.");
         });
-    </script>
+    }
+    setInterval(checkNewMessages, 5000);
+});
+</script>
 
 <div class="container"></div>
-
 <div class="content" id="questionnaire_content">
-    <form class="questionnaire" method="post" action="result.php" >
-        
+    <?php if (isset($_SESSION["id"])): ?>
+        <form class="questionnaire" method="get" action="result.php">
+    <?php else: ?>
+        <form class="questionnaire" method="post" action="">
+    <?php endif; ?>
 
-        <div class="card_container" id="container_a">
+    <div class="card_container" id="container_a">
         <div class="card_quest" id="card_a">
             <label for="iatype_demande">Pour quel domaine cherchez vous un assistant basé sur l'intelligence artificielle ?</label><br/>
             <select name="iatype_demande" id="iatype_demande">
@@ -100,7 +134,6 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                 <a href="https://ai-liberty.fr" >Accueil</a>
                 <button class="next" id="next_a">Suivant</button>
             </div>
-            <div class="chargement"><div class="chargement1"></div></div>
         </div>
         </div>
         
@@ -153,7 +186,6 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                 <button class="precedant" id="precedant_b">Précédent</button>
                 <button class="next" id="next_b">Suivant</button>
             </div>
-            <div class="chargement"><div class="chargement2"></div></div>
         </div>
         </div>       
         
@@ -214,7 +246,6 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                             <button class="precedant" id="precedant_c">Précédent</button>
                             <button class="next" id="next_c">Suivant</button>
                         </div>
-                <div class="chargement"><div class="chargement3"></div></div>
         </div>
         </div>
 
@@ -227,7 +258,6 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
             <div class="card_4_child">
                 <input type="submit" id="result" value="Rechercher" name="valider" class="valider" >
             </div>
-            <div class="chargement"><div class="chargement4"></div></div>
         </div>
         </div>
         <?php 
@@ -268,13 +298,11 @@ if(isset($_SESSION['email']) and isset($_SESSION['mdp']))
                 <input type="submit" value="Chercher l'IA" name="valider" id="result" class="valider">
             </div>
            
-            <div class="chargement"><div class="chargement4"></div></div>
         </div>
         </div>
         <?php } ?>
     </form>
 </div>
-
 
 </body>
 </html>

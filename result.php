@@ -1,11 +1,8 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+
 include("bdd.php");
 session_start();
 
-
-require 'phpmailer/vendor/autoload.php';
 
              ##Pour favorite :
              @$user_id = $_SESSION['id'];
@@ -40,90 +37,6 @@ if(isset($_POST["remove_fav"])){
     header("Location:index.php");
 }        
 
-if(isset($_POST['valider']) ){  
-
-    if(isset($_POST["email"])){
-        extract($_POST);
-        if(isset($pass) and $pass != $pass2){
-            echo '<p>Mots de passe différents</p><br/><INPUT TYPE="button" VALUE="RETOUR" onclick=" history.back();">';
-        }
-        else{
-            $cle = bin2hex(random_bytes(16));
-            $email_verif = $bdd->query("SELECT * FROM users WHERE email = '$email'");
-            $email_verif_test = $email_verif->fetch();
-            if($email_verif_test == ""){
-                if(isset($email) and isset($prenom)){
-                    $confirme = 0;
-                    $pass = md5($pass);
-                    $requete = $bdd->prepare("INSERT INTO users VALUES (0, :nom, :niveau, :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme, :insta)");
-                    $requete->execute(
-                        array(
-                            "nom" => $prenom,
-                            "niveau" => "undefined",
-                            "mdp" => $pass,
-                            "email" => $email,
-                            "date_inscription" => $date,
-                            "ia_admin" => $ia_admin,
-                            "cle" => $cle,
-                            "confirme" => $confirme,
-                            "insta" => "",
-                        )   
-                    );
-
-
-                    $mail = new PHPMailer(true);
-
-                    try {
-                        // Configurer le serveur SMTP
-                        $mail->isSMTP();
-                        $mail->Host = 'smtp.hostinger.com';  // Remplacez par votre serveur SMTP
-                        $mail->SMTPAuth = true;
-                        $mail->Username = $my_email;  // Votre email SMTP
-                        $mail->Password = $my_pass;  // Votre mot de passe SMTP
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                        $mail->Port = 587;
-                    
-                        // Destinataire
-                        $mail->setFrom($my_email, 'AI LIBERTY');
-                        $mail->addAddress($email);
-                    
-                        // Contenu de l'email
-                        $mail->isHTML(true);
-                        $mail->Subject = 'Confirmation de votre adresse e-mail';
-                        $mail->Body    = 'Bonjour '.$prenom. ', <br>Vous venez de créer un compte sur AI LIBERTY. <br>Nous voulons être sûr que vous êtes le créateur de cette demande.<br> Merci de cliquez sur le lien suivant pour vérifier votre adresse e-mail : 
-    <a href="ai-liberty.fr/verify.php?code=' . $cle . '">Vérifier votre email</a> <br> Si vous ne savez pas de quoi il retourne, merci de ne pas prendre en compte de ce message.';
-                        
-                        $mail->send();
-                        $message_alert = "show";
-                    } catch (Exception $e) {
-                        echo "L'email n'a pas pu être envoyé. Erreur: {$mail->ErrorInfo}";
-                    }
-
-                    $requete = $bdd->prepare("SELECT * FROM users WHERE email = :email and mdp = :mdp");
-                    $requete->bindParam(':email', $email);
-                    $requete->bindParam(':mdp', $pass);
-                    $requete->execute();
-                    $data = $requete->fetch(PDO::FETCH_ASSOC);
-                    $_SESSION['id']=$data['id'];
-                    $_SESSION['nom']=$data['nom'];
-                    $_SESSION['niveau'] = $data['niveau'];
-                    $_SESSION['mdp']=$data['mdp'];
-                    $_SESSION['email']=$data['email'];
-                    $_SESSION['date_inscription']=$data['date_inscription'];
-                    $_SESSION['ia_admin']=$data['ia_admin'];
-                }
-            }
-
-            else{
-                echo 'Email déjà utilisé <br/> 
-                <INPUT TYPE="button" VALUE="RETOUR" onclick="history.back();">';
-            }
-        }
-    }
-}
-
-
- 
 ?>
 
 <!DOCTYPE html>
@@ -144,16 +57,16 @@ if(isset($_POST['valider']) ){
     <nav class="nav">
         <a href="index.php"><h1><img class="logo" src="img/logo.png"></h1></a>
         <ul class="nav-bar">
-            <div class="ligne" id="active"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
+            <div class="ligne"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
             <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautées</li></a></div>
             <?php 
             if(isset($_SESSION['ia_admin'])){
                 if($_SESSION["ia_admin"] === "true"){
-                echo '<div class="ligne"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>';
+                echo '<div class="ligne" ><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>';
                 }
             }
             ?>
-            <div class="ligne"><a href="questionnaire.php"><img src="img/quiz.png"><li>Questionnaire</li></a></div>
+            <div class="ligne"  id="active"><a href="questionnaire.php"><img src="img/quiz.png"><li>Questionnaire</li></a></div>
             <?php
                 if(isset($_SESSION['nom']))
                 { ?>   
@@ -173,56 +86,63 @@ if(isset($_POST['valider']) ){
 
 <main class="content">
 
-<?php if(@$message_alert == "show"){echo 'Email de vérification envoyé à '.$email. ". Merci de revenir une fois l'opération effectuée";} ?>
 
 <input class="button_back" type="button" value="RETOUR" onclick="history.back();">
 
 <div class="resultat_reste">
 
+<?php if(@$message_alert == "show"){echo 'Email de vérification envoyé à '.$email. ". Merci de revenir une fois l'opération effectuée";} ?>
 
 
 <?php
-if(isset($_POST['valider']) OR isset($_POST['submit_ia'])){
-   
-    ##Pour l'IA
-    if(isset($_POST["prix_demande"])){
-    $prix_demande = intval($_POST["prix_demande"]);
-    }
-    else{
-        $prix_demande = 1000;
-    }
-    @$iatype_demande = $_POST["iatype_demande"];
-    @$spe_demande = $_POST["spe_demande"];
+if(isset($_GET['valider']) OR isset($_GET['submit_ia']) OR isset($_GET['submit_ia_short'])){
     @$phrase_supp = false;
     @$affiliation_p = false;
-
-
-    if(isset($prix_demande) and isset($iatype_demande) and isset($spe_demande)){
-        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND  specialite = '$spe_demande' AND affiliation = 'oui' ");
-        $best_ia_2 =  $ans->fetch();
-        $affiliation_p = true;
-        @$search_query = $best_ia_2['id'];
-        $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande'  AND specialite = '$spe_demande' ");
-        $best_ia = $ans->fetchAll(PDO::FETCH_ASSOC);
-        if($best_ia_2 == ''){
-                $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' AND prix <= '$prix_demande' ");
-                $best_ia_2 =  $ans2->fetch();
-                $affiliation_p = false;
-                if($best_ia_2 == ''){
-                    $affiliation_p = false;
-                    $phrase_supp = true;
-                    $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' ");
-                    $best_ia_2 =  $ans2->fetch();
-                    @$search_query = $best_ia_2['id'];
-                    $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
-                    if($best_ia_2 == ''){
-                        echo   "Il y a du avoir une erreur lors du chargement ... Nous travailons pour que ce genre d'incidents ne se reproduisent pas";
-                    }
-                }
-                @$search_query = $best_ia_2['id'];
-                $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' ");
-                $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
+    if(!isset($_GET['submit_ia_short'])){
+    ##Pour l'IA
+        if(isset($_GET["prix_demande"])){
+        $prix_demande = intval($_GET["prix_demande"]);
         }
+        else{
+            $prix_demande = 1000;
+        }
+        @$iatype_demande = $_GET["iatype_demande"];
+        @$spe_demande = $_GET["spe_demande"];
+        
+        if(isset($prix_demande) and isset($iatype_demande) and isset($spe_demande)){
+            $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND  specialite = '$spe_demande' AND affiliation = 'oui' ");
+            $best_ia_2 =  $ans->fetch();
+            $affiliation_p = true;
+            @$search_query = $best_ia_2['id'];
+            $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande'  AND specialite = '$spe_demande' ");
+            $best_ia = $ans->fetchAll(PDO::FETCH_ASSOC);
+            if($best_ia_2 == ''){
+                    $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' AND prix <= '$prix_demande' ");
+                    $best_ia_2 =  $ans2->fetch();
+                    $affiliation_p = false;
+                    if($best_ia_2 == ''){
+                        $affiliation_p = false;
+                        $phrase_supp = true;
+                        $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' ");
+                        $best_ia_2 =  $ans2->fetch();
+                        @$search_query = $best_ia_2['id'];
+                        $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
+                        if($best_ia_2 == ''){
+                            echo   "Il y a du avoir une erreur lors du chargement ... Nous travailons pour que ce genre d'incidents ne se reproduisent pas";
+                        }
+                    }
+                    @$search_query = $best_ia_2['id'];
+                    $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' ");
+                    $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
+            }
+        }
+    }
+    else{
+        $ia_id = $_GET['ia_value_id'];
+        $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE id = '$ia_id' ");
+        $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
+    }
+
         if(isset($_SESSION["nom"])){    
             
         
@@ -282,52 +202,6 @@ if(isset($_POST['valider']) OR isset($_POST['submit_ia'])){
         ?>
 
 
-<?php
-if(isset($_POST['submit_ia']) ){
-            $ia_id = $_POST['ia_value_id'];
-            $ans = "SELECT * FROM ia_infos WHERE id = :id";
-            $stmt = $bdd->prepare($ans);
-            $stmt->bindValue(':id', $ia_id, PDO::PARAM_INT);
-            $stmt->execute();
-
-            $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
-    ?>
-            <div class="card" id="result_card">
-
-<div class="header">
-    <span><?php echo $row2["nom"] ?></span> 
-     <form method="post" action="result.php">
-         <input type="int" class="hidden" name="ia_id" value="<?php echo $row2["id"] ?>">
-
-         <?php 
-         $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
-         $stmt = $bdd->prepare($sql);
-         $stmt->bindValue(":ia_id", $row2["id"] , PDO::PARAM_INT);
-         $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);
-         $stmt->execute();
-         $fav_existe = $stmt->fetch(PDO::FETCH_ASSOC);
-         if($fav_existe == ''){ ?>
-             <button id="button_submit" type="submit" name="add_fav"><img src="img/not_favorite.png" alt="Add to Favorites" class="favorite-icon" name="add_fav"></button>
-             <?php }
-         else{
-             ?>
-             <button id="button_submit" type="submit" name="remove_fav" ><img src="img/favorite.png" alt="Add to Favorites" class="favorite-icon"></button>
-             <?php } ?>
-         </form>
-
-
- </div>
-<p id="coup_de_coeur_p"><?php if($row2["coup_de_coeur"] == 'oui'){echo "Coup de coeur de l'équipe";} ?></p>
-
-<div class="img"><img src="<?php echo $row2["ia_img"] ?>"/></div>
-
-<p class="info"><?php echo $row2["ia_description"] ?></p>
-<div class="share">
-    <p>Prix par mois : <?php echo $row2["prix"]; ?>€</p>
-</div>
-<a href="<?php echo $row2["ia_url"] ?>" class="button_position" target="_blank"><button>Aller sur le site</button></a>
-<!-- <p id="affiliation_p"><?php //if($affiliation_p == true){echo "Lien affilié";} ?></p> -->
-</div>
 
 
 
@@ -337,7 +211,8 @@ if(isset($_POST['submit_ia']) ){
 
 
 
-        <?php }
+
+        <?php 
         ##Pour historique :
         $user_id = $_SESSION['id'];
 
@@ -370,7 +245,6 @@ if(isset($_POST['submit_ia']) ){
             $stmt->execute();
         }
     
-}
 
 
 

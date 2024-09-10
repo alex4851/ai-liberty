@@ -3,21 +3,19 @@ include("bdd.php");
 session_start();
 ?>
 <?php
-                            @$user_id = $_SESSION['id'];
-                            if(isset($_POST['suppr_history'])) {
-                                $sql = "DELETE FROM search WHERE user_id = :user_id";
-                                $stmt = $bdd->prepare($sql);
-                                $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-                                $stmt->execute();
-                                header("refresh"); 
-                            }
-                            ?>
+@$user_id = $_SESSION['id'];
+if(isset($_POST['suppr_history'])) {
+    $sql = "DELETE FROM search WHERE user_id = :user_id";
+    $stmt = $bdd->prepare($sql);
+    $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+    $stmt->execute();
+    header("refresh"); 
+}
+?>
 <?php
 ##Pour favorite :
         @$user_id = $_SESSION['id'];
         @$ia_id = $_POST['ia_id'];
-        
-
         if(isset($_POST['add_fav'])){
             //Verif que existe pas deja
             $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
@@ -36,7 +34,6 @@ session_start();
             $stmt->execute();
             }
             header("refresh"); 
-
         }
 
         if(isset($_POST["remove_fav"])){
@@ -47,9 +44,13 @@ session_start();
             $stmt->bindValue(':ia_id', $ia_id, PDO::PARAM_INT);
             $stmt->execute();
             header("refresh"); 
-
         }
 ?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -99,13 +100,13 @@ session_start();
 
 
 
-            <?php
-                if(isset($_SESSION['nom']) and isset($_SESSION['mdp']))
-                {           ?>
+<!--Si connecté :-->
 
-
+<?php
+    if(isset($_SESSION['nom']) and isset($_SESSION['mdp']))
+    {      
+?>
 <div class="reste">
-
 <a href="sharing_space.php"><img id="chat_img" src="img/chat.png"></a>
 <a href="user.php"><img id="notif_img" src="img/notif.png"></a>
 
@@ -196,9 +197,9 @@ session_start();
                                 <span><?php echo $row2['nom']; ?></span>
                                 <img src="<?php echo $row2['ia_img']; ?>"/>
                             </div>
-                            <form action="result.php" method="post" class="second-content">
+                            <form action="result.php" method="get" class="second-content">
                                 <input type="int" value="<?php echo $row2["id"]; ?>" name="ia_value_id" class="hidden">
-                                <button type="submit" name="submit_ia">
+                                <button type="submit" name="submit_ia_short">
                                     <span>Infos</span>
                                     <p><?php echo $row2['ia_description_short']; ?></p>
                                 </button>
@@ -213,17 +214,6 @@ session_start();
         </div>
     </div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
 
 
 <aside class="right_section">
@@ -260,7 +250,7 @@ session_start();
                                             <div class="card">
                                                 <div class="header">
                                                     <span><?php echo $row2["nom"] ?></span>
-                                                    <form method="post" action="">
+                                                    <form method="get" action="">
                                                     <input type="int" class="hidden" name="ia_id" value="<?php echo $row["ia_id"] ?>">
                                                         <?php 
                                                         $sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
@@ -290,8 +280,8 @@ session_start();
                                 ?>      
                     </div>
         </section>
-
-        <div class="favorites_header">   
+<!--historique-->
+        <div class="favorites_header">
             <h3>Chercher une autre IA : </h3>
             <a href="questionnaire.php">
                 <img src="img/add_fav.png">
@@ -311,12 +301,17 @@ session_start();
                 <section class="section_questionnaire">
                    
                         <div class="historique">
-                            <div class="header_historique"><h4>Récent :</h4><form method="post" action=""><button  id="button_submit" type="submit" name="suppr_history"><img id="header_historique_img" src="img/trash.png" alt="trash"></button></form></div>
+                            <div class="header_historique">
+                                <h4>Récent :</h4>
+                                <form method="post" action="index.php">
+                                    <button id="button_submit" type="submit" name="suppr_history"><img id="header_historique_img" src="img/trash.png" alt="trash"></button>
+                                </form>
+                            </div>
                             
                             <div class="historique_cards">
                                 <?php
 
-                                    // Afficher les résultats
+                                    # Afficher les résultats
                                     
                                     foreach ($result as $row) {
                                         $sql = "SELECT * FROM ia_infos WHERE id = :ia_id ";
@@ -330,9 +325,9 @@ session_start();
                                                     <span><?php echo $row2['nom']; ?></span>
                                                     <img src="<?php echo $row2['ia_img']; ?>"/>
                                                 </div>
-                                                <form action="result.php" method="post" class="second-content">
+                                                <form action="result.php" method="get" class="second-content">
                                                     <input type="int" value="<?php echo $row2["id"]; ?>" name="ia_value_id" class="hidden">
-                                                    <button type="submit" name="submit_ia">
+                                                    <button type="submit" name="submit_ia_short">
                                                         <span>Infos</span>
                                                         <p><?php echo $row2['ia_description_short']; ?></p>
                                                     </button>
@@ -349,15 +344,15 @@ session_start();
     </div>
 </aside>                
        
+<?php }
 
-
-
-
-                <?php }
-
-                ##quand pas connecté :
+//Si pas connecté :
 
                 else{ ?>
+
+
+
+
 <div class="container"></div>
 
 <div class="pas_co_content">
@@ -399,10 +394,9 @@ session_start();
             </video>
         </aside>
         </div>                -->
-
 </div>
 
-         <?php }?>
+<?php }?>
 
 </body>
 </html>
