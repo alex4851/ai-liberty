@@ -49,7 +49,7 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
             include("email_content.php");
 
             // Redirection après l'insertion
-            header("Location: https://ai-liberty.fr/ai-liberty/result.php?iatype_demande={$iatype_demande}&spe_demande={$spe_demande}&prix_demande={$prix_demande}&valider=Rechercher");
+            header("Location: https://ai-liberty.fr/result.php?iatype_demande={$iatype_demande}&spe_demande={$spe_demande}&prix_demande={$prix_demande}&valider=Rechercher");
             exit;
         }
     } else {
