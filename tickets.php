@@ -80,7 +80,7 @@ if(isset($_POST['submit_ticket'])){
     $stmt = $bdd->prepare($sql);
     $stmt->bindValue(':user_id', $_SESSION['id'], PDO::PARAM_INT);
     $stmt->bindValue(':class', $sujet, PDO::PARAM_STR);
-    $stmt->bindValue(':content', $description, PDO::PARAM_STR);
+    $stmt->bindValue(':content', strip_tags($description), PDO::PARAM_STR);
     $stmt->execute();
     echo "<p>Ticket bien envoyé !</p>";
 }

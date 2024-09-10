@@ -22,10 +22,10 @@ if(isset($_POST['ok'])){
             $requete = $bdd->prepare("INSERT INTO users VALUES (0, :nom, :niveau, :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme, :insta)");
             $requete->execute(
                 array(
-                    "nom" => $prenom,
+                    "nom" => strip_tags($prenom),
                     "niveau" => $niveau,
                     "mdp" => $pass,
-                    "email" => $email,
+                    "email" => strip_tags($email),
                     "date_inscription" => $date,
                     "ia_admin" => $ia_admin,
                     "cle" => $cle,

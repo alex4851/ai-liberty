@@ -27,7 +27,7 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
         // Si l'email n'existe pas encore
         if (!empty($email) && !empty($prenom)) {
             $confirme = 0;
-            $pass_hashed = md5($pass);
+            $pass_hashed = md5(strip_tags($pass));
             $date_inscription = date('Y-m-d H:i:s'); // Si tu veux mettre la date courante
 
             // Insertion dans la base de données
@@ -37,9 +37,9 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
             ");
 
             $requete->execute([
-                'nom' => $prenom,
+                'nom' => strip_tags($prenom),
                 'mdp' => $pass_hashed,
-                'email' => $email,
+                'email' => strip_tags($email),
                 'date_inscription' => $date_inscription,
                 'ia_admin' => $ia_admin,
                 'cle' => $cle,
