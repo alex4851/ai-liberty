@@ -67,7 +67,13 @@ if(isset($_POST['valider_niveau'])) {
     </nav>
 </header>
 
-<?php if(isset($_SESSION['nom'])){ ?>
+<?php if(isset($_SESSION['nom'])){ 
+$sql = "SELECT * FROM users WHERE id = :id";
+$stmt = $bdd->prepare($sql);
+$stmt->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_DEFAULT);
+?>
 
 <main class="content">
 <section class="user_main">
@@ -75,11 +81,10 @@ if(isset($_POST['valider_niveau'])) {
         <h1>Modifier mon compte : </h1> 
     </div>
                 <form method="post" action="">
-
                     <ul>
-                        <li><label for="nom_user">Nom : </label><input type="text" name="nom_user" value="<?php if(isset($_SESSION["nom"])){echo $_SESSION["nom"];} ?>"></li> 
-                        <li>Adresse mail :  <?php if(isset($_SESSION["email"])){echo $_SESSION["email"];} ?></li>
-                        <li>Date d'inscription : <?php if(isset($_SESSION["date_inscription"])){echo $_SESSION["date_inscription"];} ?></li>
+                        <li><label for="nom_user">Nom : </label><input type="text" name="nom_user" value="<?php echo $result["nom"];?>"></li> 
+                        <li>Adresse mail :  <?php echo $result["email"]; ?></li>
+                        <li>Date d'inscription : <?php if(isset($result["date_inscription"])){echo $result["date_inscription"];} ?></li>
                         <li><label for="niveau">Niveau : </label>
                                         <select name="niveau" id="niveau" required>
                                             <option value="lyceen" >Lycéen</option>
@@ -88,13 +93,66 @@ if(isset($_POST['valider_niveau'])) {
                                             <option value="content_creator">Créateur de contenu</option>
                                             <option value="undefined">Aucun</option>
                                         </select></li>
-                        <li><label for="insta">Instagram : </label><input type="text" name="insta" value="<?php if(isset($_SESSION["insta"])){echo $_SESSION["insta"];} ?>"></li>
+                        <li><label for="insta">Instagram : </label><input type="text" name="insta" value="<?php if(isset($result["insta"])){echo $result["insta"];} ?>"></li>
                     </ul>
+
+
                                 
                     <input type="submit" value="Modifier" id="submit" name="valider_niveau">
                 </form>
+
+
+
+            
+    <div class="user_header">
+        <h1>Modifier votre mot de passe : </h1> 
+    </div>
+        <form class="modify_pass" action="" method="post">
+                <div class="field">
+                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+                    </svg>
+                    <input class="input-field" type="text" placeholder="Ancien mot de passe ..." id="pass" name="old_pass" required>
+                </div>
+
+                <div class="field">
+                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+                    </svg>
+                    <input class="input-field" type="password" placeholder="Nouveau mot de passe ..." id="pass1" name="pass1" required>
+                    <button type="button" id="togglePassword1" class="password_changer" >Afficher</button><script src="password.js"></script>
+                </div>
+
+                <div class="field">
+                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+                    </svg>
+                    <input type="password" class="input-field" placeholder="Confirmez nouveau mot de passe ..." id="pass" name="pass2" required>
+                </div>
+                <?php 
+if(isset($_POST['changer_mdp'])){
+    extract($_POST);
+    if($result['mdp'] == md5($old_pass)){
+        if($pass1 == $pass2){
+            $sql = "UPDATE users SET mdp = :mdp";
+            $stmt = $bdd->prepare($sql);
+            $stmt->bindValue(':mdp', md5($pass1), PDO::PARAM_STR);
+            $stmt->execute();
+            echo "MDP bien changé !<br>";
+        }
+        else{
+            echo "MDP différents !<br>";
+        }
+    }
+    else{
+        echo "Votre ancien mot de passe est incorrect<br>";
+    }
+}
+?>  
+                <input type="submit" value="Modifier" id="submit" name="changer_mdp">
+        </form>   
 </section>
-                
+            
 
 <?php }
 else {echo "Connectez vous";}

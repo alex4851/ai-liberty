@@ -322,6 +322,10 @@ option, select, #submit, input{
     width: 100%;
     align-items: center;
 }
+#header_historique_img{
+    width: 20px;
+    margin-right: 30px;
+}
 .welcomer{
     width: 500px;
     padding: 50px;
@@ -1578,6 +1582,7 @@ body, h1, label, input, textarea, button {
 
 
 .user_header{
+    margin-top: 30px;
     display: flex;
 }
 .edit{
@@ -1615,7 +1620,10 @@ body, h1, label, input, textarea, button {
     cursor: pointer;
 }
 
-#header_historique_img{
-    width: 30px;
-    margin-right: 30px;
+.modify_pass{
+    width: 100%;
+    max-width: 600px;
+}
+.modify_pass .field {
+    margin: 10px;
 }

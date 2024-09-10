@@ -1,6 +1,6 @@
-document.getElementById('togglePassword').addEventListener('click', function (e) {
+document.getElementById('togglePassword1').addEventListener('click', function (e) {
     // Récupérer l'élément input du mot de passe
-    const passwordInput = document.getElementById('pass');
+    const passwordInput = document.getElementById('pass1');
 
     // Vérifier le type actuel de l'input
     const currentType = passwordInput.getAttribute('type');
