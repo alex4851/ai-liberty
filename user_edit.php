@@ -134,9 +134,10 @@ if(isset($_POST['changer_mdp'])){
     extract($_POST);
     if($result['mdp'] == md5(string: $old_pass)){
         if($pass1 == $pass2){
-            $sql = "UPDATE users SET mdp = :mdp";
+            $sql = "UPDATE users SET mdp = :mdp WHERE id=:id";
             $stmt = $bdd->prepare(query: $sql);
             $stmt->bindValue(':mdp', md5($pass1), PDO::PARAM_STR);
+            $stmt->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
             $stmt->execute();
             echo "MDP bien changé !<br>";
         }

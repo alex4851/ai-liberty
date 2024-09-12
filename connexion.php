@@ -40,7 +40,7 @@ session_start();
                 <?php  }
                 else{
                     echo '<div class="ligne"  id="active"><a href="connexion.php" ><img src="img/login.png"><li id="co">Se connecter</li></a></div>';
-                    echo '<div class="ligne" id="ligne_inscription"><a href="inscription.php"><img src="img/login.png"><li id="inscription">S"inscrire</li></a></div>';
+                    echo "<div class='ligne' id='ligne_inscription'><a href='inscription.php'><img src='img/login.png'><li id='inscription'>S'inscrire</li></a></div>";
                 }
             ?>      
         </ul>
