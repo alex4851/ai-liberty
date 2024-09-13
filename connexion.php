@@ -122,7 +122,7 @@ if(isset($_POST['connexion'])){
             // Contenu de l'email
             $mail->isHTML(true);
             $mail->Subject = 'Reinitialisation du mot de passe';
-            $mail->Body = 'Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href="localhost/GITHUB_PROJECTS/ai-liberty/reset_password.php?token=' . $token_send . '">Cliquez ici</a> ';
+            $mail->Body = 'Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href="ai-liberty.fr/reset_password.php?token=' . $token_send . '">Cliquez ici</a> ';
             
             $mail->send();
             $message_alert = "show";
