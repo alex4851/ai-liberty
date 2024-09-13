@@ -111,13 +111,13 @@ $(document).ready(function () {
 });
 </script>
 
-<div class="container"></div>
+
 <div class="content" id="questionnaire_content">
-    <?php if (isset($_SESSION["id"])): ?>
+    <?php if (isset($_SESSION["nom"])){ ?>
         <form class="questionnaire" method="get" action="result.php">
-    <?php else: ?>
+    <?php } else{ ?>
         <form class="questionnaire" method="post" action="">
-    <?php endif; ?>
+    <?php } ?>
 
     <div class="card_container" id="container_a">
         <div class="card_quest" id="card_a">
@@ -134,13 +134,12 @@ $(document).ready(function () {
                 <button class="next" id="next_a">Suivant</button>
             </div>
         </div>
-        </div>
+    </div>
         
 
-        <div class="card_container" id="container_b">
-        
+    <div class="card_container" id="container_b">
         <div class="card_quest" id="card_b">
-        <label for="spe_demande">Pour quel type de tâches cherchez-vous cet outil ?</label><br />
+            <label for="spe_demande">Pour quel type de tâches cherchez-vous cet outil ?</label><br />
             <select name="spe_demande" id="spe_demande">
 
                     <option class="content_creation" value="video">Creation de videos</option>
@@ -186,11 +185,10 @@ $(document).ready(function () {
                 <button class="next" id="next_b">Suivant</button>
             </div>
         </div>
-        </div>       
+    </div>       
         
 
-        <div class="card_container" id="container_c">
-
+    <div class="card_container" id="container_c">
         <div class="card_quest" id="card_c">   
                 <h4>Quelle somme d'argent seriez vous prêts à débourser mensuellement pour accéder à ce service ?</h4>        
                 <div class="wrapper_container">
@@ -246,7 +244,7 @@ $(document).ready(function () {
                             <button class="next" id="next_c">Suivant</button>
                         </div>
         </div>
-        </div>
+    </div>
 
         <?php 
         if(isset($_SESSION['nom'])){?>

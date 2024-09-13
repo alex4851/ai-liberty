@@ -1297,6 +1297,7 @@ padding: 0;
             margin: 0;
         }
         .card_quest{
+            display: flex;
             width: 200px;
         }
 
