@@ -1,5 +1,12 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require 'phpmailer/vendor/autoload.php';
 session_start();
+include("bdd.php");
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -73,36 +80,84 @@ session_start();
     </div>
 
 <?php
-include("bdd.php");
+/*Token pour new mdp : */
 if(isset($_POST['connexion'])){
-    $email = $_POST["email"];
-    $pass = md5($_POST["pass"]); 
-    if($email != "" && $pass !=""){
-        $requete = $bdd->prepare("SELECT * FROM users WHERE email = :email and mdp = :mdp");
-        $requete->bindParam(':email', $email);
-        $requete->bindParam(':mdp', $pass);
-        $requete->execute();
-        $data = $requete->fetch(PDO::FETCH_ASSOC); // Récupérer les résultats
+    $email = $_POST['email'];
+    // Vérifier si l'utilisateur existe
+    $stmt = $bdd->prepare("SELECT * FROM users WHERE email = :email");
+    $stmt->bindParam(":email", $email);
+    $stmt->execute();
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($data == ""){
-            echo "<p class='co_error'>Email ou mot de passe incorrect !</p>";
+    if ($data['mdp'] == 'undefined') {
+        $token = rand(1000000, 999999999999); // Générer un jeton aléatoire
+
+        // Enregistrer le jeton et l'expiration dans la base de données
+        $stmt = $bdd->prepare("UPDATE users SET token = :token WHERE email = :email");
+        $stmt->bindParam(":token", $token);
+        $stmt->bindParam(":email", $email);
+        $stmt->execute();
+
+        // Envoyer un email avec le lien de réinitialisation
+        $resetLink = "http://localhost/GITHUB_PROJECTS/ai-liberty/reset_password.php?token=' .$token. '";
+
+        $mail = new PHPMailer(true);
+
+        try {
+            // Configurer le serveur SMTP
+            $mail->isSMTP();
+            $mail->Host = 'smtp.hostinger.com';  // Remplacez par votre serveur SMTP
+            $mail->SMTPAuth = true;
+            $mail->Username = $my_email;  // Votre email SMTP
+            $mail->Password = $my_pass;  // Votre mot de passe SMTP
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
+        
+            // Destinataire
+            $mail->setFrom($my_email, 'AI LIBERTY');
+            $mail->addAddress($email);
+        
+            // Contenu de l'email
+            $mail->isHTML(true);
+            $mail->Subject = 'Reinitialisation du mot de passe';
+            $mail->Body = 'Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href="'.$resetLink.'">Cliquez ici</a> ';
+            
+            $mail->send();
+            $message_alert = "show";
+            echo "<p class='co_error'>Message envoyé sur votre adresse email pour réinitialiser votre mot de passe</p>";
+        } catch (Exception $e) {
+            echo "<p class='co_error'>L'email n'a pas pu être envoyé. Erreur: {$mail->ErrorInfo}</p>";
         }
-        else{
-        if($data['confirme'] == 0){
-            echo "<p class='co_error'>Veuillez confirmer votre email !</p>";
-        }
-        if($data['confirme'] == 1){
-            $_SESSION['id'] = $data['id'];
-            $_SESSION['nom'] = $data['nom'];
-            $_SESSION['niveau'] = $data['niveau'];
-            $_SESSION['mdp'] = $data['mdp'];
-            $_SESSION['email'] = $data['email'];
-            $_SESSION['date_inscription'] = $data['date_inscription'];
-            $_SESSION['ia_admin'] = $data['ia_admin'];
-            $_SESSION['insta'] = $data['insta'];
-            $_SESSION['confirme'] = $data['confirme'];
-            header("Location: index.php");
-        }
+    } else {
+        
+    $pass = md5($_POST["pass"]); 
+        if($email != "" && $pass !=""){
+            $requete = $bdd->prepare("SELECT * FROM users WHERE email = :email and mdp = :mdp");
+            $requete->bindParam(':email', $email);
+            $requete->bindParam(':mdp', $pass);
+            $requete->execute();
+            $data = $requete->fetch(PDO::FETCH_ASSOC); // Récupérer les résultats
+
+            if($data == ""){
+                echo "<p class='co_error'>Email ou mot de passe incorrect !</p>";
+            }
+            else{
+            if($data['confirme'] == 0){
+                echo "<p class='co_error'>Veuillez confirmer votre email !</p>";
+            }
+            if($data['confirme'] == 1){
+                $_SESSION['id'] = $data['id'];
+                $_SESSION['nom'] = $data['nom'];
+                $_SESSION['niveau'] = $data['niveau'];
+                $_SESSION['mdp'] = $data['mdp'];
+                $_SESSION['email'] = $data['email'];
+                $_SESSION['date_inscription'] = $data['date_inscription'];
+                $_SESSION['ia_admin'] = $data['ia_admin'];
+                $_SESSION['insta'] = $data['insta'];
+                $_SESSION['confirme'] = $data['confirme'];
+                header("Location: index.php");
+            }
+            }
         }
     }
 }

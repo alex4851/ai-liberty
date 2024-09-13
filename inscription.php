@@ -6,9 +6,11 @@ $message_email_fail = "";
 require 'phpmailer/vendor/autoload.php';
 session_start();
 
+/*Validation du compte par email*/
+
 if(isset($_POST['ok'])){
     extract($_POST);
-    $cle = bin2hex(random_bytes(16));
+    $cle = rand(1000000, 9999999);
     if(isset($pass) and $pass != $pass2){
     }
     else{
@@ -19,7 +21,7 @@ if(isset($_POST['ok'])){
             
             $pass = md5($pass);
             $pass2 = md5($pass2);
-            $requete = $bdd->prepare("INSERT INTO users VALUES (0, :nom, :niveau, :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme, :insta)");
+            $requete = $bdd->prepare("INSERT INTO users VALUES (0, :nom, :niveau, :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme, :insta, :token)");
             $requete->execute(
                 array(
                     "nom" => strip_tags($prenom),
@@ -31,6 +33,7 @@ if(isset($_POST['ok'])){
                     "cle" => $cle,
                     "confirme" => $confirme,
                     "insta" => "",
+                    "token" => "",
                 )   
             );
             
@@ -59,6 +62,10 @@ try {
 <html>
     <head>
         <style>
+        *{
+            text-align : center;
+            color: black;
+        }
             body {
                 font-family: Arial, sans-serif;
                 background-color: white;
@@ -66,8 +73,10 @@ try {
                 margin: 0;
                 padding: 0;
                 text-align: center;
+                di
             }
             .container {
+                border: 1px solid black;
                 background-color: white;
                 padding: 20px;
                 border-radius: 10px;
@@ -75,14 +84,12 @@ try {
                 margin: 0 auto;
             }
             .header {
+                text-align: center;
                 font-size: 24px;
                 color: black;
                 margin-bottom: 20px;
             }
             .content {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
                 font-size: 16px;
                 color: black;
                 margin-bottom: 30px;
@@ -124,6 +131,7 @@ try {
             <div class="footer">
                 Si vous n\'avez pas demandé cette vérification, vous pouvez ignorer cet email.
             </div>
+            <img src="img/logo.png" src="ai-liberty logo">
         </div>
     </body>
     </html>';
@@ -158,7 +166,9 @@ try {
     }
 }
 
-?><!DOCTYPE html>
+?>
+
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">

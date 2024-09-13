@@ -16,7 +16,7 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
     }
 
     // Génération de la clé unique
-    $cle = bin2hex(random_bytes(16));
+    $cle = rand(1000000, 999999999999);
 
     // Vérification si l'email existe déjà
     $email_verif = $bdd->prepare("SELECT * FROM users WHERE email = :email");
@@ -35,7 +35,6 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
                 INSERT INTO users (nom, niveau, mdp, email, date_inscription, ia_admin, cle, confirme, insta)
                 VALUES (:nom, 'undefined', :mdp, :email, :date_inscription, :ia_admin, :cle, :confirme, '')
             ");
-
             $requete->execute([
                 'nom' => strip_tags($prenom),
                 'mdp' => $pass_hashed,
@@ -43,7 +42,7 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
                 'date_inscription' => $date_inscription,
                 'ia_admin' => $ia_admin,
                 'cle' => $cle,
-                'confirme' => $confirme
+                'confirme' => $confirme,
             ]);
 
             include("email_content.php");

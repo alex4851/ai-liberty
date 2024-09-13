@@ -73,7 +73,7 @@ else{
 <section class="ticket_ans">
 <div class="ticket-container">
         <h1>Réponse de Ticket</h1>
-        <form action="tickets_admin.php" class="form_ticket_admin" method="POST">
+        <form action="" class="form_ticket_admin" method="POST">
             <label for="ticket">Ticket (ID) : </label>
             <input type="int" value="<?php echo @$id_ticket; ?>" name="id_ticket"> <br>
 
