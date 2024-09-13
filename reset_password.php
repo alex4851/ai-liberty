@@ -1,5 +1,9 @@
 <?php
 include('bdd.php');
+$head = "false";
+if($head=="true"){
+    header("Location: index.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -104,7 +108,8 @@ if(isset($_POST['maj']) AND $data['token'] != 0){
     $stmt->bindParam(':token', $token);
     $stmt->bindParam(':id', $user);
     $stmt->execute();
-    echo "<p class='co_error'>Mot de passe bien changé !</p>";
+    echo "<p class='co_error'>Mot de passe bien changé ! Vous pouvez vous connecter !</p>";
+    $head ="true";
 }
 ?>
 </form>

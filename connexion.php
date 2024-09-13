@@ -6,7 +6,6 @@ session_start();
 include("bdd.php");
 
 
-
 ?>
 
 <!DOCTYPE html>
@@ -97,13 +96,16 @@ if(isset($_POST['connexion'])){
         $stmt->bindParam(":token", $token);
         $stmt->bindParam(":email", $email);
         $stmt->execute();
+        $stmt = $bdd->prepare("SELECT token FROM users WHERE email = :email");
+        $stmt->bindParam(":email", $email);
+        $stmt->execute();
+        $data1 = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Envoyer un email avec le lien de réinitialisation
-        $resetLink = "https://ai-liberty.fr/reset_password.php?token=' .$token. '";
 
         $mail = new PHPMailer(true);
 
         try {
+            $token_send = $data1['token'];
             // Configurer le serveur SMTP
             $mail->isSMTP();
             $mail->Host = 'smtp.hostinger.com';  // Remplacez par votre serveur SMTP
@@ -120,7 +122,7 @@ if(isset($_POST['connexion'])){
             // Contenu de l'email
             $mail->isHTML(true);
             $mail->Subject = 'Reinitialisation du mot de passe';
-            $mail->Body = 'Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href="'.$resetLink.'">Cliquez ici</a> ';
+            $mail->Body = 'Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href="localhost/GITHUB_PROJECTS/ai-liberty/reset_password.php?token=' . $token_send . '">Cliquez ici</a> ';
             
             $mail->send();
             $message_alert = "show";
@@ -155,7 +157,7 @@ if(isset($_POST['connexion'])){
                 $_SESSION['ia_admin'] = $data['ia_admin'];
                 $_SESSION['insta'] = $data['insta'];
                 $_SESSION['confirme'] = $data['confirme'];
-                header("Location: index.php");
+
             }
             }
         }
