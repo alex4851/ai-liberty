@@ -99,7 +99,7 @@ if(isset($_POST['connexion'])){
         $stmt->execute();
 
         // Envoyer un email avec le lien de réinitialisation
-        $resetLink = "http://localhost/GITHUB_PROJECTS/ai-liberty/reset_password.php?token=' .$token. '";
+        $resetLink = "https://ai-liberty.fr/reset_password.php?token=' .$token. '";
 
         $mail = new PHPMailer(true);
 
