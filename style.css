@@ -460,9 +460,6 @@ option, select, #submit, input{
     -ms-overflow-style: none; 
     overflow: -moz-scrollbars-none;
 }
-#questionnaire_content{
-padding: 0;
-}
 .questionnaire{
     display: flex;
     flex-direction: column;
@@ -1120,6 +1117,7 @@ padding: 0;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    height: 100%;
 }
 
 .card_container {
@@ -1289,10 +1287,12 @@ padding: 0;
             margin-top: 0;
         }
         #questionnaire_content{
+
             padding: 0;
             margin: 0;
         }
         .questionnaire{
+            
             padding: 0;
             margin: 0;
         }
@@ -1410,6 +1410,7 @@ body, h1, label, input, textarea, button {
 
 /*New features*/
 .reste-more{
+    height: 100%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -1430,6 +1431,7 @@ body, h1, label, input, textarea, button {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin: 50px 0;
   }
   
   .feature-card:hover {

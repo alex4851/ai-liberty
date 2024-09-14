@@ -25,7 +25,7 @@ if($head=="true"){
         <a href="index.php"><h1><img class="logo" src="img/logo.png"></h1></a>
         <ul class="nav-bar">
             <div class="ligne"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
-            <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautées</li></a></div>
+            <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautés</li></a></div>
             <?php 
             if(isset($_SESSION['ia_admin'])){
                 if($_SESSION["ia_admin"] === "true"){
