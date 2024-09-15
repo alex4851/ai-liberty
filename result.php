@@ -197,7 +197,10 @@ if(isset($_GET['valider']) OR isset($_GET['submit_ia']) OR isset($_GET['submit_i
             </div>
 
 
-                <?php }
+                <?php } ?>
+
+
+            <?php
         }}
         ?>
 
@@ -249,6 +252,15 @@ if(isset($_GET['valider']) OR isset($_GET['submit_ia']) OR isset($_GET['submit_i
 
 
 ?>
+
 </div>
+<script>
+    // Fonction pour scroller vers le haut
+function scrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'}); // Défilement en douceur vers le haut
+}
+</script>
+<div class="btn-up"><button onclick="scrollToTop()" id="scrollTopBtn" title="Retour en haut">↑</button></div>
+
 </main>
 </body>

@@ -1,3 +1,4 @@
+
 <?php
 include("bdd.php");
 session_start();
@@ -49,44 +50,42 @@ session_start();
         <script src="navigation.js"></script>       
     </nav>
 </header>
+<div class="legal_all">
+<section class="legal">
 
-<section class="reste-more">
+<h1>Mentions légales</h1>
+<p><strong>Éditeur du site :</strong></p>
+<p>AI LIBERTY<br>
 
-<div class="feature-card">
-    <div class="card-header">
-      <h2>Derniers ajouts :</h2>
-    </div>
-    <div class="card-body">
-      <p class="feature-description">
-        Nous avons ajouté une section pour pouvoir nous faire des retours !
-      </p>
-      <ul class="feature-list">
-        <li>✔️ Fonctionnalitées 1 : Système de tickets</li>
-        <li>✔️ Fonctionnalitées 2 : Modification des infos de votre compte dans "Mon compte"</li>
-        <li>✔️ Fonctionnalitées 3 : Personnaliser vos recherche avec plus de critères</li>
-      </ul>
-      <a href="tickets.php" class="learn-more-btn">Accéder aux tickets</a>
-    </div>
-</div>
+Adresse du siège social : 123 Rue Exemple, 75000 Paris, France<br>
+Numéro SIRET : 123 456 789 00000<br>
+Email : contact@ai-liberty.fr<br>
+Téléphone : +33 </p>
 
-<div class="feature-card">
-    <div class="card-header">
-      <h2>Arrive bientôt :</h2>
-    </div>
-    <div class="card-body">
-      <p class="feature-description">
-        Nous sommes en train de développer quelques nouvelles fonctionnalitées pour améliorer l'experience !
-      </p>
-      <ul class="feature-list">
-        <li>⏳ Fonctionnalitées 1 : Messagerie privée</li>
-        <li>⏳ Fonctionnalitées 2 : Espace de discussion en groupe</li>
-        <li>⏳ Fonctionnalitées 3 : Ajout de nouvelles IA</li>
-      </ul>
-      <a href="sharing_space.php" class="learn-more-btn">Espace de partage</a>
-    </div>
-</div>
+<p><strong>Directeur de la publication :</strong></p>
+<p>Neil Yamine</p>
+
+<p><strong>Hébergement du site :</strong></p>
+<p>Hostinger International Ltd.<br>
+Adresse : 61 Lordou Vironos Street, 6023 Larnaca, Chypre<br>
+Téléphone : +357 240 30107</p>
+
+<p><strong>Propriété intellectuelle :</strong></p>
+<p>Tout le contenu du site est protégé par les droits d'auteur. La reproduction, distribution ou utilisation de ce contenu est interdite sans autorisation préalable.</p>
+
+
 </section>
+<footer>
+    <div>
+        <a href="mentions-legales.php">Mentions légales</a>
+        <a href="politique-confidentialite.php">Politique de confidentialité</a>
+        <a href="cgu.php">CGU</a>
+        <a href="politique-cookies.php">Politique des cookies</a>
+    </div>
+    <div>
+        <p style="margin: 0; font-size: 14px; color: #6c757d;">&copy; <?php echo date("Y"); ?> AI-LIBERTY - Tous droits réservés</p>
+    </div>
+</footer>
+</div>
 </body>
-
-
 </html>

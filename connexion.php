@@ -166,22 +166,9 @@ if(isset($_POST['connexion'])){
 
 
 </section>
+
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+       
 
     
 </body>

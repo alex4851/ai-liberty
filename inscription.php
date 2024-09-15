@@ -279,33 +279,7 @@ try {
 
 
 
-<!--
-<footer>
-    <div class="reseau">
-    <h5>Nos reseaux sociaux</h5>
-    <ul>
-        <li><a href="#">Linkedin</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#"></a></li>
-        <li><a href="#"></a></li>
-    </ul>
-    </div>
-    <div class="aide">
-    <h5>Assistance</h5>
-    <ul>
-        <li><a href="#">Nous contacter</a></li>
-        <li><a href="#">Centre d'aide</a></li>
-    </ul>
-    </div>
-    <div class="A propos">
-    <h5>Assistance</h5>
-    <ul>
-        <li><a href="#">Fonctionnement du site</a></li>
-        <li><a href="#">Données et confidentialité</a></li>
-    </ul>
-    </div>
-</footer>
--->
+
 </body>
 </html>
 

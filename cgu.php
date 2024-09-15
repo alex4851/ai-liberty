@@ -1,3 +1,4 @@
+
 <?php
 include("bdd.php");
 session_start();
@@ -49,44 +50,39 @@ session_start();
         <script src="navigation.js"></script>       
     </nav>
 </header>
+<div class="legal_all">
 
-<section class="reste-more">
+<section class="legal">
 
-<div class="feature-card">
-    <div class="card-header">
-      <h2>Derniers ajouts :</h2>
-    </div>
-    <div class="card-body">
-      <p class="feature-description">
-        Nous avons ajouté une section pour pouvoir nous faire des retours !
-      </p>
-      <ul class="feature-list">
-        <li>✔️ Fonctionnalitées 1 : Système de tickets</li>
-        <li>✔️ Fonctionnalitées 2 : Modification des infos de votre compte dans "Mon compte"</li>
-        <li>✔️ Fonctionnalitées 3 : Personnaliser vos recherche avec plus de critères</li>
-      </ul>
-      <a href="tickets.php" class="learn-more-btn">Accéder aux tickets</a>
-    </div>
-</div>
+<h1>Conditions Générales d'Utilisation (CGU)</h1>
+<p><strong>Objet :</strong></p>
+<p>Les présentes CGU ont pour objet de définir les conditions d'utilisation du site web et des services associés.</p>
 
-<div class="feature-card">
-    <div class="card-header">
-      <h2>Arrive bientôt :</h2>
-    </div>
-    <div class="card-body">
-      <p class="feature-description">
-        Nous sommes en train de développer quelques nouvelles fonctionnalitées pour améliorer l'experience !
-      </p>
-      <ul class="feature-list">
-        <li>⏳ Fonctionnalitées 1 : Messagerie privée</li>
-        <li>⏳ Fonctionnalitées 2 : Espace de discussion en groupe</li>
-        <li>⏳ Fonctionnalitées 3 : Ajout de nouvelles IA</li>
-      </ul>
-      <a href="sharing_space.php" class="learn-more-btn">Espace de partage</a>
-    </div>
-</div>
+<p><strong>Accès au site :</strong></p>
+<p>Le site est accessible gratuitement à tout utilisateur disposant d’un accès à Internet. Certains services peuvent être réservés aux utilisateurs inscrits.</p>
+
+<p><strong>Comportement des utilisateurs :</strong></p>
+<p>Les utilisateurs s'engagent à utiliser le site de manière légale et à ne pas publier de contenu offensant, diffamatoire ou contraire aux lois en vigueur.</p>
+
+<p><strong>Propriété intellectuelle :</strong></p>
+<p>Le contenu du site est protégé par les droits d'auteur et ne peut être reproduit sans autorisation préalable.</p>
+
+<p><strong>Limitation de responsabilité :</strong></p>
+<p>Nous ne sommes pas responsables des interruptions de service ou des dommages indirects résultant de l'utilisation du site.</p>
+
 </section>
+
+<footer>
+    <div>
+        <a href="mentions-legales.php">Mentions légales</a>
+        <a href="politique-confidentialite.php">Politique de confidentialité</a>
+        <a href="cgu.php">CGU</a>
+        <a href="politique-cookies.php">Politique des cookies</a>
+    </div>
+    <div>
+        <p style="margin: 0; font-size: 14px; color: #6c757d;">&copy; <?php echo date("Y"); ?> AI-LIBERTY - Tous droits réservés</p>
+    </div>
+</footer>
+</div>
 </body>
-
-
 </html>

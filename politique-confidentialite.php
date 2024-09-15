@@ -1,3 +1,4 @@
+
 <?php
 include("bdd.php");
 session_start();
@@ -49,44 +50,38 @@ session_start();
         <script src="navigation.js"></script>       
     </nav>
 </header>
+<div class="legal_all">
 
-<section class="reste-more">
+<section class="legal">
 
-<div class="feature-card">
-    <div class="card-header">
-      <h2>Derniers ajouts :</h2>
-    </div>
-    <div class="card-body">
-      <p class="feature-description">
-        Nous avons ajouté une section pour pouvoir nous faire des retours !
-      </p>
-      <ul class="feature-list">
-        <li>✔️ Fonctionnalitées 1 : Système de tickets</li>
-        <li>✔️ Fonctionnalitées 2 : Modification des infos de votre compte dans "Mon compte"</li>
-        <li>✔️ Fonctionnalitées 3 : Personnaliser vos recherche avec plus de critères</li>
-      </ul>
-      <a href="tickets.php" class="learn-more-btn">Accéder aux tickets</a>
-    </div>
-</div>
+<h1>Politique de confidentialité</h1>
+<p><strong>Collecte des données :</strong></p>
+<p>Nous collectons des données personnelles telles que le nom, l'adresse email, et l'adresse IP lors de votre visite ou inscription sur notre site.</p>
 
-<div class="feature-card">
-    <div class="card-header">
-      <h2>Arrive bientôt :</h2>
-    </div>
-    <div class="card-body">
-      <p class="feature-description">
-        Nous sommes en train de développer quelques nouvelles fonctionnalitées pour améliorer l'experience !
-      </p>
-      <ul class="feature-list">
-        <li>⏳ Fonctionnalitées 1 : Messagerie privée</li>
-        <li>⏳ Fonctionnalitées 2 : Espace de discussion en groupe</li>
-        <li>⏳ Fonctionnalitées 3 : Ajout de nouvelles IA</li>
-      </ul>
-      <a href="sharing_space.php" class="learn-more-btn">Espace de partage</a>
-    </div>
-</div>
+<p><strong>Utilisation des données :</strong></p>
+<p>Vos données sont utilisées pour améliorer nos services, analyser le trafic de notre site et vous contacter si nécessaire.</p>
+
+<p><strong>Protection des données :</strong></p>
+<p>Nous mettons en œuvre des mesures de sécurité pour protéger vos données contre tout accès non autorisé.</p>
+
+<p><strong>Durée de conservation :</strong></p>
+<p>Vos données personnelles sont conservées aussi longtemps que nécessaire pour atteindre les objectifs pour lesquels elles sont collectées, ou conformément aux exigences légales.</p>
+
+<p><strong>Vos droits :</strong></p>
+<p>Vous avez le droit d'accéder, de modifier ou de supprimer vos données personnelles à tout moment en nous contactant à l'adresse suivante : contact@ai-liberty.fr .</p>
+
 </section>
+<footer>
+    <div>
+        <a href="mentions-legales.php">Mentions légales</a>
+        <a href="politique-confidentialite.php">Politique de confidentialité</a>
+        <a href="cgu.php">CGU</a>
+        <a href="politique-cookies.php">Politique des cookies</a>
+    </div>
+    <div>
+        <p style="margin: 0; font-size: 14px; color: #6c757d;">&copy; <?php echo date("Y"); ?> AI-LIBERTY - Tous droits réservés</p>
+    </div>
+</footer>
+</div>
 </body>
-
-
 </html>

@@ -1,3 +1,4 @@
+
 <?php
 include("bdd.php");
 session_start();
@@ -49,44 +50,38 @@ session_start();
         <script src="navigation.js"></script>       
     </nav>
 </header>
+<div class="legal_all">
 
-<section class="reste-more">
+<section class="legal">
+<h1>Politique des cookies</h1>
+<p><strong>Qu'est-ce qu'un cookie ?</strong></p>
+<p>Un cookie est un petit fichier texte stocké sur votre appareil lors de la visite d'un site web. Il permet au site de reconnaître votre appareil lors de vos prochaines visites.</p>
 
-<div class="feature-card">
-    <div class="card-header">
-      <h2>Derniers ajouts :</h2>
-    </div>
-    <div class="card-body">
-      <p class="feature-description">
-        Nous avons ajouté une section pour pouvoir nous faire des retours !
-      </p>
-      <ul class="feature-list">
-        <li>✔️ Fonctionnalitées 1 : Système de tickets</li>
-        <li>✔️ Fonctionnalitées 2 : Modification des infos de votre compte dans "Mon compte"</li>
-        <li>✔️ Fonctionnalitées 3 : Personnaliser vos recherche avec plus de critères</li>
-      </ul>
-      <a href="tickets.php" class="learn-more-btn">Accéder aux tickets</a>
-    </div>
-</div>
+<p><strong>Utilisation des cookies :</strong></p>
+<p>Nous utilisons des cookies pour améliorer la fonctionnalité de notre site, analyser le trafic et proposer du contenu personnalisé.</p>
 
-<div class="feature-card">
-    <div class="card-header">
-      <h2>Arrive bientôt :</h2>
-    </div>
-    <div class="card-body">
-      <p class="feature-description">
-        Nous sommes en train de développer quelques nouvelles fonctionnalitées pour améliorer l'experience !
-      </p>
-      <ul class="feature-list">
-        <li>⏳ Fonctionnalitées 1 : Messagerie privée</li>
-        <li>⏳ Fonctionnalitées 2 : Espace de discussion en groupe</li>
-        <li>⏳ Fonctionnalitées 3 : Ajout de nouvelles IA</li>
-      </ul>
-      <a href="sharing_space.php" class="learn-more-btn">Espace de partage</a>
-    </div>
-</div>
+<p><strong>Types de cookies utilisés :</strong></p>
+<ul>
+    <li>Cookies fonctionnels : Nécessaires au bon fonctionnement du site. Exemple : resté connecté.</li>
+    <li>Cookies analytiques : Pour analyser les performances et améliorer l'expérience utilisateur.</li>
+</ul>
+
+<p><strong>Gestion des cookies :</strong></p>
+<p>Vous pouvez gérer ou désactiver les cookies via les paramètres de votre navigateur. Toutefois, cela peut affecter certaines fonctionnalités du site.</p>
+
+
 </section>
+<footer>
+    <div>
+        <a href="mentions-legales.php">Mentions légales</a>
+        <a href="politique-confidentialite.php">Politique de confidentialité</a>
+        <a href="cgu.php">CGU</a>
+        <a href="politique-cookies.php">Politique des cookies</a>
+    </div>
+    <div>
+        <p style="margin: 0; font-size: 14px; color: #6c757d;">&copy; <?php echo date("Y"); ?> AI-LIBERTY - Tous droits réservés</p>
+    </div>
+</footer>
+</div>
 </body>
-
-
 </html>

@@ -18,3 +18,8 @@ document.getElementById('iatype_demande').addEventListener('change', function ()
 
 // Initialisation des options en fonction de la valeur par défaut sélectionnée
 document.getElementById('iatype_demande').dispatchEvent(new Event('change'));
+
+
+
+
+
