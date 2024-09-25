@@ -12,9 +12,9 @@ if(isset($_GET['rechercher'])){
     for($i=0; $i<count($words);$i++)
         $kw[$i]="nom like '%".$words[$i]."%'";
     if($cdc_active == 'true'){
-    $res2 = $bdd->prepare("SELECT * FROM ia_infos WHERE ".implode(" or ", $kw)." AND coup_de_coeur = 'oui' AND prix <= $max_price AND prix >= $min_price");}
+    $res2 = $bdd->prepare("SELECT * FROM ia_infos WHERE ".implode(" or ", $kw)." AND coup_de_coeur = 'oui' AND prix <= $max_price AND prix >= $min_price ORDER BY coup_de_coeur DESC");}
     else{
-    $res2 = $bdd->prepare("SELECT * FROM ia_infos WHERE ".implode(" or ", $kw)." AND prix <= $max_price AND prix >= $min_price");}
+    $res2 = $bdd->prepare("SELECT * FROM ia_infos WHERE ".implode(" or ", $kw)." AND prix <= $max_price AND prix >= $min_price ORDER BY coup_de_coeur DESC");}
     $res2->setFetchMode(PDO::FETCH_ASSOC);
     $res2->execute();
     $tab = $res2->fetchAll();
@@ -188,7 +188,7 @@ slider.noUiSlider.on('update', function(values, handle) {
 <input type="int" class="hidden" name="ia_id" value="<?php echo $tab[$i]["id"] ?>">
 
 <?php 
-$sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id";
+$sql = "SELECT * FROM favorites WHERE ia_id = :ia_id and user_id = :user_id ";
 $stmt = $bdd->prepare($sql);
 $stmt->bindValue(":ia_id", $tab[$i]["id"] , PDO::PARAM_INT);
 $stmt->bindValue(":user_id", $_SESSION['id'], PDO::PARAM_INT);

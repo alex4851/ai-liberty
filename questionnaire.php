@@ -94,23 +94,6 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
     </nav>
 </header>
 
-<a href="sharing_space.php"><img id="chat_img" src="img/chat.png"></a>
-<a href="user.php"><img id="notif_img" src="img/notif.png"></a>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function () {
-    function checkNewMessages() {
-        $.get('check_new_message.php', function (data) {
-            $('#chat_img').attr('src', data.new_message ? 'img/chat_unread.png' : 'img/chat.png');
-        }, 'json').fail(function () {
-            console.error("Erreur lors de la vérification des nouveaux messages.");
-        });
-    }
-    setInterval(checkNewMessages, 5000);
-});
-</script>
-
 
 <div class="content" id="questionnaire_content">
     <?php if (isset($_SESSION["nom"])){ ?>

@@ -110,20 +110,20 @@ if(isset($_GET['valider']) OR isset($_GET['submit_ia']) OR isset($_GET['submit_i
         @$spe_demande = $_GET["spe_demande"];
         
         if(isset($prix_demande) and isset($iatype_demande) and isset($spe_demande)){
-            $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND  specialite = '$spe_demande' AND affiliation = 'oui' ");
+            $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande' AND  specialite = '$spe_demande' AND affiliation = 'oui' ORDER BY coup_de_coeur DESC");
             $best_ia_2 =  $ans->fetch();
             $affiliation_p = true;
             @$search_query = $best_ia_2['id'];
-            $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande'  AND specialite = '$spe_demande' ");
+            $ans = $bdd->query("SELECT * FROM ia_infos WHERE prix <= '$prix_demande'  AND specialite = '$spe_demande' ORDER BY coup_de_coeur DESC");
             $best_ia = $ans->fetchAll(PDO::FETCH_ASSOC);
             if($best_ia_2 == ''){
-                    $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' AND prix <= '$prix_demande' ");
+                    $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' AND prix <= '$prix_demande' ORDER BY coup_de_coeur DESC");
                     $best_ia_2 =  $ans2->fetch();
                     $affiliation_p = false;
                     if($best_ia_2 == ''){
                         $affiliation_p = false;
                         $phrase_supp = true;
-                        $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' ");
+                        $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' ORDER BY coup_de_coeur DESC");
                         $best_ia_2 =  $ans2->fetch();
                         @$search_query = $best_ia_2['id'];
                         $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
@@ -132,14 +132,14 @@ if(isset($_GET['valider']) OR isset($_GET['submit_ia']) OR isset($_GET['submit_i
                         }
                     }
                     @$search_query = $best_ia_2['id'];
-                    $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' ");
+                    $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE specialite = '$spe_demande' ORDER BY coup_de_coeur DESC");
                     $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
             }
         }
     }
     else{
         $ia_id = $_GET['ia_value_id'];
-        $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE id = '$ia_id' ");
+        $ans2 = $bdd->query("SELECT * FROM ia_infos WHERE id = '$ia_id' ORDER BY coup_de_coeur DESC");
         $best_ia = $ans2->fetchAll(PDO::FETCH_ASSOC);
     }
 
