@@ -122,7 +122,7 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
                 <option value="vente">Vente</option>
             </select> <br />
             <div class=button_direction>
-                <a href="https://ai-liberty.fr" >Accueil</a>
+                <a href="https://ai-liberty.fr" id="less">Accueil</a>
                 <button class="next" id="next_a">Suivant</button>
             </div>
         </div>
@@ -173,7 +173,7 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
 
             </select> <br />
             <div class=button_direction>
-                <button class="precedant" id="precedant_b">Précédent</button>
+                <a href="#container_a" id="less">Précédent</a>
                 <button class="next" id="next_b">Suivant</button>
             </div>
         </div>
@@ -232,7 +232,7 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
                 </div>
 
                 <div class=button_direction id="c">
-                            <button class="precedant" id="precedant_c">Précédent</button>
+                            <a href="#container_b" id="less">Précédent</a>
                             <button class="next" id="next_c">Suivant</button>
                         </div>
         </div>
@@ -244,7 +244,7 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
                 <div class="card_quest" id="card_d">
                     <h4>Vous avez remplis les principaux critères pour trouver votre IA :</h4>
                     <div class=button_direction id="d">
-                            <a href="#container_c">Précédent</a>
+                            <a href="#container_c" id="less">Précédent</a>
                             <input type="submit" id="result" value="Rechercher" name="valider" class="valider" >
                     </div>
                 </div>
@@ -284,10 +284,10 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
                         <input type="password" class="input-field" placeholder="Confirmez votre mot de passe ..." id="pass2" name="pass2" required>
                     </div>   
                 </div>
-                <div class="card_4_child">
-                    <input type="submit" value="Chercher l'IA" name="valider" id="result" class="valider">
-                </div>
-            
+                <div class=button_direction id="d">
+                            <a href="#container_c" id="less">Précédent</a>
+                            <input type="submit" value="Chercher l'IA" name="valider" id="result" class="valider">
+                    </div>
             </div>
         </div>    
         <?php } ?>

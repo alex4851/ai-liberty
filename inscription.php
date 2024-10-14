@@ -252,7 +252,7 @@ try {
             
             <div class="btn">
                 <input type="submit" value="S'inscrire" class="button1" name="ok" class="ok">
-                <a href="connexion.php" class="button2">Connexion</a>
+                <a href="connexion.php" id="less" class="button2">Connexion</a>
             </div>
 
             <?php

@@ -73,7 +73,7 @@ include("bdd.php");
     </div>
     <div class="btn">
     <input type="submit" class="button1" value="Connexion" name="connexion" class="ok">
-    <a href="inscription.php" class="button2">Inscription</a>
+    <a href="inscription.php" id="less" class="button2">Inscription</a>
     </div>
 
 <?php
