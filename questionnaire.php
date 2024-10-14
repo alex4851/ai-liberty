@@ -70,27 +70,36 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
     <title>IA TOOLS</title>
 </head>
 
-<body id="quest" <?php echo isset($_SESSION['nom']) ? 'class="connecte"' : 'class="body_pas_co"'; ?> >
+<body id="quest" <?php echo isset($_SESSION['nom']) ? 'class="quest_connecte"' : 'class="body_pas_co"'; ?> >
 
-<header <?php echo isset($_SESSION['nom']) ? 'class="connecte"' : 'class="pas-co"'; ?> id="complet">
+<header <?php if(isset($_SESSION['nom'])){echo 'class="connecte"';}else{echo 'class="pas-co"';}?> id="complet">
     <nav class="nav">
         <a href="index.php"><h1><img class="logo" src="img/logo.png"></h1></a>
         <ul class="nav-bar">
-            <div class="ligne"><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
+            <div class="ligne" ><a href="index.php"><img src="img/home.png"><li>Accueil</li></a></div>
             <div class="ligne"><a href="more.php"><img src="img/news.png"><li>Nouveautés</li></a></div>
-            <?php if (isset($_SESSION['ia_admin']) && $_SESSION["ia_admin"] === "true") : ?>
-                <div class="ligne"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>
-            <?php endif; ?>
+            <?php 
+            if(isset($_SESSION['ia_admin'])){
+                if($_SESSION["ia_admin"] === "true"){
+                echo '<div class="ligne"><a href="ia.php"><img src="img/admin.png"><li>Admin space</li></a></div>';
+                }
+            }
+            ?>
             <div class="ligne" id="active"><a href="questionnaire.php"><img src="img/quiz.png"><li>Questionnaire</li></a></div>
-            <?php if (isset($_SESSION['nom'])): ?>
-                <div class="ligne"><a href="user.php"><img src="img/account.png"><li>Mon compte</li></a></div>   
-                <div class="ligne"><a href="logout.php"><img src="img/logout.png"><li>Se déconnecter</li></a></div>
-            <?php else: ?>
-                <div class="ligne"><a href="connexion.php"><img src="img/login.png"><li id="co">Se connecter</li></a></div>
-                <div class="ligne" id="ligne_inscription"><a href="inscription.php"><img src="img/login.png"><li id="inscription">S'inscrire</li></a></div>
-            <?php endif; ?>
+            <?php
+                if(isset($_SESSION['nom']))
+                { ?>   
+                       
+                        <div class="ligne"><a href="user.php"><img src="img/account.png"><li>Mon compte</li></a></div>   
+                        <div class="ligne"><a href="logout.php"><img src="img/logout.png"><li>Se déconnecter</li></a></div>
+                    
+                <?php  }
+                else{
+                    echo '<div class="ligne"><a href="connexion.php"><img src="img/login.png"><li id="co">Se connecter</li></a></div>';
+                    echo "<div class='ligne' id='ligne_inscription'><a href='inscription.php'><img src='img/login.png'><li id='inscription'>S'inscrire</li></a></div>";
+                }
+            ?>      
         </ul>
-        <script src="navigation.js"></script>
     </nav>
 </header>
 
@@ -231,60 +240,63 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
 
         <?php 
         if(isset($_SESSION['nom'])){?>
-        <div class="card_container" id="container_d">
+            <div class="card_container" id="container_d">
+                <div class="card_quest" id="card_d">
+                    <h4>Vous avez remplis les principaux critères pour trouver votre IA :</h4>
+                    <div class=button_direction id="d">
+                            <a href="#container_c">Précédent</a>
+                            <input type="submit" id="result" value="Rechercher" name="valider" class="valider" >
+                    </div>
+                </div>
 
-        <div class="card_quest" id="card_d">
-            <h4>Vous avez remplis les principaux critères pour trouver votre IA :</h4>
-            <div class="card_4_child">
-                <input type="submit" id="result" value="Rechercher" name="valider" class="valider" >
             </div>
-        </div>
-        </div>
         <?php 
         }
         else{
         ?>
         <div class="card_container" id="container_d">
         
-        <div class="card_quest" id="card_d">
-            <h4>Vous avez remplis les principaux critères pour trouver votre IA :</h4>
-            <div class="form">
-                <div class="field">
-                    <input type="text" class="input-field" placeholder="Entrez votre prenom ..." id="prenom" name="prenom" required> <br/>
-                </div>
+            <div class="card_quest" id="card_d">
+                <h4>Vous avez remplis les principaux critères pour trouver votre IA :</h4>
+                <div class="form">
+                    <div class="field">
+                        <input type="text" class="input-field" placeholder="Entrez votre prenom ..." id="prenom" name="prenom" required> <br/>
+                    </div>
 
-                <div class="field">
-                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"></path>
-                    </svg>
-                    <input class="input-field" type="email" placeholder="Entrez votre email ..." id="email" name="email" required>
-                </div>
-                <div class="field">
-                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
-                    </svg>
-                    <input class="input-field" type="password" placeholder="Entrez votre mot de passe ..." id="pass" name="pass" required>
-                    <button type="button" id="togglePassword" class="password_changer" >Afficher</button><script src="password.js"></script>
+                    <div class="field">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"></path>
+                        </svg>
+                        <input class="input-field" type="email" placeholder="Entrez votre email ..." id="email" name="email" required>
+                    </div>
+                    <div class="field">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+                        </svg>
+                        <input class="input-field" type="password" placeholder="Entrez votre mot de passe ..." id="pass" name="pass" required>
+                        <button type="button" id="togglePassword" class="password_changer" >Afficher</button><script src="password.js"></script>
 
+                    </div>
+                    <div class="field">
+                        <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
+                        </svg>
+                        <input type="password" class="input-field" placeholder="Confirmez votre mot de passe ..." id="pass2" name="pass2" required>
+                    </div>   
                 </div>
-                <div class="field">
-                    <svg class="input-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
-                    </svg>
-                    <input type="password" class="input-field" placeholder="Confirmez votre mot de passe ..." id="pass2" name="pass2" required>
-                </div>   
+                <div class="card_4_child">
+                    <input type="submit" value="Chercher l'IA" name="valider" id="result" class="valider">
+                </div>
+            
             </div>
-            <div class="card_4_child">
-                <input type="submit" value="Chercher l'IA" name="valider" id="result" class="valider">
-            </div>
-           
-        </div>
-        </div>
+        </div>    
         <?php } ?>
-    </form>
-</div>
 
+        </form>
+    </div>
 </body>
 </html>
+
 <script src="script.js"></script>
+
 <script src="algo.js"></script>
