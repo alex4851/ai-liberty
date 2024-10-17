@@ -1,6 +1,7 @@
 <?php
 include("bdd.php");
 session_start();
+
 ?>
 <?php
 @$user_id = $_SESSION['id'];
@@ -46,7 +47,6 @@ if(isset($_POST['suppr_history'])) {
             header("refresh"); 
         }
 ?>
-
 
 
 
@@ -111,26 +111,6 @@ if(isset($_POST['suppr_history'])) {
 <a href="user.php"><img id="notif_img" src="img/notif.png"></a>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            function checkNewMessages() {
-                $.get('check_new_message.php', function (data) {
-                    if (data.new_message === true) {
-                        // Si un nouveau message est détecté, changer l'image
-                        $('#chat_img').attr('src', 'img/chat_unread.png');
-                    } else {
-                        // Si pas de nouveau message, remettre l'image par défaut
-                        $('#chat_img').attr('src', 'img/chat.png');
-                    }
-                }, 'json').fail(function () {
-                    console.error("Erreur lors de la vérification des nouveaux messages.");
-                });
-            }
-            // Vérifier toutes les 5 secondes s'il y a un nouveau message
-            setInterval(checkNewMessages, 5000);
-        });
-    </script>
 
 <section class="mid_section">
     <div class="mid_section_part">
