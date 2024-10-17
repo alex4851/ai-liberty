@@ -9,14 +9,15 @@ include("bdd.php");
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Spinnaker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="website icon" type="png" href="img/logo_head.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA TOOLS</title>
+    <meta name="description" content="Découvrez les outils IA de pointe qui vous correspondent. En seulement 5 minutes. Accéder gratuitement.">
+    <link rel="website icon" type="png" href="img/logo_head.png">
+    <title>AI LIBERTY</title>
 </head>
 <body <?php if(!isset($_SESSION['nom'])){echo 'class="body_pas_co"';} ?> >
 

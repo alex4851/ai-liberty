@@ -63,11 +63,12 @@ if (isset($_POST['valider']) && isset($_POST["email"])) {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Spinnaker&display=swap" rel="stylesheet">
-    <link rel="website icon" type="png" href="img/logo_head.png">
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA TOOLS</title>
+    <meta name="description" content="Découvrez les outils IA de pointe qui vous correspondent. En seulement 5 minutes. Accéder gratuitement.">
+    <link rel="website icon" type="png" href="img/logo_head.png">
+    <title>AI LIBERTY</title>
 </head>
 
 <body id="quest" <?php echo isset($_SESSION['nom']) ? 'class="quest_connecte"' : 'class="body_pas_co"'; ?> >

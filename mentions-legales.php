@@ -11,10 +11,11 @@ session_start();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Spinnaker&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link rel="website icon" type="png" href="img/logo_head.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IA TOOLS</title>
+    <meta name="description" content="Découvrez les outils IA de pointe qui vous correspondent. En seulement 5 minutes. Accéder gratuitement.">
+    <link rel="website icon" type="png" href="img/logo_head.png">
+    <title>AI LIBERTY</title>
 </head>
 
 <body <?php if(!isset($_SESSION['nom'])){echo 'class="body_pas_co"';} ?> >
@@ -57,13 +58,16 @@ session_start();
 <p><strong>Éditeur du site :</strong></p>
 <p>AI LIBERTY<br>
 
-Adresse du siège social : 123 Rue Exemple, 75000 Paris, France<br>
+Adresse du siège social : France<br>
 Numéro SIRET : 123 456 789 00000<br>
 Email : contact@ai-liberty.fr<br>
-Téléphone : +33 </p>
+</p>
 
 <p><strong>Directeur de la publication :</strong></p>
 <p>Neil Yamine</p>
+
+<p><strong>Directeur du développement :</strong></p>
+<p>Alexis BELIGNE</p>
 
 <p><strong>Hébergement du site :</strong></p>
 <p>Hostinger International Ltd.<br>
