@@ -59,7 +59,6 @@ session_start();
 <p>AI LIBERTY<br>
 
 Adresse du siège social : France<br>
-Numéro SIRET : 123 456 789 00000<br>
 Email : contact@ai-liberty.fr<br>
 </p>
 
