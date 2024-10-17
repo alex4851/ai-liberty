@@ -60,6 +60,7 @@ if(isset($_POST['suppr_history'])) {
     <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Découvrez les outils IA de pointe qui vous correspondent. En seulement 5 minutes. Accéder gratuitement.">
     <link rel="website icon" type="png" href="img/logo_head.png">
     <title>AI LIBERTY</title>
 </head>
